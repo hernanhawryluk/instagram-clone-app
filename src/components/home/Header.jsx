@@ -1,0 +1,221 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Animated,
+  Modal,
+  TouchableWithoutFeedback,
+  Platform,
+} from "react-native";
+import React, { useState } from "react";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Feather,
+} from "@expo/vector-icons";
+import FastImage from "react-native-fast-image";
+import { BlurView } from "expo-blur";
+import ModalNotification from "../notifications/ModalNotification";
+import { SIZES } from "../../constants";
+import useCheckNotifications from "../../hooks/useCheckNotifications";
+import useCheckChatNotifications from "../../hooks/useCheckChatNotifications";
+
+const Header = ({ navigation, headerOpacity, currentUser }) => {
+  const {
+    notificationVisible,
+    notificationModal,
+    notificationCounter,
+    setNotificationModal,
+  } = useCheckNotifications();
+  const { chatNotificationCounter } = useCheckChatNotifications();
+  const [filterModalVisible, setFilterModalVisible] = useState(false);
+
+  return (
+    <Animated.View style={{ opacity: headerOpacity }}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.instagramContainer}
+          onPress={() => setFilterModalVisible(true)}
+        >
+          <FastImage
+            style={styles.logo}
+            source={require("../../../assets/images/header-logo.png")}
+          />
+          <MaterialIcons
+            name={"keyboard-arrow-down"}
+            size={20}
+            color={"#fff"}
+          />
+        </TouchableOpacity>
+
+        <View style={styles.iconsContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Notifications", {
+                currentUser: currentUser,
+              });
+            }}
+          >
+            {notificationVisible && (
+              <View style={styles.unreadBadgeContainer}>
+                <Text style={styles.unreadBadgeText}>
+                  {notificationCounter}
+                </Text>
+              </View>
+            )}
+            <View style={styles.iconsContainer}>
+              <MaterialCommunityIcons
+                name="cards-heart-outline"
+                size={27}
+                color={"#fff"}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+            {chatNotificationCounter > 0 && (
+              <View style={styles.unreadBadgeContainer}>
+                <Text style={styles.unreadBadgeText}>
+                  {chatNotificationCounter}
+                </Text>
+              </View>
+            )}
+            <View style={styles.iconsContainer}>
+              <FastImage
+                style={styles.messenger}
+                source={require("../../../assets/icons/messenger-white.png")}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.divider} />
+      <Modal
+        visible={filterModalVisible}
+        animationType="fade"
+        transparent={true}
+      >
+        <TouchableWithoutFeedback onPress={() => setFilterModalVisible(false)}>
+          <View style={styles.modalBackdrop}>
+            <BlurView intensity={50} style={styles.modalContainer}>
+              <TouchableOpacity
+                style={styles.modalRowContainer}
+                onPress={() => {
+                  navigation.navigate("Following");
+                  setFilterModalVisible(false);
+                }}
+              >
+                <Text style={styles.modalText}>Following</Text>
+                <Feather name="users" size={26} color={"#fff"} />
+              </TouchableOpacity>
+              <View style={styles.modalDivider} />
+              <TouchableOpacity
+                style={styles.modalRowContainer}
+                onPress={() => {
+                  navigation.navigate("Favorites");
+                  setFilterModalVisible(false);
+                }}
+              >
+                <Text style={styles.modalText}>Favorites</Text>
+                <Feather name="star" size={28} color={"#fff"} />
+              </TouchableOpacity>
+            </BlurView>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+      {notificationModal && (
+        <ModalNotification
+          setNotificationModal={setNotificationModal}
+          notificationCounter={notificationCounter}
+        />
+      )}
+    </Animated.View>
+  );
+};
+
+export default Header;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 24,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginRight: 20,
+    zIndex: 1,
+  },
+  instagramContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginLeft: 14,
+  },
+  logo: {
+    width: 122,
+    height: 40,
+    resizeMode: "cover",
+  },
+  iconsContainer: {
+    flexDirection: "row",
+    marginLeft: 15,
+  },
+  messenger: {
+    marginTop: 1,
+    width: 27,
+    height: 27,
+  },
+  unreadBadgeContainer: {
+    backgroundColor: "#FF3250",
+    position: "absolute",
+    right: -5,
+    top: -5,
+    height: 17,
+    width: 18,
+    borderRadius: 10,
+    zIndex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  unreadBadgeText: {
+    fontWeight: "600",
+    fontSize: 12,
+    color: "white",
+    paddingBottom: 1,
+  },
+  divider: {
+    width: "100%",
+    height: 0.5,
+    backgroundColor: "#111",
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: "transparent",
+  },
+  modalContainer: {
+    position: "absolute",
+    top: Platform.OS === "ios" ? 100 : SIZES.Height * 0.05,
+    left: 17,
+    backgroundColor: "rgba(35,35,35,0.4)",
+    borderRadius: 15,
+    overflow: "hidden",
+  },
+  modalRowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 15,
+    marginRight: 15,
+  },
+  modalText: {
+    color: "#fff",
+    fontSize: 17,
+    fontWeight: "500",
+    marginVertical: 14,
+    marginHorizontal: 15,
+  },
+  modalDivider: {
+    width: "100%",
+    height: 0.5,
+    backgroundColor: "#fff",
+  },
+});

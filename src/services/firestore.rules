@@ -1,0 +1,16 @@
+// copy this "rules" to your "Firebase Storage Rules" project.
+
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function userIsAuthenticated() {
+      return request.auth != null;
+    }
+
+    match /{userId}/{imageId} {
+      allow read, write: if userIsAuthenticated();
+    }
+  }
+}
+

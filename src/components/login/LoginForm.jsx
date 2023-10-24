@@ -1,0 +1,218 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import React, { useState } from "react";
+import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import firebase from "firebase/compat";
+
+const LoginForm = ({ navigation }) => {
+  const [obsecureText, setObsecureText] = useState(true);
+  const [emailOnFocus, setEmailOnFocus] = useState(false);
+  const [emailToValidate, SetEmailToValidate] = useState(false);
+  const [passwordToValidate, SetPasswordToValidate] = useState(false);
+
+  const LoginFormSchema = Yup.object().shape({
+    email: Yup.string()
+      .required()
+      .min(6, "A valid phone number, username or email address is required"),
+    password: Yup.string()
+      .required()
+      .min(6, "Your password has to have at least 8 characters"),
+  });
+
+  const onLogin = async (email, password) => {
+    try {
+      const userCredentials = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      console.log(
+        "🔥 Firebase Login Successful ✅",
+        userCredentials.user.email
+      );
+    } catch (error) {
+      error.message ==
+        "Firebase: The password is invalid or the user does not have a password. (auth/wrong-password)." &&
+        Alert.alert("The password is invalid, try again.");
+      error.message ==
+        "Firebase: There is no user record corresponding to this identifier. The user may have been deleted. (auth/user-not-found)." &&
+        Alert.alert("The user does not exist.", "Would you like to sign up?", [
+          {
+            text: "No",
+            style: "cancel",
+          },
+          {
+            text: "Sign Up",
+            onPress: () => {
+              navigation.push("Signup");
+            },
+          },
+        ]);
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => {
+          onLogin(values.email, values.password);
+        }}
+        validationSchema={LoginFormSchema}
+        validateOnMount={true}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, isValid }) => (
+          <View>
+            <View
+              style={[
+                styles.inputField,
+                {
+                  paddingVertical: 16,
+                  borderColor:
+                    emailToValidate && values.email.length < 5
+                      ? "#f00"
+                      : "#444",
+                },
+              ]}
+            >
+              <TextInput
+                style={styles.inputText}
+                placeholderTextColor={"#bbb"}
+                placeholder="Phone number, username or email"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="emailAddress"
+                onChangeText={handleChange("email")}
+                onBlur={() => {
+                  handleBlur("email");
+                  setEmailOnFocus(false);
+                  values.email.length > 0
+                    ? SetEmailToValidate(true)
+                    : SetEmailToValidate(false);
+                }}
+                onFocus={() => setEmailOnFocus(true)}
+                value={values.email}
+              />
+              <TouchableOpacity onPress={() => handleChange("email")("")}>
+                <Octicons
+                  name={emailOnFocus ? "x-circle-fill" : ""}
+                  size={15}
+                  color={"#555"}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={[
+                styles.inputField,
+                {
+                  borderColor:
+                    passwordToValidate && values.password.length < 6
+                      ? "#f00"
+                      : "#444",
+                },
+              ]}
+            >
+              <TextInput
+                style={styles.inputText}
+                placeholderTextColor={"#bbb"}
+                placeholder="Password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry={obsecureText}
+                textContentType="password"
+                onChangeText={handleChange("password")}
+                onBlur={() => {
+                  handleBlur("password");
+                  values.password.length > 0
+                    ? SetPasswordToValidate(true)
+                    : SetPasswordToValidate(false);
+                }}
+                value={values.password}
+              />
+              <TouchableOpacity onPress={() => setObsecureText(!obsecureText)}>
+                <MaterialCommunityIcons
+                  name={obsecureText ? "eye-off" : "eye"}
+                  size={24}
+                  color={obsecureText ? "#fff" : "#37e"}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.forgotContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate("Forgot")}>
+                <Text style={styles.forgotText}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={handleSubmit} disabled={!isValid}>
+              <View style={styles.btnContainer(isValid)}>
+                <Text style={styles.btnText}>Log in</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Formik>
+    </View>
+  );
+};
+
+export default LoginForm;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
+  inputField: {
+    marginTop: 14,
+    backgroundColor: "#111",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#444",
+    paddingLeft: 15,
+    paddingRight: 25,
+    marginHorizontal: 20,
+    height: 56,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  inputText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#fff",
+    width: "95%",
+  },
+  forgotContainer: {
+    alignItems: "flex-end",
+    marginTop: 20,
+    marginRight: 20,
+  },
+  forgotText: {
+    color: "#1af",
+    fontWeight: "700",
+  },
+  loginBtn: {
+    backgroundColor: "#1af",
+    color: "#fff",
+  },
+  btnContainer: (isValid) => ({
+    marginTop: 35,
+    alignItems: "center",
+    backgroundColor: "#07f",
+    opacity: isValid ? 1 : 0.6,
+    marginHorizontal: 20,
+    paddingVertical: 16,
+    borderRadius: 10,
+  }),
+  btnText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "800",
+  },
+});

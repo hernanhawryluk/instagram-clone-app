@@ -1,0 +1,48 @@
+// Copy this "Rules" to your "Firebase Rules" project.
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+  function userIsAuthenticated () {
+  return request.auth != null;
+  }
+
+    match /{path=**}/posts/{postId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /{path=**}/stories/{storiesId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /{path=**}/reels/{reelsId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /{path=**}/saved/{saveId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /{path=**}/chat/{chatId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /{path=**}/chat/{chatId}/messages/{messagesId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /{path=**}/notifications/{chatId} {
+    allow read, write: if userIsAuthenticated();
+    }
+   
+    match /users/{userId} {
+    allow read, write: if userIsAuthenticated();
+    }
+    
+    match /reports/{reportId} {
+    allow read, write: if userIsAuthenticated();
+    }
+  }
+}
