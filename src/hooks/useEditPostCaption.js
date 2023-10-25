@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import firebase from "firebase/compat";
 
-const useEditPostCaption = ({post}) => {
+const useEditPostCaption = ({navigation, post}) => {
     const [loading, setLoading] = useState(false);
 
     const editPostCaption = async (value) => {

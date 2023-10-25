@@ -21,7 +21,7 @@ import RenderDate from "../components/chat/RenderDate";
 import RenderMessageA from "../components/chat/RenderMessageA";
 import RenderMessageB from "../components/chat/RenderMessageB";
 import useFetchMessages from "../hooks/useFetchMessages";
-import useSendTextMessage from "../hooks/useSendTextMessage";
+import useChatSendMessage from "../hooks/useChatSendMessage";
 import RenderProfile from "../components/chat/RenderProfile";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -29,8 +29,8 @@ const Chating = ({ navigation, route }) => {
   const { user } = route.params;
   const { currentUser } = useUserContext();
   const { messages } = useFetchMessages({ user, currentUser });
-  const { sendTextMessage, loading, textMessage, setTextMessage } =
-    useSendTextMessage({ user, currentUser });
+  const { chatSendMessage, loading, textMessage, setTextMessage } =
+    useChatSendMessage({ user, currentUser });
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -119,7 +119,7 @@ const Chating = ({ navigation, route }) => {
             ) : textMessage.length > 0 ? (
               <TouchableOpacity
                 onPress={() => {
-                  textMessage !== "" && sendTextMessage();
+                  textMessage !== "" && chatSendMessage();
                 }}
                 style={styles.rowContainer}
               >

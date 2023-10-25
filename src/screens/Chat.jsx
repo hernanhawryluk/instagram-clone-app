@@ -19,8 +19,10 @@ import useFindUsers from "../hooks/useFindUsers";
 import { SIZES } from "../constants";
 import useSlideOnKeyboard from "../utils/useSlideOnKeyboard";
 import useFetchContactList from "../hooks/useFetchContactList";
+import firebase from "firebase/compat";
 
 const Chat = ({ navigation }) => {
+  const [searchKey, setSearchKey] = useState("");
   const { currentUser } = useUserContext();
   const { chatUsers } = useFetchContactList();
   const { beginSearch, users, searchResult } = useFindUsers({
@@ -35,10 +37,19 @@ const Chat = ({ navigation }) => {
   const [inputWidth, setInputWidth] = useState(SIZES.Width / 0.9);
   const [focusedBar, setFocusedBar] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [searchKey, setSearchKey] = useState("");
 
   useEffect(() => {
     beginSearch();
+
+    if (currentUser.chat_notification > 0) {
+      try {
+        firebase.firestore().collection("users").doc(currentUser.email).update({
+          chat_notification: 0,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }, []);
 
   const handleFocus = () => {
@@ -82,7 +93,7 @@ const Chat = ({ navigation }) => {
 
           <TextInput
             value={searchKey}
-            onChangeText={setSearchKey}
+            onChangeText={(text) => setSearchKey(text)}
             maxLength={30}
             autoCapitalize="none"
             autoCorrect={false}

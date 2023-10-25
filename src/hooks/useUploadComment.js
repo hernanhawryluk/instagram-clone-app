@@ -32,6 +32,12 @@ const useUploadComment = (post, currentUser) => {
                 await postRef.update({
                     comments: firebase.firestore.FieldValue.arrayUnion(newComment),
                 });
+
+                if (post.owner_email !== currentUser.email) {
+                    firebase.firestore().collection("users").doc(post.owner_email).update({
+                        event_notification: firebase.firestore.FieldValue.increment(1)
+                    });
+                }
             } else {
                 console.log("No such document!");
             }

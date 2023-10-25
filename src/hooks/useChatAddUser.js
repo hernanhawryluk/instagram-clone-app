@@ -11,7 +11,7 @@ const useChatAddUser = () => {
             username: user.username,
             name: user.name,
             profile_picture: user.profile_picture,
-            status: "added"
+            status: "seen"
         }
 
         firebase

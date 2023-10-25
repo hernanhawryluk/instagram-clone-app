@@ -24,6 +24,7 @@ const useUploadPost = () => {
                     caption: caption,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     likes_by_users: [],
+                    new_likes: [],
                     comments: [],
                 }
 

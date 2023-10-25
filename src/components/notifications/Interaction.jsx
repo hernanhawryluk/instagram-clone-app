@@ -4,7 +4,7 @@ import FastImage from "react-native-fast-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Interaction = ({ navigation, item, currentUser }) => {
+const Interaction = ({ navigation, item, currentUser, text }) => {
   const { checkStoriesSeen } = useCheckStoriesSeen();
 
   const handleUserProfile = () => {
@@ -21,7 +21,8 @@ const Interaction = ({ navigation, item, currentUser }) => {
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <TouchableOpacity onPress={() => handleUserProfile()}>
-          {checkStoriesSeen(item.username, currentUser.email) ? (
+          {text === "commented" &&
+          checkStoriesSeen(item.username, currentUser.email) ? (
             <LinearGradient
               start={[0.9, 0.45]}
               end={[0.07, 1.03]}
@@ -30,7 +31,10 @@ const Interaction = ({ navigation, item, currentUser }) => {
             >
               <FastImage
                 source={{
-                  uri: item.comments[item.comments.length - 1].profile_picture,
+                  uri:
+                    text === "commented"
+                      ? item.comments[item.comments.length - 1].profile_picture
+                      : item.new_likes[1],
                 }}
                 style={styles.image}
               />
@@ -38,7 +42,10 @@ const Interaction = ({ navigation, item, currentUser }) => {
           ) : (
             <FastImage
               source={{
-                uri: item.comments[item.comments.length - 1].profile_picture,
+                uri:
+                  text === "commented"
+                    ? item.comments[item.comments.length - 1].profile_picture
+                    : item.new_likes[1],
               }}
               style={styles.nonRainbowImage}
             />
@@ -47,11 +54,17 @@ const Interaction = ({ navigation, item, currentUser }) => {
         <View style={styles.userContainer}>
           <TouchableOpacity onPress={() => handleUserProfile()}>
             <Text style={styles.username}>
-              {item.comments[item.comments.length - 1].username}
+              {text === "commented"
+                ? item.comments[item.comments.length - 1].username
+                : item.new_likes[0]}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handleCheckPost()}>
-            <Text style={styles.name}>Commented your post.</Text>
+            <Text style={styles.name}>
+              {text === "commented"
+                ? "Commented your post."
+                : "Liked your post."}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -21,6 +21,7 @@ import useSeenStory from "../hooks/useSeenStory";
 import useSharePost from "../hooks/useSharePost";
 import useHandleLike from "../hooks/useHandleLike";
 import Animated, { ZoomIn } from "react-native-reanimated";
+import useChatSendMessage from "../hooks/useChatSendMessage";
 
 const Story = ({ navigation, route }) => {
   const { stories, currentUser } = route.params || {};
@@ -30,35 +31,33 @@ const Story = ({ navigation, route }) => {
   const { shareStory } = useSharePost();
   const { handleStoryLike } = useHandleLike();
 
-  const [values, setValues] = useState("");
   const [focusedBar, setFocusedBar] = useState(false);
-  const [loader, setLoader] = useState(false);
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [isLiked, setIsLiked] = useState({
     [currentStoryIndex]: !!stories[currentStoryIndex].likes_by_users.includes(
       currentUser.email
     ),
   });
+  const user = {
+    email: stories[currentStoryIndex].owner_email,
+    username: stories[currentStoryIndex].username,
+    name: stories[currentStoryIndex].name,
+    profile_picture: stories[currentStoryIndex].profile_picture,
+  };
+  const { chatSendMessage, loading, textMessage, setTextMessage } =
+    useChatSendMessage({ user, currentUser });
 
   const handleToggleLike = () => {
     handleStoryLike(stories[currentStoryIndex], currentUser);
     setIsLiked({ [currentStoryIndex]: !isLiked[currentStoryIndex] });
   };
 
-  const handleOnSubmit = (values) => {
-    try {
-      setLoader(true);
-      console.log("Enviando mensaje: " + values);
-      // firestore to send a message
+  const handleOnSubmit = async () => {
+    await chatSendMessage();
 
-      if (keyboardVisible) {
-        Keyboard.dismiss();
-        handleResume();
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoader(false);
+    if (keyboardVisible) {
+      Keyboard.dismiss();
+      handleResume();
     }
   };
 
@@ -100,7 +99,7 @@ const Story = ({ navigation, route }) => {
             <View style={styles.loadeingBarContainer}>
               <Progress.Bar
                 progress={progressBar}
-                width={SIZES.Width * 0.9}
+                width={SIZES.Width * 0.95}
                 height={1}
                 color="#fff"
               />
@@ -133,52 +132,54 @@ const Story = ({ navigation, route }) => {
             </View>
           </View>
 
-          <View style={styles.inputContainer}>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                placeholder="Send message"
-                placeholderTextColor={"#fff"}
-                style={styles.textInput}
-                onFocus={() => handleOnFocus()}
-                onBlur={() => handleOnBlur()}
-                value={values}
-                onChangeText={(text) => setValues(text)}
-                autoCapitalize="sentences"
-                autoCorrect={true}
-                maxLength={255}
-                multiline
-              />
-              {focusedBar &&
-                values !== "" &&
-                (loader ? (
-                  <ActivityIndicator />
-                ) : (
-                  <TouchableOpacity onPress={() => handleOnSubmit(values)}>
-                    <Text style={styles.sendBtn}>Send</Text>
-                  </TouchableOpacity>
-                ))}
-            </View>
-
-            {!focusedBar && (
-              <View style={styles.iconContainer}>
-                <TouchableOpacity onPress={() => handleToggleLike()}>
-                  {isLiked[currentStoryIndex] ? (
-                    <Ionicons name="heart" size={30} color={"#f00"} />
+          {stories[currentStoryIndex].owner_email !== currentUser.email && (
+            <View style={styles.inputContainer}>
+              <View style={styles.inputWrapper}>
+                <TextInput
+                  placeholder="Send message"
+                  placeholderTextColor={"#fff"}
+                  style={styles.textInput}
+                  onFocus={() => handleOnFocus()}
+                  onBlur={() => handleOnBlur()}
+                  value={textMessage}
+                  onChangeText={(text) => setTextMessage(text)}
+                  autoCapitalize="sentences"
+                  autoCorrect={true}
+                  maxLength={255}
+                  multiline
+                />
+                {focusedBar &&
+                  textMessage !== "" &&
+                  (loading ? (
+                    <ActivityIndicator />
                   ) : (
-                    <Ionicons name="heart-outline" size={30} color={"#fff"} />
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleStoryShare()}>
-                  <Feather
-                    name="send"
-                    size={27}
-                    color={"#fff"}
-                    style={styles.headerSendIcon}
-                  />
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleOnSubmit()}>
+                      <Text style={styles.sendBtn}>Send</Text>
+                    </TouchableOpacity>
+                  ))}
               </View>
-            )}
-          </View>
+
+              {!focusedBar && (
+                <View style={styles.iconContainer}>
+                  <TouchableOpacity onPress={() => handleToggleLike()}>
+                    {isLiked[currentStoryIndex] ? (
+                      <Ionicons name="heart" size={30} color={"#f00"} />
+                    ) : (
+                      <Ionicons name="heart-outline" size={30} color={"#fff"} />
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => handleStoryShare()}>
+                    <Feather
+                      name="send"
+                      size={27}
+                      color={"#fff"}
+                      style={styles.headerSendIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          )}
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </Animated.View>
@@ -195,8 +196,8 @@ const styles = StyleSheet.create({
   },
   image: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 50 : 0,
-    height: "92%",
+    top: Platform.OS === "ios" ? 50 : StatusBar.currentHeight,
+    height: SIZES.Height * 0.925,
     width: "100%",
     borderRadius: 15,
   },
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   loadeingBarContainer: {
+    marginTop: 10,
     alignItems: "center",
   },
   subheaderContent: {

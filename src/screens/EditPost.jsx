@@ -17,7 +17,7 @@ import useEditPostCaption from "../hooks/useEditPostCaption";
 const EditPost = ({ navigation, route }) => {
   const { post } = route.params || {};
   const [value, setValue] = useState("");
-  const { editPostCaption, loading } = useEditPostCaption({ post });
+  const { editPostCaption, loading } = useEditPostCaption({ navigation, post });
 
   return (
     <SafeAreaView style={styles.container}>

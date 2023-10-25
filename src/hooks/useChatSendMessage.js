@@ -1,18 +1,22 @@
 import { useState } from 'react'
 import firebase from 'firebase/compat';
-import useChatAddUser from "../hooks/useChatAddUser";
+import useChatAddUser from "./useChatAddUser";
 
-const useSendTextMessage = ({user, currentUser}) => {
+const useChatSendMessage = ({user, currentUser}) => {
     const { chatAddUser } = useChatAddUser();
     const [loading, setLoading] = useState(false);
     const [textMessage, setTextMessage] = useState("");
   
-    const sendTextMessage = async () => {
+    const chatSendMessage = async () => {
         if (!loading) {
         setLoading(true);
         try {
             if (user.status === undefined) {
                 await chatAddUser(user);
+            }
+
+            const notification = {
+                chat_notification: firebase.firestore.FieldValue.increment(1)
             }
          
             const current = {
@@ -36,6 +40,11 @@ const useSendTextMessage = ({user, currentUser}) => {
             };
     
             const batch = firebase.firestore().batch();
+
+            const userRef = firebase
+            .firestore()
+            .collection("users")
+            .doc(user.email)
     
             const currentChatRef = firebase
             .firestore()
@@ -51,6 +60,7 @@ const useSendTextMessage = ({user, currentUser}) => {
             .collection("chat")
             .doc(currentUser.email);
     
+            batch.set(userRef, notification, { merge: true });
             batch.set(newUserChatRef, current, { merge: true });
             batch.set(
             currentChatRef.collection("messages").doc(),
@@ -69,11 +79,11 @@ const useSendTextMessage = ({user, currentUser}) => {
     };
   
     return { 
-        sendTextMessage, 
+        chatSendMessage, 
         loading, 
         textMessage, 
         setTextMessage
     };
 }
 
-export default useSendTextMessage
+export default useChatSendMessage

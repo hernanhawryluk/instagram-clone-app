@@ -65,7 +65,7 @@ const Reels = ({ navigation }) => {
       if (currentUser.email === item.owner_email) {
         navigation.navigate("Profile");
       } else {
-        navigation.navigate("UserProfile", {
+        navigation.navigate("UserDetail", {
           email: item.owner_email,
         });
       }

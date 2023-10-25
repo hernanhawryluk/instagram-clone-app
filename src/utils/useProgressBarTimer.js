@@ -42,7 +42,7 @@ const useProgressBarTimer = ({stories, navigation}) => {
               nextStory();
               return 0;
             } else {
-              return lastProgressBar + 0.01;
+              return lastProgressBar + 0.005;
             }
           });
         }, 25);

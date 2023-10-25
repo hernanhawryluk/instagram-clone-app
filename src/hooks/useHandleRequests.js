@@ -25,6 +25,12 @@ const useHandleRequests = ({ currentUser, user }) => {
               }),
             });
 
+          if (accept) {
+            firebase.firestore().collection("users").doc(user.email).update({
+                event_notification: firebase.firestore.FieldValue.increment(1)
+            });
+          }
+
         } catch (error) {
           console.log(error);
         }

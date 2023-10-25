@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
@@ -18,18 +18,22 @@ import FastImage from "react-native-fast-image";
 import { BlurView } from "expo-blur";
 import ModalNotification from "../notifications/ModalNotification";
 import { SIZES } from "../../constants";
-import useCheckNotifications from "../../hooks/useCheckNotifications";
-import useCheckChatNotifications from "../../hooks/useCheckChatNotifications";
 
 const Header = ({ navigation, headerOpacity, currentUser }) => {
-  const {
-    notificationVisible,
-    notificationModal,
-    notificationCounter,
-    setNotificationModal,
-  } = useCheckNotifications();
-  const { chatNotificationCounter } = useCheckChatNotifications();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(false);
+
+  useEffect(() => {
+    if (currentUser.event_notification > 0) {
+      setNotificationModal(true);
+
+      setTimeout(() => {
+        setNotificationModal(false);
+      }, 4000);
+    } else {
+      setNotificationModal(false);
+    }
+  }, [currentUser]);
 
   return (
     <Animated.View style={{ opacity: headerOpacity }}>
@@ -57,10 +61,10 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
               });
             }}
           >
-            {notificationVisible && (
+            {currentUser && currentUser.event_notification > 0 && (
               <View style={styles.unreadBadgeContainer}>
                 <Text style={styles.unreadBadgeText}>
-                  {notificationCounter}
+                  {currentUser.event_notification}
                 </Text>
               </View>
             )}
@@ -73,10 +77,10 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-            {chatNotificationCounter > 0 && (
+            {currentUser && currentUser.chat_notification > 0 && (
               <View style={styles.unreadBadgeContainer}>
                 <Text style={styles.unreadBadgeText}>
-                  {chatNotificationCounter}
+                  {currentUser.chat_notification}
                 </Text>
               </View>
             )}
@@ -126,7 +130,7 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
       {notificationModal && (
         <ModalNotification
           setNotificationModal={setNotificationModal}
-          notificationCounter={notificationCounter}
+          notificationCounter={currentUser.event_notification}
         />
       )}
     </Animated.View>
@@ -168,9 +172,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF3250",
     position: "absolute",
     right: -5,
-    top: -5,
-    height: 17,
-    width: 18,
+    top: -3,
+    height: 16,
+    width: 16,
     borderRadius: 10,
     zIndex: 2,
     justifyContent: "center",
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
   },
   unreadBadgeText: {
     fontWeight: "600",
-    fontSize: 12,
+    fontSize: 11,
     color: "white",
     paddingBottom: 1,
   },

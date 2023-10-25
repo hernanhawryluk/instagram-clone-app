@@ -207,7 +207,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#07f",
     opacity: isValid ? 1 : 0.6,
     marginHorizontal: 20,
-    paddingVertical: 16,
+    justifyContent: "center",
+    alignContent: "center",
+    height: 56,
     borderRadius: 10,
   }),
   btnText: {

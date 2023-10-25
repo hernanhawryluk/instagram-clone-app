@@ -17,10 +17,23 @@ const useHandleLike = () => {
                     .doc(post.id)
                     .update({
                         likes_by_users: currentLikeStatus
-                        ? firebase.firestore.FieldValue.arrayUnion(currentUser.email)
-                        : firebase.firestore.FieldValue.arrayRemove(currentUser.email),
+                            ? firebase.firestore.FieldValue.arrayUnion(currentUser.email)
+                            : firebase.firestore.FieldValue.arrayRemove(currentUser.email),
+                        new_likes: currentLikeStatus
+                            ? [currentUser.username, currentUser.profile_picture]
+                            : [],
                     }
                 );
+
+                firebase
+                        .firestore()
+                        .collection("users")
+                        .doc(post.owner_email)
+                        .update({
+                            event_notification: currentLikeStatus
+                            ? firebase.firestore.FieldValue.increment(1)
+                            : firebase.firestore.FieldValue.increment(-1)
+                        });
             }
             catch (error) {
                 console.error("Error updating document:", error);
@@ -34,32 +47,19 @@ const useHandleLike = () => {
     const handleStoryLike = (story, currentUser) => {
         setLoader(true);
         if (!loader) {
+            const currentLikeStatus = !story.likes_by_users.includes(currentUser.email);
             try {
-                if (story.likes_by_users.includes(currentUser.email)) {
-                    firebase
-                        .firestore()
-                        .collection("users")
-                        .doc(story.owner_email)
-                        .collection("stories")
-                        .doc(story.id)
-                        .update({
-                        likes_by_users: firebase.firestore.FieldValue.arrayRemove(
-                            currentUser.email
-                        )}
-                    );
-                } else {
-                    firebase
-                        .firestore()
-                        .collection("users")
-                        .doc(story.owner_email)
-                        .collection("stories")
-                        .doc(story.id)
-                        .update({
-                        likes_by_users: firebase.firestore.FieldValue.arrayUnion(
-                            currentUser.email
-                        )}
-                    );
-                }
+                firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(story.owner_email)
+                    .collection("stories")
+                    .doc(story.id)
+                    .update({
+                    likes_by_users: currentLikeStatus
+                        ? firebase.firestore.FieldValue.arrayUnion(currentUser.email)
+                        : firebase.firestore.FieldValue.arrayRemove(currentUser.email),
+                    });
             } catch (error) {
                 console.log(error);
             } finally {

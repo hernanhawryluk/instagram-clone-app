@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import firebase from "firebase/compat";
 
 
@@ -12,8 +11,6 @@ const useDeletePost = () => {
                 .collection("posts")
                 .doc(post.id)
                 .delete()
-            
-                Alert.alert("Post Deleted", "Your post has been deleted");
 
         } catch (error) {
             console.log(error);

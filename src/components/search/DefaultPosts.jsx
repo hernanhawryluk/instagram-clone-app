@@ -23,7 +23,6 @@ const DefaultPosts = ({ navigation, handleScroll }) => {
           onEndReached={() => fetchOlderPosts()}
           onEndReachedThreshold={1}
           initialNumToRender={10}
-          onRefresh={() => refreshPosts()}
           refreshing={isLoading}
           ListFooterComponent={() => <View style={{ height: 100 }} />}
           windowSize={10}

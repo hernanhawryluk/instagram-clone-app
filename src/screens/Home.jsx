@@ -19,7 +19,7 @@ import PostsSkeleton from "../components/home/skeletons/PostsSkeleton";
 const Home = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const { headerTranslate, headerOpacity, scrollY } = useHeaderScrollAnim(42);
-  const { posts, isLoading, fetchOlderPosts, refreshPosts } = useFetchPosts();
+  const { posts, isLoading, fetchOlderPosts } = useFetchPosts();
 
   const renderPostItem = ({ item }) => (
     <Posts navigation={navigation} post={item} currentUser={currentUser} />
@@ -59,12 +59,12 @@ const Home = ({ navigation }) => {
           onScroll={handleScroll}
           scrollEventThrottle={16}
           onEndReached={() => fetchOlderPosts()}
-          onEndReachedThreshold={1}
+          onEndReachedThreshold={0.5}
           initialNumToRender={10}
-          onRefresh={() => refreshPosts()}
           refreshing={isLoading}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => <View style={{ height: 80 }} />}
+          windowSize={13}
         />
       ) : (
         <View style={{ marginTop: 50 }}>

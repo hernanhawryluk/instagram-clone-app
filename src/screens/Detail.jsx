@@ -99,7 +99,7 @@ const Detail = ({ navigation, route }) => {
         <TitleBar navigation={navigation} name="Detail" activity={false} />
         <FlatList
           data={posts}
-          snapToInterval={630}
+          snapToInterval={670}
           snapToAlignment={"start"}
           decelerationRate={"fast"}
           renderItem={({ item, index }) => (
