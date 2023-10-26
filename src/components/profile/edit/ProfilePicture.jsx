@@ -8,7 +8,7 @@ import CameraModule from "../../shared/CameraModule";
 import FastImage from "react-native-fast-image";
 
 const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
-  const snapPoints = useMemo(() => ["37%"], []);
+  const snapPoints = useMemo(() => [320], []);
   const [selectedImage, setSelectedImage] = useState(null);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
@@ -39,7 +39,6 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
 
   const handleRemovePicture = () => {
     previewImage ? unselectImage() : unselectImage();
-    // unselectImage WORKS FOR selectedImage BUT NOT FOR capturedPhoto
   };
 
   return (
@@ -80,7 +79,12 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
           onPress={() => handleRemovePicture()}
           style={styles.rowContainer}
         >
-          <Ionicons name="trash-outline" size={28} color="#f00" />
+          <Ionicons
+            name="trash-outline"
+            size={28}
+            color="#f00"
+            style={{ transform: [{ scaleX: 1.3 }] }}
+          />
           <Text style={styles.redText}> Remove current picture</Text>
         </TouchableOpacity>
       </View>
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 20,
-    marginBottom: 15,
+    marginBottom: 20,
   },
   text: {
     color: "#fff",

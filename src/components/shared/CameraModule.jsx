@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import { Camera } from "expo-camera";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { SIZES } from "../../constants";
+import CameraNoPermission from "./CameraNoPermission";
 
 const CameraModule = ({
   setCameraModalVisible,
@@ -21,9 +22,8 @@ const CameraModule = ({
 }) => {
   const camRef = useRef(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  // ADD FLASH SUPPORT
+  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
   const [hasPermission, setHasPermission] = useState(null);
-  const [flashActivated, setFlashActivated] = useState(false);
 
   useEffect(() => {
     const askPermission = async () => {
@@ -34,7 +34,12 @@ const CameraModule = ({
   }, []);
 
   if (!hasPermission) {
-    return <Text>No access to camera</Text>;
+    return (
+      <CameraNoPermission
+        setCameraModalVisible={setCameraModalVisible}
+        selectedType={selectedType}
+      />
+    );
   }
 
   const handleTakePicture = async () => {
@@ -63,7 +68,12 @@ const CameraModule = ({
             : styles.cameraFullStyle
         }
       >
-        <Camera style={styles.camera} type={type} ref={camRef} />
+        <Camera
+          style={styles.camera}
+          type={type}
+          flashMode={flashMode}
+          ref={camRef}
+        />
       </View>
 
       {selectedType === "New post" && <View style={styles.shadowBowBottom} />}
@@ -84,9 +94,21 @@ const CameraModule = ({
           <TouchableOpacity onPress={() => handleCloseModal()}>
             <Ionicons name="close" size={34} color="#fff" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setFlashMode(
+                flashMode === Camera.Constants.FlashMode.off
+                  ? Camera.Constants.FlashMode.on
+                  : Camera.Constants.FlashMode.off
+              );
+            }}
+          >
             <Ionicons
-              name={flashActivated ? "flash" : "flash-off-sharp"}
+              name={
+                flashMode === Camera.Constants.FlashMode.on
+                  ? "flash"
+                  : "flash-off-sharp"
+              }
               size={34}
               color="#fff"
             />
@@ -97,8 +119,8 @@ const CameraModule = ({
         </View>
 
         <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Ionicons name="flash" size={24} color="#fff" />
+          <TouchableOpacity onPress={() => handleCloseModal()}>
+            <MaterialIcons name="photo-library" size={29} color="#fff" />
           </TouchableOpacity>
 
           {options && (
@@ -177,7 +199,7 @@ const styles = StyleSheet.create({
   },
   shadowBowBottom: {
     position: "absolute",
-    bottom: SIZES.Height * 0.18,
+    bottom: SIZES.Height * 0.16,
     left: 0,
     right: 0,
     height: SIZES.Height * 0.18,
@@ -228,7 +250,7 @@ const styles = StyleSheet.create({
   shotButtonContainer: {
     left: 0,
     right: 0,
-    top: SIZES.Height * 0.71,
+    top: SIZES.Height * 0.7,
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",

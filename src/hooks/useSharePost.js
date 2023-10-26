@@ -5,9 +5,7 @@ const useSharePost = () => {
     const sharePost = async (post) => {
         try {
             const result = await Share.share({
-                title: "I would like to share this with you!",
-                url: post.imageUrl,
-                message: post.caption + "I would like to share this with you!\n\n" + post.caption + "\n\nCheck it out: instagram.com/" + post.username,
+                message: "I would like to share this with you!\n\n" + post.caption + "\n\nCheck it out: instagram.com/" + post.username,
             });
             if (result.action === Share.sharedAction) {
             if (result.activityType) {
@@ -26,8 +24,6 @@ const useSharePost = () => {
     const shareStory = async (story) => {
         try {
             const result = await Share.share({
-                title: "I would like to share this with you!",
-                url: story.imageUrl,
                 message: "I would like to share this with you! \n\nCheck it out: instagram.com/" + story.username,
             });
             if (result.action === Share.sharedAction) {
@@ -47,9 +43,7 @@ const useSharePost = () => {
     const shareUser = async (currentUser) => {
         try {
             const result = await Share.share({
-                title: "I would like to share this profile with you!",
-                url: currentUser.profile_picture,
-                message: "Check it out: instagram.com/" + currentUser.username,
+                message: "I would like to share this with you!\n\nCheck it out: instagram.com/" + currentUser.username,
             });
             if (result.action === Share.sharedAction) {
             if (result.activityType) {

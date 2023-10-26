@@ -5,7 +5,7 @@ import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BottomSheetAddNew = ({ bottomSheetRef, navigation }) => {
-  const snapPoints = useMemo(() => ["31%"], []);
+  const snapPoints = useMemo(() => [260], []);
 
   return (
     <BottomSheetModal

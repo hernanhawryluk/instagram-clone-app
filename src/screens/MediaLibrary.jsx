@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   selectorContainer: {
     position: "absolute",
     bottom: 35,
-    right: 2,
+    right: 15,
     height: 48,
     width: 240,
     borderRadius: 30,

@@ -6,7 +6,7 @@ import useHandleSingout from "../../../hooks/useHandleSingout";
 
 const BottomSheetLogout = ({ bottomSheetRef, navigation }) => {
   const { handleSingout } = useHandleSingout();
-  const snapPoints = useMemo(() => ["21%"], []);
+  const snapPoints = useMemo(() => [158], []);
 
   return (
     <BottomSheetModal
@@ -22,7 +22,9 @@ const BottomSheetLogout = ({ bottomSheetRef, navigation }) => {
       style={styles.sheetContainer}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Sign out of your account?</Text>
+        <View style={styles.rowContainer}>
+          <Text style={styles.title}>Sign out of your account?</Text>
+        </View>
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   closeLine: {
-    marginBottom: 25,
+    marginBottom: 4,
   },
   container: {
     flex: 1,
@@ -64,8 +66,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     textAlign: "center",
-    marginTop: -5,
-    marginBottom: 20,
   },
   divider: {
     height: 0.3,
@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     marginHorizontal: 16,
-    marginVertical: 16,
+    // marginVertical: 16,
+    height: 50,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

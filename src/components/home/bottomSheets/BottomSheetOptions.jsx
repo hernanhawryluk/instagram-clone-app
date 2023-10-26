@@ -20,7 +20,7 @@ const BottomSheetOptions = ({
   const { sharePost } = useSharePost();
   const { savePost } = useSavePost();
 
-  const snapPoints = useMemo(() => ["32%"], []);
+  const snapPoints = useMemo(() => [275], []);
 
   const handleSavePost = async () => {
     await savePost(post, currentUser);

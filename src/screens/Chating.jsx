@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginLeft: SIZES.Width * 0.04,
     marginRight: SIZES.Width * 0.04,
     backgroundColor: "#252525",
-    minHeight: 36,
+    minHeight: 40,
     borderRadius: 50,
     flexDirection: "row",
     alignItems: "center",

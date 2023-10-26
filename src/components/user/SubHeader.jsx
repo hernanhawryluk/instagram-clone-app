@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 32,
+    height: 34,
   },
   btnWrapperBlue: {
     flexDirection: "row",
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 32,
+    height: 34,
   },
   btnAddUser: {
     flexDirection: "row",
@@ -207,6 +207,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 13.5,
     fontWeight: "600",
-    paddingVertical: 8,
   },
 });

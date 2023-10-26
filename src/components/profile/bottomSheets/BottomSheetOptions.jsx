@@ -13,7 +13,7 @@ import {
 } from "@expo/vector-icons";
 
 const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
-  const snapPoints = useMemo(() => ["77%"], []);
+  const snapPoints = useMemo(() => [656], []);
 
   return (
     <BottomSheetModal
