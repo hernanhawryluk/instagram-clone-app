@@ -9,12 +9,24 @@ import {
   StatusBar,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LoginForm from "../components/login/LoginForm";
 import Footer from "../components/login/Footer";
 import FastImage from "react-native-fast-image";
+import MessageModal from "../components/shared/modals/MessageModal";
 
 const LoginScreen = ({ navigation }) => {
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMessageModalVisible(true);
+    }, 500);
+    setTimeout(() => {
+      setMessageModalVisible(false);
+    }, 3500);
+  }, []);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
@@ -36,6 +48,11 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </KeyboardAvoidingView>
         <Footer navigation={navigation} />
+        <MessageModal
+          messageModalVisible={messageModalVisible}
+          message={"Developed by Hernan Hawryluk."}
+          height={90}
+        />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

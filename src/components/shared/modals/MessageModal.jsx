@@ -9,7 +9,12 @@ export const handleFeatureNotImplemented = (setMessageModalVisible) => {
   }, 2000);
 };
 
-const MessageModal = ({ messageModalVisible, message, height = 28 }) => {
+const MessageModal = ({
+  messageModalVisible,
+  message,
+  height = 28,
+  icon = "developer",
+}) => {
   return (
     <Modal
       visible={messageModalVisible}
@@ -17,7 +22,11 @@ const MessageModal = ({ messageModalVisible, message, height = 28 }) => {
       transparent={true}
     >
       <View style={[styles.modalContainer, { bottom: height }]}>
-        <Ionicons name="logo-react" size={24} color="#fff" />
+        <Ionicons
+          name={icon === "developer" ? "logo-react" : "close-circle-outline"}
+          size={24}
+          color="#fff"
+        />
         <Text style={styles.modalText}>{message}</Text>
       </View>
     </Modal>

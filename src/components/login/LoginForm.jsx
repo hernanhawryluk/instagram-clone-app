@@ -4,19 +4,30 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert,
+  Keyboard,
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import firebase from "firebase/compat";
+import MessageModal from "../shared/modals/MessageModal";
 
 const LoginForm = ({ navigation }) => {
   const [obsecureText, setObsecureText] = useState(true);
   const [emailOnFocus, setEmailOnFocus] = useState(false);
   const [emailToValidate, SetEmailToValidate] = useState(false);
   const [passwordToValidate, SetPasswordToValidate] = useState(false);
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleDataError = (message) => {
+    setErrorMessage(message);
+    setMessageModalVisible(true);
+    setTimeout(() => {
+      setMessageModalVisible(false);
+    }, 3500);
+  };
 
   const LoginFormSchema = Yup.object().shape({
     email: Yup.string()
@@ -28,6 +39,7 @@ const LoginForm = ({ navigation }) => {
   });
 
   const onLogin = async (email, password) => {
+    Keyboard.dismiss();
     try {
       const userCredentials = await firebase
         .auth()
@@ -39,22 +51,10 @@ const LoginForm = ({ navigation }) => {
     } catch (error) {
       error.message ==
         "Firebase: The password is invalid or the user does not have a password. (auth/wrong-password)." &&
-        Alert.alert("The password is invalid, try again.");
+        handleDataError("The password is invalid, try again.");
       error.message ==
         "Firebase: There is no user record corresponding to this identifier. The user may have been deleted. (auth/user-not-found)." &&
-        Alert.alert("The user does not exist.", "Would you like to sign up?", [
-          {
-            text: "No",
-            style: "cancel",
-          },
-          {
-            text: "Sign Up",
-            onPress: () => {
-              navigation.push("Signup");
-            },
-          },
-        ]);
-      console.log(error.message);
+        handleDataError("Invalid email. Please verify your input.");
     }
   };
 
@@ -158,6 +158,12 @@ const LoginForm = ({ navigation }) => {
           </View>
         )}
       </Formik>
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={errorMessage}
+        height={70}
+        icon="wrong"
+      />
     </View>
   );
 };
