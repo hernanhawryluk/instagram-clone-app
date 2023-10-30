@@ -6,7 +6,7 @@ import useHandleSingout from "../../../hooks/useHandleSingout";
 
 const BottomSheetLogout = ({ bottomSheetRef, navigation }) => {
   const { handleSingout } = useHandleSingout();
-  const snapPoints = useMemo(() => [158], []);
+  const snapPoints = useMemo(() => [157], []);
 
   return (
     <BottomSheetModal
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
   },
   logout: {
     color: "#f00",
-    fontSize: 19,
-    fontWeight: "700",
+    fontSize: 18,
+    fontWeight: "600",
   },
   cancel: {
     color: "#fff",
-    fontSize: 18,
-    fontWeight: "500",
+    fontSize: 17,
+    fontWeight: "400",
   },
 });

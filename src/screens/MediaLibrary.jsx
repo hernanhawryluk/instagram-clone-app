@@ -19,13 +19,19 @@ import useAlbumSelector from "../utils/useAlbumSelector";
 import useOpacityAnimation from "../utils/useOpacityAnimation";
 import CameraModule from "../components/shared/CameraModule";
 import { BlurView } from "expo-blur";
+import blankPhoto from "../../assets/images/blank-image.jpg";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const MediaLibrary = ({ navigation, route }) => {
   const { initialSelectedType, selectorAvailable = true } = route.params || {};
-  const [selectedImage, setSelectedImage] = useState();
+  const blankPhotoUri = Image.resolveAssetSource(blankPhoto).uri;
+  const [selectedImage, setSelectedImage] = useState(blankPhotoUri);
   const [selectedType, setSelectedType] = useState(initialSelectedType);
   const [albumModalVisible, setAlbumModalVisible] = useState(false);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   const { scrollY, flatListRef, animatedStyle } = useOpacityAnimation();
   const { allAlbums, selectedAlbum, selectedAlbumTitle, handleAlbumSelection } =
@@ -123,7 +129,9 @@ const MediaLibrary = ({ navigation, route }) => {
             <Text style={styles.nextButton}>Next</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+          >
             <MaterialIcons name="settings" size={24} color={"#fff"} />
           </TouchableOpacity>
         )}
@@ -211,6 +219,10 @@ const MediaLibrary = ({ navigation, route }) => {
             </BlurView>
           </Animated.View>
         )}
+        <MessageModal
+          messageModalVisible={messageModalVisible}
+          message={"This feature is not yet implemented."}
+        />
       </View>
       <Modal
         animationType="slide"

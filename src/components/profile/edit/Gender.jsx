@@ -58,78 +58,37 @@ const Gender = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialIcons name="arrow-back-ios" size={24} color={"#fff"} />
-          </TouchableOpacity>
-          <Text style={styles.textTitle}>Gender</Text>
-          {loader ? (
-            <ActivityIndicator />
-          ) : (
-            <TouchableOpacity
-              onPress={() => isValid && handleSubmitGender(values)}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back-ios" size={24} color={"#fff"} />
+        </TouchableOpacity>
+        <Text style={styles.textTitle}>Gender</Text>
+        {loader ? (
+          <ActivityIndicator />
+        ) : (
+          <TouchableOpacity
+            onPress={() => isValid && handleSubmitGender(values)}
+          >
+            <Text
+              style={[styles.doneBtn, { color: isValid ? "#09f" : "#333" }]}
             >
-              <Text
-                style={[styles.doneBtn, { color: isValid ? "#09f" : "#333" }]}
-              >
-                Done
-              </Text>
-            </TouchableOpacity>
-          )}
-        </View>
-        <Divider width={0.5} color="#222" />
-        <View>
-          <Text style={styles.textInfo}>
-            This won't be part of your public profile
-          </Text>
-        </View>
-        <View style={styles.inputContainer}>
-          {genderOptions.map((option, index) =>
-            option === "Custom" ? (
-              <View key={index}>
-                <TouchableOpacity
-                  onPress={() => setValues([option, values[1]])}
-                  style={styles.optionContainer}
-                >
-                  <Text style={styles.optionText}>{option}</Text>
-                  <View style={styles.radioBtn}>
-                    {values[0] === option && (
-                      <View
-                        style={[
-                          styles.roundBtnInterior,
-                          values[0] === option && {
-                            backgroundColor: "#09f",
-                          },
-                        ]}
-                      >
-                        <View style={styles.roundBtnDot}></View>
-                      </View>
-                    )}
-                  </View>
-                </TouchableOpacity>
-                {values[0] === "Custom" && (
-                  <View style={styles.rowContainer} key={index}>
-                    <TextInput
-                      key={option}
-                      value={values[1]}
-                      placeholder="Custom"
-                      placeholderTextColor={"#777"}
-                      onChangeText={(text) => setValues([values[0], text])}
-                      autoCapitalize="sentences"
-                      autoCorrect={true}
-                      style={styles.textInput}
-                      maxLength={16}
-                      multiline
-                      autoFocus
-                    />
-                  </View>
-                )}
-              </View>
-            ) : (
+              Done
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      <Divider width={0.5} color="#222" />
+      <View>
+        <Text style={styles.textInfo}>
+          This won't be part of your public profile
+        </Text>
+      </View>
+      <View style={styles.inputContainer}>
+        {genderOptions.map((option, index) =>
+          option === "Custom" ? (
+            <View key={index}>
               <TouchableOpacity
-                key={index}
-                onPress={() => setValues([option, ""])}
+                onPress={() => setValues([option, values[1]])}
                 style={styles.optionContainer}
               >
                 <Text style={styles.optionText}>{option}</Text>
@@ -148,9 +107,48 @@ const Gender = ({ navigation }) => {
                   )}
                 </View>
               </TouchableOpacity>
-            )
-          )}
-        </View>
+              {values[0] === "Custom" && (
+                <View style={styles.rowContainer} key={index}>
+                  <TextInput
+                    key={option}
+                    value={values[1]}
+                    placeholder="Custom"
+                    placeholderTextColor={"#777"}
+                    onChangeText={(text) => setValues([values[0], text])}
+                    autoCapitalize="sentences"
+                    autoCorrect={true}
+                    style={styles.textInput}
+                    maxLength={16}
+                    multiline
+                    autoFocus
+                  />
+                </View>
+              )}
+            </View>
+          ) : (
+            <TouchableOpacity
+              key={index}
+              onPress={() => setValues([option, ""])}
+              style={styles.optionContainer}
+            >
+              <Text style={styles.optionText}>{option}</Text>
+              <View style={styles.radioBtn}>
+                {values[0] === option && (
+                  <View
+                    style={[
+                      styles.roundBtnInterior,
+                      values[0] === option && {
+                        backgroundColor: "#09f",
+                      },
+                    ]}
+                  >
+                    <View style={styles.roundBtnDot}></View>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+          )
+        )}
       </View>
     </SafeAreaView>
   );

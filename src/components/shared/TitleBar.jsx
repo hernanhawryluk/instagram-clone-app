@@ -12,7 +12,7 @@ const TitleBar = ({ navigation, name, activity }) => {
   return (
     <View style={styles.titleContainer}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <MaterialIcons name="arrow-back-ios" size={23} color={"#fff"} />
+        <MaterialIcons name="arrow-back-ios" size={22} color={"#fff"} />
       </TouchableOpacity>
       <Text style={styles.textTitle}>{name}</Text>
       {activity ? <ActivityIndicator /> : <Text>Done</Text>}
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,
-    marginTop: 9,
-    marginBottom: 14,
+    height: 25,
+    marginTop: 10,
+    marginBottom: 10,
   },
   textTitle: {
-    marginTop: 5,
     color: "#fff",
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "700",
   },
 });

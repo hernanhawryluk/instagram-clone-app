@@ -19,6 +19,9 @@ import useUploadPost from "../hooks/useUploadPost";
 import SIZES from "../constants/SIZES";
 import { Divider } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const NewPost = ({ navigation, route }) => {
   const { selectedImage } = route.params || {};
@@ -27,6 +30,7 @@ const NewPost = ({ navigation, route }) => {
   const { uploadPost, loader } = useUploadPost();
   const [caption, setCaption] = useState("");
   const [focusedBar, setFocusedBar] = useState(false);
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   const handleFocus = () => {
     setFocusedBar(true);
@@ -78,13 +82,19 @@ const NewPost = ({ navigation, route }) => {
                 onFocus={() => handleFocus()}
                 onBlur={() => handleBlur()}
                 maxLength={2200}
+                autoFocus={true}
               />
             </View>
           </View>
           <View style={styles.secondContainer}>
             <Divider width={0.4} color="#333" />
 
-            <TouchableOpacity style={styles.optionsContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.optionsContainer}
+            >
               <Text style={styles.optionText}>Tag people</Text>
               <MaterialIcons
                 name="keyboard-arrow-right"
@@ -95,7 +105,12 @@ const NewPost = ({ navigation, route }) => {
             </TouchableOpacity>
 
             <Divider width={0.3} color="#333" />
-            <TouchableOpacity style={styles.optionsContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.optionsContainer}
+            >
               <Text style={styles.optionText}>Advanced settings</Text>
               <MaterialIcons
                 name="keyboard-arrow-right"
@@ -107,6 +122,10 @@ const NewPost = ({ navigation, route }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"This feature is not yet implemented."}
+      />
     </SafeAreaView>
   );
 };
@@ -154,12 +173,18 @@ const styles = StyleSheet.create({
     width: SIZES.Width * 0.2,
     borderRadius: 4,
   },
+  captionContainer: {
+    flex: 1,
+    justifyContent: "center",
+    minHeight: SIZES.Width * 0.2,
+    marginBottom: 14,
+  },
   captionText: {
     color: "#fff",
     fontSize: 16,
     marginHorizontal: 15,
     width: SIZES.Width * 0.66,
-    minHeight: SIZES.Width * 0.25,
+    flex: 1,
     marginBottom: 8,
   },
   secondContainer: {

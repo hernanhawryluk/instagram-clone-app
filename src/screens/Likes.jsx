@@ -1,4 +1,5 @@
 import {
+  View,
   StyleSheet,
   SafeAreaView,
   FlatList,
@@ -18,11 +19,13 @@ const Likes = ({ navigation, route }) => {
   const { currentUser } = useUserContext();
   const { likesByUsers, loader } = useFetchLikes({ likesByEmail });
 
+  const [onSearch, setOnSearch] = useState(false);
   const [filteredLikes, setFilteredLikes] = useState({});
 
   const childPropChange = (searchKey) => {
     if (likesByUsers.length > 0) {
-      const filteredData = likesByUsers.find(
+      setOnSearch(true);
+      const filteredData = likesByUsers.filter(
         (userLike) =>
           userLike.username.includes(searchKey) ||
           userLike.name.toLowerCase().includes(searchKey) ||
@@ -35,10 +38,10 @@ const Likes = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar navigation={navigation} name="Likes" activity={loader} />
-      <Divider color="#666" style={styles.divider} />
+      <View style={styles.divider} />
       <FlatList
         ListHeaderComponent={<SearchBar onPropChange={childPropChange} />}
-        data={filteredLikes !== undefined ? likesByUsers : filteredLikes}
+        data={onSearch === true ? filteredLikes : likesByUsers}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <LikedBy
@@ -61,6 +64,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   divider: {
+    height: 0.5,
+    backgroundColor: "#222",
     marginBottom: 8,
   },
 });

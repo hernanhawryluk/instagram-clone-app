@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import {
@@ -11,9 +11,13 @@ import {
   Octicons,
   AntDesign,
 } from "@expo/vector-icons";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../../shared/modals/MessageModal";
 
 const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
-  const snapPoints = useMemo(() => [656], []);
+  const snapPoints = useMemo(() => [688], []);
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   return (
     <BottomSheetModal
@@ -32,7 +36,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -44,7 +48,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -56,7 +60,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -81,7 +85,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -93,7 +97,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -109,7 +113,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -121,7 +125,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -133,7 +137,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -146,6 +150,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <TouchableOpacity
           onPress={() => {
             bottomSheetRef.current.close();
+            navigation.navigate("Favorites");
           }}
           style={styles.rowContainer}
         >
@@ -157,7 +162,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -169,7 +174,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
         <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
-            bottomSheetRef.current.close();
+            handleFeatureNotImplemented(setMessageModalVisible);
           }}
           style={styles.rowContainer}
         >
@@ -179,6 +184,10 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
           <Text style={styles.text}>Group profiles</Text>
         </TouchableOpacity>
       </View>
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"This feature is not yet implemented."}
+      />
     </BottomSheetModal>
   );
 };
@@ -201,16 +210,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   divider: {
-    height: 0.4,
+    height: 0.7,
     width: "100%",
-    backgroundColor: "#777",
+    backgroundColor: "#444",
   },
   rowContainer: {
     marginHorizontal: 15,
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    marginVertical: 8,
+    height: 54,
   },
   iconContainer: {
     height: 35,

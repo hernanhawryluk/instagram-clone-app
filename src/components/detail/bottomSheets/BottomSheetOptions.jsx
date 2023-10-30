@@ -116,7 +116,7 @@ const BottomSheetOptions = ({
                 <Text style={styles.optionText}>Edit</Text>
               </View>
             </TouchableOpacity>
-            <Divider width={0.5} color="#666" />
+            <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => handleDeletePost()}
               style={styles.columnContainer}
@@ -143,7 +143,7 @@ const BottomSheetOptions = ({
                 <Text style={styles.optionText}>About this account</Text>
               </View>
             </TouchableOpacity>
-            <Divider width={0.5} color="#999" />
+            <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => handleReportPost(post, currentUser)}
               style={styles.columnContainer}
@@ -217,9 +217,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingLeft: 12,
-    paddingVertical: 16,
+    height: 57,
     flex: 1,
     gap: 15,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#353535",
   },
   optionText: {
     color: "#fff",

@@ -11,7 +11,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import FastImage from "react-native-fast-image";
 import * as Progress from "react-native-progress";
@@ -22,6 +22,7 @@ import useSharePost from "../hooks/useSharePost";
 import useHandleLike from "../hooks/useHandleLike";
 import Animated, { ZoomIn } from "react-native-reanimated";
 import useChatSendMessage from "../hooks/useChatSendMessage";
+import BottomSheetOptions from "../components/story/BottomSheetOptions";
 
 const Story = ({ navigation, route }) => {
   const { stories, currentUser } = route.params || {};
@@ -46,6 +47,7 @@ const Story = ({ navigation, route }) => {
   };
   const { chatSendMessage, loading, textMessage, setTextMessage } =
     useChatSendMessage({ user, currentUser });
+  const bottomSheetRef = useRef(null);
 
   const handleToggleLike = () => {
     handleStoryLike(stories[currentStoryIndex], currentUser);
@@ -65,6 +67,22 @@ const Story = ({ navigation, route }) => {
     handlePause();
     await shareStory(stories[currentStoryIndex]);
     handleResume();
+  };
+
+  const handleOptionsSheet = () => {
+    handlePause();
+    bottomSheetRef.current.present();
+  };
+
+  const handleViewProfile = () => {
+    handlePause();
+    if (stories[currentStoryIndex].owner_email === currentUser.email) {
+      navigation.navigate("Profile");
+    } else {
+      navigation.navigate("UserDetail", {
+        email: stories[currentStoryIndex].owner_email,
+      });
+    }
   };
 
   const handleOnFocus = () => {
@@ -106,24 +124,27 @@ const Story = ({ navigation, route }) => {
             </View>
 
             <View style={styles.subheaderContent}>
-              <View style={styles.rowContainer}>
+              <TouchableOpacity
+                onPress={() => handleViewProfile()}
+                style={styles.rowContainer}
+              >
                 <FastImage
                   source={{ uri: stories[0].profile_picture }}
                   style={styles.profilePicture}
                 />
-                <Text style={styles.usernameText}>{stories[0].username}</Text>
-              </View>
+
+                <Text style={styles.usernameText}>
+                  {stories[0].username === currentUser.username
+                    ? "Your story"
+                    : stories[0].username}
+                </Text>
+              </TouchableOpacity>
 
               <View style={styles.rowContainer}>
-                <MaterialCommunityIcons
-                  name="dots-horizontal"
-                  size={28}
-                  color={"#fff"}
-                />
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                   <Ionicons
                     name="close-outline"
-                    size={54}
+                    size={44}
                     color={"#fff"}
                     style={styles.closeIcon}
                   />
@@ -132,7 +153,7 @@ const Story = ({ navigation, route }) => {
             </View>
           </View>
 
-          {stories[currentStoryIndex].owner_email !== currentUser.email && (
+          {stories[currentStoryIndex].owner_email !== currentUser.email ? (
             <View style={styles.inputContainer}>
               <View style={styles.inputWrapper}>
                 <TextInput
@@ -179,9 +200,41 @@ const Story = ({ navigation, route }) => {
                 </View>
               )}
             </View>
+          ) : (
+            <View style={styles.currentIconContainer}>
+              <TouchableOpacity
+                onPress={() => handleStoryShare()}
+                style={styles.verticalIconContainer}
+              >
+                <Feather
+                  name="send"
+                  size={20}
+                  color={"#fff"}
+                  style={styles.headerSendIcon}
+                />
+                <Text style={styles.currentIconText}>Send</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleOptionsSheet()}
+                style={styles.verticalIconContainer}
+              >
+                <MaterialCommunityIcons
+                  name="dots-horizontal"
+                  size={20}
+                  color={"#fff"}
+                />
+                <Text style={styles.currentIconText}>More</Text>
+              </TouchableOpacity>
+            </View>
           )}
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
+      <BottomSheetOptions
+        bottomSheetRef={bottomSheetRef}
+        story={stories[currentStoryIndex]}
+        handleResume={handleResume}
+        navigation={navigation}
+      />
     </Animated.View>
   );
 };
@@ -236,7 +289,7 @@ const styles = StyleSheet.create({
   usernameText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 15,
     paddingBottom: 4,
   },
   closeIcon: {
@@ -285,5 +338,23 @@ const styles = StyleSheet.create({
     marginRight: 5,
     transform: [{ rotate: "20deg" }],
     marginTop: -2,
+  },
+  currentIconContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignContent: "center",
+    marginHorizontal: 30,
+    gap: 30,
+  },
+  verticalIconContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7,
+  },
+  currentIconText: {
+    color: "#fff",
+    fontSize: 10,
+    textAlign: "center",
   },
 });

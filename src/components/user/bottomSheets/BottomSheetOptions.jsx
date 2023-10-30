@@ -15,7 +15,7 @@ const BottomSheetOptions = ({
 }) => {
   const { shareUser } = useSharePost();
   const { handleReportUser } = useReportAction();
-  const snapPoints = useMemo(() => ["39.2%"], []);
+  const snapPoints = useMemo(() => [322], []);
 
   return (
     <BottomSheetModal
@@ -105,40 +105,32 @@ export default BottomSheetOptions;
 
 const styles = StyleSheet.create({
   sheetContainer: {
-    marginHorizontal: 15,
+    marginHorizontal: 20,
   },
   container: {
     flex: 1,
   },
   closeLine: {},
-  title: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "700",
-    textAlign: "center",
-    marginTop: -5,
-    marginBottom: 20,
-  },
   divider: {
-    height: 0.4,
+    height: 0.7,
     width: "100%",
-    backgroundColor: "#777",
+    backgroundColor: "#333",
   },
   rowContainer: {
     marginHorizontal: 16,
-    marginVertical: 16,
+    marginVertical: 15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   redText: {
     color: "#f00",
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: 17,
+    fontWeight: "400",
   },
   text: {
     color: "#fff",
-    fontSize: 18,
-    fontWeight: "500",
+    fontSize: 17,
+    fontWeight: "400",
   },
 });

@@ -12,7 +12,7 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { SIZES } from "../constants";
 import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { useUserContext } from "../contexts/UserContext";
@@ -24,6 +24,9 @@ import useFetchMessages from "../hooks/useFetchMessages";
 import useChatSendMessage from "../hooks/useChatSendMessage";
 import RenderProfile from "../components/chat/RenderProfile";
 import { ScrollView } from "react-native-gesture-handler";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const Chating = ({ navigation, route }) => {
   const { user } = route.params;
@@ -31,6 +34,8 @@ const Chating = ({ navigation, route }) => {
   const { messages } = useFetchMessages({ user, currentUser });
   const { chatSendMessage, loading, textMessage, setTextMessage } =
     useChatSendMessage({ user, currentUser });
+  const scrollViewRef = useRef();
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -55,10 +60,18 @@ const Chating = ({ navigation, route }) => {
               </View>
             </TouchableOpacity>
             <View style={[styles.rowContainer, { gap: 20 }]}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  handleFeatureNotImplemented(setMessageModalVisible)
+                }
+              >
                 <Feather name="phone" size={23} color={"#fff"} />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  handleFeatureNotImplemented(setMessageModalVisible)
+                }
+              >
                 <Feather
                   name="video"
                   size={23}
@@ -68,7 +81,11 @@ const Chating = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView snapToAlignment="end" style={styles.scrollView}>
+          <ScrollView
+            snapToAlignment="end"
+            ref={scrollViewRef}
+            style={styles.scrollView}
+          >
             <RenderProfile navigation={navigation} user={user} />
             {messages.map((message, index) =>
               message.who === "timestamp" ? (
@@ -92,7 +109,12 @@ const Chating = ({ navigation, route }) => {
           </ScrollView>
           <View style={styles.searchWrapper}>
             <View style={styles.rowContainer}>
-              <TouchableOpacity style={styles.cameraWrapper}>
+              <TouchableOpacity
+                onPress={() =>
+                  handleFeatureNotImplemented(setMessageModalVisible)
+                }
+                style={styles.cameraWrapper}
+              >
                 <Ionicons
                   name="camera"
                   size={20}
@@ -111,6 +133,9 @@ const Chating = ({ navigation, route }) => {
                 placeholderTextColor={"#999"}
                 style={styles.searchInput}
                 enterKeyHint="search"
+                onFocus={() =>
+                  scrollViewRef.current.scrollToEnd({ aniamted: true })
+                }
                 multiline
               />
             </View>
@@ -127,16 +152,29 @@ const Chating = ({ navigation, route }) => {
               </TouchableOpacity>
             ) : (
               <View style={[styles.rowContainer, { gap: 8, marginRight: 14 }]}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    handleFeatureNotImplemented(setMessageModalVisible)
+                  }
+                >
                   <Ionicons name="image-outline" size={23} color={"#fff"} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    handleFeatureNotImplemented(setMessageModalVisible)
+                  }
+                >
                   <Feather name="mic" size={20} color={"#fff"} />
                 </TouchableOpacity>
               </View>
             )}
           </View>
         </KeyboardAvoidingView>
+        <MessageModal
+          messageModalVisible={messageModalVisible}
+          message={"This feature is not yet implemented."}
+          height={70}
+        />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

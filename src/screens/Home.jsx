@@ -7,7 +7,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import useHeaderScrollAnim from "../utils/useHeaderScrollAnim";
 import useFetchPosts from "../hooks/useFetchPosts";
@@ -15,11 +15,22 @@ import Header from "../components/home/Header";
 import Stories from "../components/home/Stories";
 import Posts from "../components/home/Posts";
 import PostsSkeleton from "../components/home/skeletons/PostsSkeleton";
+import MessageModal from "../components/shared/modals/MessageModal";
 
 const Home = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const { headerTranslate, headerOpacity, scrollY } = useHeaderScrollAnim(42);
   const { posts, isLoading, fetchOlderPosts } = useFetchPosts();
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMessageModalVisible(true);
+    }, 500);
+    setTimeout(() => {
+      setMessageModalVisible(false);
+    }, 5000);
+  }, []);
 
   const renderPostItem = ({ item }) => (
     <Posts navigation={navigation} post={item} currentUser={currentUser} />
@@ -76,6 +87,11 @@ const Home = ({ navigation }) => {
           />
         </View>
       )}
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"Developed by Hernan Hawryluk."}
+        height={90}
+      />
     </SafeAreaView>
   );
 };

@@ -4,8 +4,8 @@ import {
   View,
   TouchableOpacity,
   Platform,
-  Alert,
   StatusBar,
+  Alert,
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import Animated, { FadeIn, ZoomInDown } from "react-native-reanimated";
@@ -21,6 +21,9 @@ import useUploadStory from "../hooks/useUploadStory";
 import useResizePictures from "../hooks/useResizePictures";
 import FastImage from "react-native-fast-image";
 import { Video, ResizeMode } from "expo-av";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const NewReel = ({ navigation, route }) => {
   const { selectedImage } = route.params || {};
@@ -32,6 +35,7 @@ const NewReel = ({ navigation, route }) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
   const [videoUri, setVideoUri] = useState();
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -42,9 +46,8 @@ const NewReel = ({ navigation, route }) => {
   const handleSubmitButton = async () => {
     Alert.alert(
       "Upload not allowed",
-      "We apologize, but the upload is currently unavailable due to server storage limitations."
+      "We apologize, but the upload was deactivated due to server storage limitations."
     );
-    navigation.navigate("Main Screen");
   };
 
   return (
@@ -66,20 +69,40 @@ const NewReel = ({ navigation, route }) => {
             />
           </TouchableOpacity>
           <View style={styles.modButtonsContainer}>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <Feather name="volume-2" size={28} color={"#fff"} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <Text style={styles.modButtonText}>Aa</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <MaterialCommunityIcons
                 name="sticker-emoji"
                 size={27}
                 color={"#fff"}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <MaterialCommunityIcons
                 name="dots-horizontal"
                 size={27}
@@ -111,14 +134,20 @@ const NewReel = ({ navigation, route }) => {
         style={styles.bottomButtonsContainer}
         entering={FadeIn.duration(1000)}
       >
-        <TouchableOpacity style={styles.userContainer}>
+        <TouchableOpacity
+          onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+          style={styles.userContainer}
+        >
           <FastImage
             source={{ uri: currentUser.profile_picture }}
             style={styles.userImage}
           />
           <Text style={styles.userText}>Your story</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userContainer}>
+        <TouchableOpacity
+          onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+          style={styles.userContainer}
+        >
           <View style={styles.iconBorder}>
             <MaterialIcons name="stars" size={23} color={"#3b3"} />
           </View>
@@ -131,6 +160,11 @@ const NewReel = ({ navigation, route }) => {
           <Ionicons name="arrow-forward" size={30} color={"#000"} />
         </TouchableOpacity>
       </Animated.View>
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"This feature is not yet implemented."}
+        height={80}
+      />
     </View>
   );
 };
@@ -175,14 +209,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -5,
     width: "100%",
-    height: SIZES.Height * 0.825,
+    height: SIZES.Height * 0.925,
     resizeMode: "cover",
     borderRadius: 25,
     zIndex: -1,
   },
   video: {
     width: "100%",
-    height: SIZES.Height * 0.825,
+    height: SIZES.Height * 0.925,
     borderRadius: 25,
   },
   backButtonContainer: {

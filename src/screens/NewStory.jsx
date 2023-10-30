@@ -20,6 +20,9 @@ import { useUserContext } from "../contexts/UserContext";
 import useUploadStory from "../hooks/useUploadStory";
 import useResizePictures from "../hooks/useResizePictures";
 import FastImage from "react-native-fast-image";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const NewStory = ({ navigation, route }) => {
   const { selectedImage } = route.params || {};
@@ -27,6 +30,7 @@ const NewStory = ({ navigation, route }) => {
   const { resizeStoryPicture } = useResizePictures();
   const { currentUser } = useUserContext();
   const [opacity, setOpacity] = useState(0);
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -59,20 +63,40 @@ const NewStory = ({ navigation, route }) => {
             />
           </TouchableOpacity>
           <View style={styles.modButtonsContainer}>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <Feather name="volume-2" size={28} color={"#fff"} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <Text style={styles.modButtonText}>Aa</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <MaterialCommunityIcons
                 name="sticker-emoji"
                 size={27}
                 color={"#fff"}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modButtonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                handleFeatureNotImplemented(setMessageModalVisible)
+              }
+              style={styles.modButtonContainer}
+            >
               <MaterialCommunityIcons
                 name="dots-horizontal"
                 size={27}
@@ -92,14 +116,20 @@ const NewStory = ({ navigation, route }) => {
         style={styles.bottomButtonsContainer}
         entering={FadeIn.duration(1000)}
       >
-        <TouchableOpacity style={styles.userContainer}>
+        <TouchableOpacity
+          onPress={() => !isLoading && handleSubmitButton()}
+          style={styles.userContainer}
+        >
           <FastImage
             source={{ uri: currentUser.profile_picture }}
             style={styles.userImage}
           />
           <Text style={styles.userText}>Your story</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userContainer}>
+        <TouchableOpacity
+          onPress={() => !isLoading && handleSubmitButton()}
+          style={styles.userContainer}
+        >
           <View style={styles.iconBorder}>
             <MaterialIcons name="stars" size={23} color={"#3b3"} />
           </View>
@@ -116,6 +146,11 @@ const NewStory = ({ navigation, route }) => {
           )}
         </TouchableOpacity>
       </Animated.View>
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"This feature is not yet implemented."}
+        height={80}
+      />
     </View>
   );
 };
@@ -158,7 +193,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: SIZES.Width,
-    height: SIZES.Height * 0.825,
+    height: SIZES.Height * 0.925,
     borderRadius: 25,
   },
   backButtonContainer: {

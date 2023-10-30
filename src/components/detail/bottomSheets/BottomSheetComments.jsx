@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import BottomSheet, {
-  BottomSheetScrollView,
+  BottomSheetFlatList,
   BottomSheetFooter,
 } from "@gorhom/bottom-sheet";
 import Comments from "./Comments";
@@ -91,10 +91,11 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
                 },
               ]}
             >
-              <BottomSheetScrollView style={styles.commentsContainer}>
-                {post.comments.map((element, index) => (
+              <BottomSheetFlatList
+                data={post.comments.slice().reverse()}
+                renderItem={({ item, index }) => (
                   <Comments
-                    comment={element}
+                    comment={item}
                     key={index}
                     index={index}
                     postId={post.id}
@@ -102,8 +103,8 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
                     currentUser={currentUser}
                     comments={post.comments}
                   />
-                ))}
-              </BottomSheetScrollView>
+                )}
+              />
               {Platform.OS == "android" && (
                 <FooterTextInput post={post} currentUser={currentUser} />
               )}

@@ -15,13 +15,11 @@ const useProgressBarTimer = ({stories, navigation}) => {
         clearInterval(intervalId);
         if (currentStoryIndex < stories.length -1) {
           setCurrentStoryIndex(prevCurrentStoryIndex => prevCurrentStoryIndex + 1);
-    
           setProgressBar(0);
         } else {
           setTimeout(() => {
             navigation.goBack();
           }, 50)
-          
         }
       };
     
@@ -42,10 +40,10 @@ const useProgressBarTimer = ({stories, navigation}) => {
               nextStory();
               return 0;
             } else {
-              return lastProgressBar + 0.005;
+              return lastProgressBar + 0.01;
             }
           });
-        }, 25);
+        }, 100);
     
         setIntervalId(id);
       };

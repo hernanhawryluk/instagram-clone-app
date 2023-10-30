@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   divider: {
     height: 0.5,
     width: "100%",
-    backgroundColor: "#aaa",
+    backgroundColor: "#555",
   },
   redText: {
     color: "#f00",

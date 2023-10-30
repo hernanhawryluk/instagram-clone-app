@@ -62,7 +62,7 @@ const UserFollow = ({ navigation, route }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} disabled>
       <SafeAreaView style={styles.container}>
-        <TitleBar navigation={navigation} name={currentUser.username} />
+        <TitleBar navigation={navigation} name={user.username} />
         <View style={styles.rowContainer}>
           <TouchableOpacity>
             <Text

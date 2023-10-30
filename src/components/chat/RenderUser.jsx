@@ -4,7 +4,7 @@ import FastImage from "react-native-fast-image";
 import { Feather } from "@expo/vector-icons";
 import useHandleSeenMessage from "../../hooks/useHandleSeenMessage";
 
-const RenderUser = ({ navigation, user, currentUser }) => {
+const RenderUser = ({ navigation, user, currentUser, handleCamera }) => {
   const { handleSeenMessage } = useHandleSeenMessage();
 
   return (
@@ -44,7 +44,7 @@ const RenderUser = ({ navigation, user, currentUser }) => {
           </View>
         )}
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => handleCamera()}>
         <Feather name="camera" size={22} color={"#fff"} style={styles.icon} />
       </TouchableOpacity>
     </View>

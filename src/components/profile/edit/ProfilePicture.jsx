@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  Image,
+} from "react-native";
 import React, { useState, useMemo, useEffect } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
@@ -6,16 +13,18 @@ import { Foundation, Feather, Ionicons } from "@expo/vector-icons";
 import useImageGallery from "../../../hooks/useImageGallery";
 import CameraModule from "../../shared/CameraModule";
 import FastImage from "react-native-fast-image";
+import blankUserImage from "../../../../assets/images/blank-user.png";
 
 const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
-  const snapPoints = useMemo(() => [320], []);
+  const snapPoints = useMemo(() => [312], []);
   const [selectedImage, setSelectedImage] = useState(null);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const { ChooseImageFromGallery, unselectImage } = useImageGallery({
+  const { ChooseImageFromGallery } = useImageGallery({
     setSelectedImage,
   });
+  const blankUserImageUri = Image.resolveAssetSource(blankUserImage).uri;
 
   useEffect(() => {
     setPreviewImage(selectedImage);
@@ -38,7 +47,7 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
   };
 
   const handleRemovePicture = () => {
-    previewImage ? unselectImage() : unselectImage();
+    setPreviewImage(blankUserImageUri);
   };
 
   return (
@@ -66,14 +75,14 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
           style={styles.rowContainer}
         >
           <Foundation name="photo" size={29} color="#fff" />
-          <Text style={styles.text}> Choose from library</Text>
+          <Text style={styles.text}>Choose from library</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleCameraPicture()}
           style={styles.rowContainer}
         >
           <Feather name="camera" size={26} color="#fff" />
-          <Text style={styles.text}> Take Photo</Text>
+          <Text style={styles.text}>Take Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleRemovePicture()}
@@ -85,7 +94,7 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
             color="#f00"
             style={{ transform: [{ scaleX: 1.3 }] }}
           />
-          <Text style={styles.redText}> Remove current picture</Text>
+          <Text style={styles.redText}>Remove current picture</Text>
         </TouchableOpacity>
       </View>
       <Modal
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    marginVertical: 30,
+    marginVertical: 28,
     resizeMode: "cover",
     alignSelf: "center",
     height: 100,
@@ -130,16 +139,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginBottom: 18,
   },
   text: {
     color: "#fff",
     fontSize: 16,
-    marginLeft: 10,
+    marginLeft: 16,
   },
   redText: {
     color: "#f00",
-    fontSize: 16,
-    marginLeft: 10,
+    fontSize: 16.5,
+    marginLeft: 15,
   },
 });

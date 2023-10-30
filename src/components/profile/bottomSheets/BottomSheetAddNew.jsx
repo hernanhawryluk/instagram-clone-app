@@ -5,7 +5,7 @@ import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BottomSheetAddNew = ({ bottomSheetRef, navigation }) => {
-  const snapPoints = useMemo(() => [260], []);
+  const snapPoints = useMemo(() => [250], []);
 
   return (
     <BottomSheetModal
@@ -100,16 +100,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   divider: {
-    height: 0.3,
+    height: 0.7,
     width: "100%",
-    backgroundColor: "#777",
+    backgroundColor: "#444",
   },
   rowContainer: {
     marginHorizontal: 15,
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
-    marginVertical: 15,
+    height: 54,
   },
   text: {
     color: "#fff",

@@ -12,7 +12,7 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
     currentUser: currentUser,
     user: user,
   });
-  const snapPoints = useMemo(() => ["40%"], []);
+  const snapPoints = useMemo(() => [320], []);
   const [closeFriend, setCloseFriend] = useState(false);
   const [favorites, setFavorites] = useState(false);
   const [mute, setMute] = useState(false);
@@ -92,7 +92,7 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>{user.username}</Text>
-        <Divider />
+        <View style={styles.divider} />
         <TouchableOpacity onPress={() => handleCloseFriend()}>
           {closeFriend ? (
             <View style={styles.optionContainer}>
@@ -114,7 +114,7 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
             </View>
           )}
         </TouchableOpacity>
-        <Divider />
+        <View style={styles.divider} />
         <TouchableOpacity onPress={() => handleFavorites()}>
           {favorites ? (
             <View style={styles.optionContainer}>
@@ -128,7 +128,7 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
             </View>
           )}
         </TouchableOpacity>
-        <Divider />
+        <View style={styles.divider} />
 
         <TouchableOpacity onPress={() => handleMute()}>
           {mute ? (
@@ -143,7 +143,7 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
             </View>
           )}
         </TouchableOpacity>
-        <Divider />
+        <View style={styles.divider} />
         <TouchableOpacity
           onPress={() => {
             handleUnfollow();
@@ -173,26 +173,30 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 24,
+    marginTop: 20,
   },
   title: {
     color: "#fff",
     fontSize: 20,
     fontWeight: "700",
     alignSelf: "center",
-    marginBottom: 24,
+    marginBottom: 20,
+  },
+  divider: {
+    height: 0.6,
+    backgroundColor: "#444",
   },
   optionContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 20,
-    marginVertical: 18,
+    marginVertical: 15,
   },
   text: {
     color: "#fff",
-    fontSize: 18,
-    fontWeight: "500",
+    fontSize: 17,
+    fontWeight: "400",
     alignSelf: "center",
   },
 });

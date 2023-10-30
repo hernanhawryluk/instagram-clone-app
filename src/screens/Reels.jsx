@@ -8,7 +8,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { Video } from "expo-av";
 import { SIZES } from "../constants";
@@ -27,11 +27,15 @@ import useFetchReels from "../hooks/useFetchReels";
 import usePlayReels from "../hooks/usePlayReels";
 import firebase from "firebase/compat";
 import Skeleton from "../components/reels/Skeleton";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const Reels = ({ navigation }) => {
   const videoRefs = useRef([]);
   const flatListRef = useRef(null);
   const focusedScreen = useIsFocused();
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   const { currentUser } = useUserContext();
   const { videos } = useFetchReels();
@@ -118,7 +122,10 @@ const Reels = ({ navigation }) => {
             )}
             <Text style={styles.sideText}>{item.likes_by_users.length}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.touchableOpacity}>
+          <TouchableOpacity
+            onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+            style={styles.touchableOpacity}
+          >
             <MaterialCommunityIcons
               name="chat-outline"
               size={32}
@@ -126,7 +133,10 @@ const Reels = ({ navigation }) => {
               style={styles.chatIcon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.touchableOpacity}>
+          <TouchableOpacity
+            onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+            style={styles.touchableOpacity}
+          >
             <Text style={styles.sideText}>{item.comments.length}</Text>
             <Feather
               name="send"
@@ -135,7 +145,10 @@ const Reels = ({ navigation }) => {
               style={styles.sendIcon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.touchableOpacity}>
+          <TouchableOpacity
+            onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+            style={styles.touchableOpacity}
+          >
             <Text style={styles.sideText}>{item.shared}</Text>
             <Ionicons name="ellipsis-horizontal" size={26} color="#fff" />
           </TouchableOpacity>
@@ -191,7 +204,10 @@ const Reels = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity style={styles.titleContainer}>
+        <TouchableOpacity
+          onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
+          style={styles.titleContainer}
+        >
           <Text style={styles.titleText}>Reels</Text>
           <MaterialIcons name="keyboard-arrow-down" size={22} color="#fff" />
         </TouchableOpacity>
@@ -255,6 +271,11 @@ const Reels = ({ navigation }) => {
           <Skeleton />
         </View>
       )}
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"This feature is not yet implemented."}
+        height={20}
+      />
     </View>
   );
 };
@@ -285,7 +306,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 40 : StatusBar.currentHeight,
+    top: Platform.OS === "ios" ? 40 : StatusBar.currentHeight - 8,
     left: 0,
     right: 0,
     flexDirection: "row",

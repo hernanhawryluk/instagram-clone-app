@@ -20,6 +20,9 @@ import { SIZES } from "../constants";
 import useSlideOnKeyboard from "../utils/useSlideOnKeyboard";
 import useFetchContactList from "../hooks/useFetchContactList";
 import firebase from "firebase/compat";
+import MessageModal, {
+  handleFeatureNotImplemented,
+} from "../components/shared/modals/MessageModal";
 
 const Chat = ({ navigation }) => {
   const [searchKey, setSearchKey] = useState("");
@@ -37,6 +40,7 @@ const Chat = ({ navigation }) => {
   const [inputWidth, setInputWidth] = useState(SIZES.Width / 0.9);
   const [focusedBar, setFocusedBar] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   useEffect(() => {
     beginSearch();
@@ -66,6 +70,10 @@ const Chat = ({ navigation }) => {
     setSearching(false);
     Keyboard.dismiss();
     setInputWidth(SIZES.Width * 0.8);
+  };
+
+  const handleCamera = () => {
+    handleFeatureNotImplemented(setMessageModalVisible);
   };
 
   return (
@@ -137,6 +145,7 @@ const Chat = ({ navigation }) => {
                   navigation={navigation}
                   user={item}
                   currentUser={currentUser}
+                  handleCamera={handleCamera}
                 />
               )}
               initialNumToRender={20}
@@ -144,6 +153,10 @@ const Chat = ({ navigation }) => {
           </View>
         )}
       </View>
+      <MessageModal
+        messageModalVisible={messageModalVisible}
+        message={"This feature is not yet implemented."}
+      />
     </SafeAreaView>
   );
 };

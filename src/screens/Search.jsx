@@ -38,7 +38,7 @@ const Search = ({ navigation }) => {
 
   const { slideAnimation, forceSlideAnimation } = useSlideOnKeyboard(
     SIZES.Width * 0.75,
-    SIZES.Width * 0.9
+    SIZES.Width * 0.92
   );
 
   const handleFocus = () => {
@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: 26,
+    paddingTop: 23,
   },
   searchWrapper: {
-    marginLeft: SIZES.Width * 0.04,
+    marginLeft: SIZES.Width * 0.03,
     backgroundColor: "#252525",
-    height: 36,
+    height: 38,
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
