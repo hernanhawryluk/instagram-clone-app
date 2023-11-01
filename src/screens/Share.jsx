@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#333",
     borderRadius: 30,
-    height: 550,
+    height: 564,
     width: 290,
   },
   mainContainer: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 25,
     marginTop: 30,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   qrContainer: {
     borderRadius: 15,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   user: {
     color: "#000",
-    fontSize: 18,
+    fontSize: 14,
     transform: [{ scaleY: 1.6 }],
     fontWeight: "500",
   },
@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
     color: "#bbb",
     fontSize: 15,
     fontWeight: "500",
-    marginBottom: 15,
+    height: 80,
+    marginBottom: 10,
   },
   divider: {
     height: 0.5,

@@ -7,6 +7,14 @@ import useHandleSeenMessage from "../../hooks/useHandleSeenMessage";
 const RenderUser = ({ navigation, user, currentUser, handleCamera }) => {
   const { handleSeenMessage } = useHandleSeenMessage();
 
+  const handleLongName = (name) => {
+    if (name.length > 25) {
+      return `${name.substring(0, 23)}...`;
+    } else {
+      return name;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -24,22 +32,22 @@ const RenderUser = ({ navigation, user, currentUser, handleCamera }) => {
         />
         {user.status === "unseen" ? (
           <View style={styles.userContainer}>
-            <Text style={styles.username}>{user.name}</Text>
+            <Text style={styles.username}>{handleLongName(user.name)}</Text>
             <Text style={styles.statusBold}>New message</Text>
           </View>
         ) : user.status === "seen" ? (
           <View style={styles.userContainer}>
-            <Text style={styles.username}>{user.name}</Text>
+            <Text style={styles.username}>{handleLongName(user.name)}</Text>
             <Text style={styles.status}>{user.username}</Text>
           </View>
         ) : user.status === "added" ? (
           <View style={styles.userContainer}>
-            <Text style={styles.username}>{user.name}</Text>
+            <Text style={styles.username}>{handleLongName(user.name)}</Text>
             <Text style={styles.statusBold}>Just added</Text>
           </View>
         ) : (
           <View style={styles.userContainer}>
-            <Text style={styles.username}>{user.name}</Text>
+            <Text style={styles.username}>{handleLongName(user.name)}</Text>
             <Text style={styles.status}>{user.username}</Text>
           </View>
         )}

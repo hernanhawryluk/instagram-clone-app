@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   searchWrapper: {
     flex: 1,
     backgroundColor: "#333",
-    height: 36,
+    height: 44,
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     height: "100%",
     marginLeft: 5,
+    marginBottom: 5,
     fontSize: 17,
     flex: 1,
   },

@@ -11,7 +11,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
 import firebase from "firebase/compat";
-import { getTimeZone } from "react-native-localize";
+import { getLocales, getCalendars } from "expo-localization";
 
 const SignupForm = ({ navigation }) => {
   const [userOnFocus, setUserOnFocus] = useState(false);
@@ -23,8 +23,8 @@ const SignupForm = ({ navigation }) => {
   const [country, setCountry] = useState(null);
 
   useEffect(() => {
-    const timeZone = getTimeZone().split("/");
-    setCountry(timeZone[1]);
+    const locales = getLocales();
+    setCountry(locales[0].regionCode);
   }, []);
 
   const LoginFormSchema = Yup.object().shape({
@@ -45,7 +45,7 @@ const SignupForm = ({ navigation }) => {
     return data.results[0].picture.large;
   };
 
-  const onSignup = async (email, password, username) => {
+  const onSignup = async (email, username, password) => {
     try {
       const userCredentials = await firebase
         .auth()
@@ -91,7 +91,7 @@ const SignupForm = ({ navigation }) => {
       <Formik
         initialValues={{ email: "", username: "", password: "" }}
         onSubmit={(values) => {
-          onSignup(values.email, values.password, values.username);
+          onSignup(values.email, values.username, values.password);
         }}
         validationSchema={LoginFormSchema}
         validateOnMount={true}
@@ -113,7 +113,8 @@ const SignupForm = ({ navigation }) => {
               <TextInput
                 style={styles.inputText}
                 placeholderTextColor={"#bbb"}
-                placeholder="Phone number, username or email"
+                placeholder="Email"
+                keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
                 textContentType="emailAddress"

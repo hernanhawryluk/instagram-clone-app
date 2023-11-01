@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   chatIcon: {
-    fontSize: 30,
+    fontSize: 29,
   },
   writingContainer: {
     flexDirection: "row",
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   profilePicture: {
     height: 43,
     width: 43,
-    borderRadius: 50,
+    borderRadius: 100,
   },
   inputWrapper: {
     width: 295,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   textInput: {
-    fontSize: 17,
+    fontSize: 16,
     flex: 1,
     fontWeight: "400",
     color: "#fff",

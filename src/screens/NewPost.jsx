@@ -150,13 +150,13 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: "#fff",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: 16,
   },
   nextButton: {
     color: "#08f",
-    fontWeight: "600",
-    fontSize: 17,
+    fontWeight: "800",
+    fontSize: 16,
   },
   nullButton: {
     color: "#000",

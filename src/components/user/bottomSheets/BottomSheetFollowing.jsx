@@ -12,7 +12,7 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
     currentUser: currentUser,
     user: user,
   });
-  const snapPoints = useMemo(() => [320], []);
+  const snapPoints = useMemo(() => [298], []);
   const [closeFriend, setCloseFriend] = useState(false);
   const [favorites, setFavorites] = useState(false);
   const [mute, setMute] = useState(false);
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     alignSelf: "center",
-    marginBottom: 20,
+    height: 46,
   },
   divider: {
     height: 0.6,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 20,
-    marginVertical: 15,
+    height: 53,
   },
   text: {
     color: "#fff",

@@ -86,7 +86,7 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
                 styles.iosVsAndroidContainer,
                 {
                   minHeight: keyboardVisible
-                    ? SIZES.Height * 0.53
+                    ? SIZES.Height * 0.55
                     : SIZES.Height * 0.9,
                 },
               ]}

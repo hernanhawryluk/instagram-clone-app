@@ -5,7 +5,7 @@ import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BottomSheetAddNew = ({ bottomSheetRef, navigation }) => {
-  const snapPoints = useMemo(() => [250], []);
+  const snapPoints = useMemo(() => [254], []);
 
   return (
     <BottomSheetModal
@@ -115,5 +115,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "500",
+    marginBottom: 4,
   },
 });

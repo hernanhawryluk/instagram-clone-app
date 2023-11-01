@@ -20,9 +20,20 @@ const RenderItem = ({
   bottomSheetRefOptions,
   setBottomSheetIndex,
   sharedIndex,
+  setLayoutHeight,
 }) => {
+  const findHeight = (layout) => {
+    let { x, y, width, height } = layout;
+    setLayoutHeight(height);
+  };
+
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      onLayout={(event) => {
+        findHeight(event.nativeEvent.layout);
+      }}
+    >
       <Header
         navigation={navigation}
         post={post}

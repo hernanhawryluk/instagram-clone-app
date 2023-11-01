@@ -5,6 +5,7 @@ import FastImage from "react-native-fast-image";
 import { LinearGradient } from "expo-linear-gradient";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import Unfollow from "../follow/Unfollow";
+import { SIZES } from "../../constants";
 
 const Follow = ({ user, currentUser }) => {
   const { checkStoriesSeen } = useCheckStoriesSeen();
@@ -38,9 +39,13 @@ const Follow = ({ user, currentUser }) => {
         )}
         <View style={styles.userContainer}>
           <View style={styles.rowContainer}>
-            <Text style={styles.username}>{user.username}</Text>
+            <Text numberOfLines={1} style={styles.username}>
+              {user.username}
+            </Text>
           </View>
-          <Text style={styles.name}>{user.name}</Text>
+          <Text numberOfLines={1} style={styles.name}>
+            {user.name}
+          </Text>
         </View>
       </View>
 
@@ -116,6 +121,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
+    width: SIZES.Width * 0.5,
   },
   name: {
     marginTop: 3,
@@ -123,13 +129,15 @@ const styles = StyleSheet.create({
     color: "#999",
     fontSize: 13,
     fontWeight: "400",
+    width: SIZES.Width * 0.5,
+    marginBottom: 4,
   },
   button: {
     backgroundColor: "#333",
     justifyContent: "center",
     alignItems: "center",
-    height: 30,
-    width: 90,
+    height: 34,
+    width: 94,
     borderRadius: 10,
   },
   blueButton: {
@@ -144,5 +152,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 13,
+    marginBottom: 4,
   },
 });

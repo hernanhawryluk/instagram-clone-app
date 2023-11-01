@@ -85,9 +85,11 @@ const LoginForm = ({ navigation }) => {
               <TextInput
                 style={styles.inputText}
                 placeholderTextColor={"#bbb"}
-                placeholder="Phone number, username or email"
+                placeholder="Email"
                 autoCapitalize="none"
                 autoCorrect={false}
+                inputMode="email"
+                keyboardType="email-address"
                 textContentType="emailAddress"
                 onChangeText={handleChange("email")}
                 onBlur={() => {

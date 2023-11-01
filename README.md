@@ -20,6 +20,10 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 - React Native.
 - Firebase (autenticación y almacenamiento en la nube).
 
+## Descargar la aplicación para dispositivos Android
+
+- Próximamente
+
 ## Instalación
 
 1. Clona el repositorio en tu máquina local.

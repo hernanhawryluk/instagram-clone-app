@@ -45,6 +45,7 @@ export default DefaultPosts;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 15,
     backgroundColor: "#000",
     alignItems: "center",
   },

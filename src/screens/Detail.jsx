@@ -26,6 +26,7 @@ const Detail = ({ navigation, route }) => {
   );
 
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
+  const [layoutHeight, setLayoutHeight] = useState(0);
   const bottomSheetRefOptions = useRef(null);
   const bottomSheetRefComments = useRef(null);
   const bottomSheetRefComment = useRef(null);
@@ -99,7 +100,7 @@ const Detail = ({ navigation, route }) => {
         <TitleBar navigation={navigation} name="Detail" activity={false} />
         <FlatList
           data={posts}
-          snapToInterval={670}
+          snapToInterval={layoutHeight - 10}
           snapToAlignment={"start"}
           decelerationRate={"fast"}
           renderItem={({ item, index }) => (
@@ -112,6 +113,7 @@ const Detail = ({ navigation, route }) => {
               bottomSheetRefOptions={bottomSheetRefOptions}
               setBottomSheetIndex={setBottomSheetIndex}
               sharedIndex={index}
+              setLayoutHeight={setLayoutHeight}
             />
           )}
           ListFooterComponent={() => <View style={{ height: 100 }} />}

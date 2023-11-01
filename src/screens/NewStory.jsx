@@ -6,6 +6,7 @@ import {
   Platform,
   ActivityIndicator,
   StatusBar,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Animated, { FadeIn, ZoomInDown } from "react-native-reanimated";
@@ -106,11 +107,15 @@ const NewStory = ({ navigation, route }) => {
           </View>
         </Animated.View>
 
-        <Animated.Image
-          source={{ uri: selectedImage.uri }}
-          style={styles.image}
-          sharedTransitionTag={selectedImage.id.toString()}
-        />
+        {Platform.OS === "ios" ? (
+          <Animated.Image
+            source={{ uri: selectedImage.uri }}
+            style={styles.image}
+            sharedTransitionTag={selectedImage.id.toString()}
+          />
+        ) : (
+          <Image source={{ uri: selectedImage.uri }} style={styles.image} />
+        )}
       </View>
       <Animated.View
         style={styles.bottomButtonsContainer}
@@ -189,7 +194,9 @@ const styles = StyleSheet.create({
   modButtonText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 20,
+    fontSize: 18,
+    marginBottom: 8,
+    transform: [{ scaleY: 1.1 }],
   },
   image: {
     width: SIZES.Width,
@@ -238,6 +245,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     fontSize: 12,
+    marginBottom: 4,
   },
   nextButtonContainer: {
     backgroundColor: "#fff",

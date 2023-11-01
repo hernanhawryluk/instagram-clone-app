@@ -159,8 +159,10 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     color: "#fff",
-    fontSize: 24,
-    fontWeight: "700",
+    fontSize: 20,
+    fontWeight: "800",
+    marginBottom: 4,
+    transform: [{ scaleY: 1.1 }],
   },
   subtitle: {
     color: "#fff",

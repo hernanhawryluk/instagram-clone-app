@@ -5,6 +5,7 @@ import useHandleFollow from "../../hooks/useHandleFollow";
 import { LinearGradient } from "expo-linear-gradient";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import Unfollow from "../follow/Unfollow";
+import { SIZES } from "../../constants";
 
 const LikedBy = ({ navigation, user, currentUser }) => {
   const { checkStoriesSeen } = useCheckStoriesSeen();
@@ -51,8 +52,12 @@ const LikedBy = ({ navigation, user, currentUser }) => {
           />
         )}
         <View style={styles.userContainer}>
-          <Text style={styles.username}>{user.username}</Text>
-          <Text style={styles.name}>{user.name}</Text>
+          <Text numberOfLines={1} style={styles.username}>
+            {user.username}
+          </Text>
+          <Text numberOfLines={1} style={styles.name}>
+            {user.name}
+          </Text>
         </View>
       </TouchableOpacity>
       {currentUser.email === user.email ? null : currentUser.following.includes(
@@ -130,6 +135,8 @@ const styles = StyleSheet.create({
   name: {
     color: "#fff",
     fontSize: 16,
+    width: SIZES.Width * 0.35,
+    marginBottom: 4,
   },
   buttonBlue: {
     backgroundColor: "#18f",
@@ -144,12 +151,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 38,
-    width: 100,
+    width: 110,
     borderRadius: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "700",
     fontSize: 16,
+    marginBottom: 4,
   },
 });

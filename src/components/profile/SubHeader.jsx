@@ -4,6 +4,7 @@ import FastImage from "react-native-fast-image";
 import { useStoriesContext } from "../../contexts/StoriesContext";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
+import { Entypo } from "@expo/vector-icons";
 
 const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
   const { stories, updatedStories } = useStoriesContext();
@@ -47,7 +48,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
                   style={styles.userImageWithoutStory}
                 />
                 <View style={styles.plusBadgeContainer}>
-                  <Text style={styles.plusBadge}>+</Text>
+                  <Entypo name="plus" size={18} color="#eee" />
                 </View>
               </View>
             ) : seenOwnStory ? (
@@ -166,12 +167,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
   },
-  plusBadge: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-    paddingBottom: 2,
-  },
   userImage: {
     height: 86,
     width: 86,
@@ -213,7 +208,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 20,
     marginRight: 12,
-    gap: 24,
+    gap: 18,
   },
   socialColumn: {
     alignItems: "center",

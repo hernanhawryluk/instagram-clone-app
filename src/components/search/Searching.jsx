@@ -79,14 +79,14 @@ export default Searching;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 25,
+    paddingTop: 10,
   },
   divider: {
     height: 0.7,
     width: "100%",
-    backgroundColor: "#333",
-    marginTop: 10,
-    marginBottom: 20,
+    backgroundColor: "#252525",
+    marginTop: 50,
+    marginBottom: 10,
   },
   rowContainer: {
     flexDirection: "row",
@@ -95,19 +95,20 @@ const styles = StyleSheet.create({
   },
   userContainer: {
     marginHorizontal: 15,
-    marginBottom: 20,
+    marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
     minWidth: "75%",
+    height: 50,
   },
   image: {
-    width: 44,
-    height: 44,
+    width: 46,
+    height: 46,
     borderRadius: 100,
   },
   columnContainer: {
-    marginLeft: 20,
-    gap: 5,
+    marginLeft: 15,
+    gap: 2,
   },
   user: {
     color: "#fff",
@@ -117,6 +118,7 @@ const styles = StyleSheet.create({
   name: {
     color: "#aaa",
     fontSize: 12,
+    paddingBottom: 4,
   },
   closeIcon: {
     marginRight: 15,

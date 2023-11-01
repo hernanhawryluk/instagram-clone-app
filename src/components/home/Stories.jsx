@@ -11,6 +11,7 @@ import FastImage from "react-native-fast-image";
 import StoriesSkeleton from "./skeletons/StoriesSkeleton";
 import { useStoriesContext } from "../../contexts/StoriesContext";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
+import { Entypo } from "@expo/vector-icons";
 
 const Stories = ({ navigation, currentUser }) => {
   const { stories, updatedStories } = useStoriesContext();
@@ -77,7 +78,7 @@ const Stories = ({ navigation, currentUser }) => {
                     />
                   </View>
                   <View style={styles.addBtn}>
-                    <Text style={styles.addBtnText}>+</Text>
+                    <Entypo name="plus" size={18} color="#eee" />
                   </View>
 
                   <Text style={styles.seenUser}>Your story</Text>
@@ -131,21 +132,19 @@ const Stories = ({ navigation, currentUser }) => {
                   }
                 >
                   {checkStoriesSeen(story.username, currentUser.email) ? (
-                    <View>
+                    <View style={styles.itemContainer}>
                       <View style={styles.seenStoryBorder}>
                         <FastImage
                           source={{ uri: story.profile_picture }}
                           style={styles.image}
                         />
                       </View>
-                      <Text style={styles.seenUser}>
-                        {story.username.length > 13
-                          ? story.username.slice(0, 10) + "..."
-                          : story.username}
+                      <Text numberOfLines={1} style={styles.seenUser}>
+                        {story.username}
                       </Text>
                     </View>
                   ) : (
-                    <View>
+                    <View style={styles.itemContainer}>
                       <LinearGradient
                         start={[0.9, 0.45]}
                         end={[0.07, 1.03]}
@@ -157,10 +156,8 @@ const Stories = ({ navigation, currentUser }) => {
                           style={styles.image}
                         />
                       </LinearGradient>
-                      <Text style={styles.user}>
-                        {story.username.length > 13
-                          ? story.username.slice(0, 10) + "..."
-                          : story.username}
+                      <Text numberOfLines={1} style={styles.user}>
+                        {story.username}
                       </Text>
                     </View>
                   )}
@@ -183,31 +180,35 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 2,
-    marginLeft: 6,
-    marginRight: 8,
+    marginTop: 10,
+    marginLeft: 12,
+  },
+  itemContainer: {
+    width: 94,
+    alignItems: "center",
   },
   image: {
-    height: 83,
-    width: 83,
+    height: 86,
+    width: 86,
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#000",
   },
   user: {
-    marginTop: 10,
+    marginTop: 2,
     fontSize: 12,
     color: "#fff",
     textAlign: "center",
   },
   seenUser: {
-    marginTop: 10,
+    marginTop: 4,
     fontSize: 12,
     color: "#bbb",
     textAlign: "center",
   },
   seenStoryBorder: {
-    padding: 1,
+    height: 91.5,
+    width: 91.5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
@@ -215,7 +216,8 @@ const styles = StyleSheet.create({
     borderColor: "#666",
   },
   unseenRainbowBorder: {
-    padding: 3,
+    height: 91.5,
+    width: 91.5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
@@ -233,11 +235,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 54,
     top: 54,
-  },
-  addBtnText: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#DDD",
-    paddingBottom: 2,
   },
 });

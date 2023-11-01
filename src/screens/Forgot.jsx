@@ -44,6 +44,7 @@ const Forgot = ({ navigation }) => {
               placeholder="Email"
               autoCapitalize="none"
               autoCorrect={false}
+              keyboardType="email-address"
               textContentType="emailAddress"
               onChangeText={(text) => setValue(text)}
               value={value}

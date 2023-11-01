@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   chatIcon: {
-    fontSize: 30,
+    fontSize: 29,
   },
   writingContainer: {
     flexDirection: "row",

@@ -3,6 +3,7 @@ import React from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import useHandleRequests from "../../hooks/useHandleRequests";
 import FastImage from "react-native-fast-image";
+import { SIZES } from "../../constants";
 
 const Requests = ({ user }) => {
   const { currentUser } = useUserContext();
@@ -16,8 +17,12 @@ const Requests = ({ user }) => {
           style={styles.image}
         />
         <View style={styles.userContainer}>
-          <Text style={styles.username}>{user.username}</Text>
-          <Text style={styles.name}>{user.name}</Text>
+          <Text numberOfLines={1} style={styles.username}>
+            {user.username}
+          </Text>
+          <Text numberOfLines={1} style={styles.name}>
+            {user.name}
+          </Text>
         </View>
       </View>
 
@@ -65,12 +70,15 @@ const styles = StyleSheet.create({
   username: {
     color: "#fff",
     fontWeight: "700",
+    width: SIZES.Width * 0.4,
     fontSize: 14,
   },
   name: {
     color: "#999",
     fontSize: 14,
     fontWeight: "400",
+    width: SIZES.Width * 0.4,
+    marginBottom: 4,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -80,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
     justifyContent: "center",
     alignItems: "center",
-    height: 30,
+    height: 36,
     width: 70,
     borderRadius: 10,
   },
@@ -88,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#07f",
     justifyContent: "center",
     alignItems: "center",
-    height: 30,
+    height: 36,
     width: 70,
     borderRadius: 10,
   },
@@ -96,10 +104,12 @@ const styles = StyleSheet.create({
     color: "#08f",
     fontWeight: "700",
     fontSize: 14,
+    marginBottom: 4,
   },
   removeText: {
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
+    marginBottom: 4,
   },
 });

@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
     marginLeft: 9,
+    marginBottom: 4,
   },
   rowContainer: {
     flexDirection: "row",
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "#333",
     borderRadius: 10,
-    paddingVertical: 7,
+    height: 36,
     paddingHorizontal: 12,
     marginRight: 15,
     justifyContent: "center",
@@ -145,6 +146,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     fontSize: 13,
+    marginBottom: 2,
   },
   headerDots: {
     marginRight: 6,

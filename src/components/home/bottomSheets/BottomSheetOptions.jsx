@@ -231,11 +231,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "500",
     fontSize: 16,
+    marginBottom: 4,
   },
   optionRedText: {
     color: "#f00",
     fontWeight: "500",
     fontSize: 16,
+    marginBottom: 4,
   },
   unfollowIcon: {
     transform: [{ scaleX: -1 }],

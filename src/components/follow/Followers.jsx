@@ -5,6 +5,7 @@ import RemoveFollower from "./RemoveFollower";
 import FastImage from "react-native-fast-image";
 import { LinearGradient } from "expo-linear-gradient";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
+import { SIZES } from "../../constants";
 
 const Followers = ({ user, currentUser }) => {
   const { checkStoriesSeen } = useCheckStoriesSeen();
@@ -39,23 +40,19 @@ const Followers = ({ user, currentUser }) => {
         <View style={styles.userContainer}>
           <View style={styles.rowContainer}>
             {currentUser.following.includes(user.email) ? (
-              <Text style={styles.username}>{user.username}</Text>
+              <Text numberOfLines={1} style={styles.username}>
+                {user.username}
+              </Text>
             ) : currentUser.following_request.includes(user.email) ? (
-              <Text style={styles.username}>
-                {user.username.length > 13
-                  ? user.username.slice(0, 10) + "..."
-                  : user.username}
-                {" • "}
+              <Text numberOfLines={1} style={styles.username}>
+                {user.username + " • "}
                 <TouchableOpacity onPress={() => handleFollow(user.email)}>
                   <Text style={styles.removeText}> Requested</Text>
                 </TouchableOpacity>
               </Text>
             ) : (
-              <Text style={styles.username}>
-                {user.username.length > 13
-                  ? user.username.slice(0, 10) + "..."
-                  : user.username}
-                {" • "}
+              <Text numberOfLines={1} style={styles.username}>
+                {user.username + " • "}
                 <TouchableOpacity onPress={() => handleFollow(user.email)}>
                   <Text style={styles.buttonText}> Follow</Text>
                 </TouchableOpacity>
@@ -102,7 +99,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 100,
-    borderWidth: 4,
+    borderWidth: 3,
     borderColor: "#000",
   },
   nonRainbowImage: {
@@ -120,6 +117,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
+    width: SIZES.Width * 0.5,
   },
   name: {
     marginTop: 3,
@@ -127,23 +125,27 @@ const styles = StyleSheet.create({
     color: "#999",
     fontSize: 13,
     fontWeight: "400",
+    width: SIZES.Width * 0.5,
+    marginBottom: 4,
   },
   button: {
     backgroundColor: "#333",
     justifyContent: "center",
     alignItems: "center",
-    height: 30,
-    width: 80,
+    height: 36,
+    width: 90,
     borderRadius: 10,
   },
   buttonText: {
     color: "#08f",
     fontWeight: "700",
     fontSize: 13,
+    marginBottom: 4,
   },
   removeText: {
     color: "#fff",
     fontWeight: "700",
     fontSize: 13,
+    marginBottom: 4,
   },
 });

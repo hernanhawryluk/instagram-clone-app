@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
-import Animated, { FadeIn, ZoomInDown } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut, ZoomInDown } from "react-native-reanimated";
 import { SIZES } from "../constants";
 import {
   MaterialIcons,
@@ -34,8 +34,8 @@ const NewReel = ({ navigation, route }) => {
   const [opacity, setOpacity] = useState(0);
   const video = useRef(null);
   const [status, setStatus] = useState({});
-  const [videoUri, setVideoUri] = useState();
   const [messageModalVisible, setMessageModalVisible] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -48,6 +48,15 @@ const NewReel = ({ navigation, route }) => {
       "Upload not allowed",
       "We apologize, but the upload was deactivated due to server storage limitations."
     );
+  };
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      video.current.pauseAsync();
+    } else {
+      video.current.playAsync();
+    }
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -112,23 +121,42 @@ const NewReel = ({ navigation, route }) => {
           </View>
         </Animated.View>
 
-        <Animated.Image
-          source={{ uri: selectedImage.uri }}
-          style={styles.image}
-          sharedTransitionTag={selectedImage.id.toString()}
-        />
+        {Platform.OS === "ios" ? (
+          <Animated.Image
+            source={{ uri: selectedImage.uri }}
+            style={styles.image}
+            sharedTransitionTag={selectedImage.id.toString()}
+          />
+        ) : (
+          <Animated.Image
+            source={{ uri: selectedImage.uri }}
+            style={styles.image}
+          />
+        )}
         <Video
           ref={video}
           style={styles.video}
           source={{
-            uri: selectedImage.localUri,
+            uri: selectedImage.uri,
           }}
-          useNativeControls
           resizeMode={ResizeMode.COVER}
           isLooping
           isMuted={false}
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
         />
+        <TouchableOpacity
+          onPress={handlePlayPause}
+          style={styles.playButtonContainer}
+        >
+          {!isPlaying && (
+            <Animated.View
+              entering={FadeIn.duration(1000)}
+              exiting={FadeOut.duration(1000)}
+            >
+              <Ionicons name="ios-play" size={50} color="white" />
+            </Animated.View>
+          )}
+        </TouchableOpacity>
       </View>
       <Animated.View
         style={styles.bottomButtonsContainer}
@@ -178,7 +206,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topButtonsContainer: {
-    zIndex: 1,
+    zIndex: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     position: "relative",
@@ -203,7 +231,9 @@ const styles = StyleSheet.create({
   modButtonText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 20,
+    fontSize: 18,
+    marginBottom: 8,
+    transform: [{ scaleY: 1.1 }],
   },
   image: {
     position: "absolute",
@@ -261,6 +291,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     fontSize: 12,
+    marginBottom: 4,
   },
   nextButtonContainer: {
     backgroundColor: "#fff",
@@ -280,56 +311,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 100,
   },
+  playButtonContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    height: "100%",
+    zIndex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
-
-// import * as React from "react";
-// import { View, StyleSheet, Button, TouchableOpacity, Text } from "react-native";
-// import { Video, ResizeMode } from "expo-av";
-
-// const NewReel = ({ navigation, route }) => {
-//   const { selectedImage } = route.params || {};
-
-//   const video = React.useRef(null);
-//   const [status, setStatus] = React.useState({});
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity onPress={() => navigation.goBack()}>
-//         <Text style={{ color: "#fff", marginTop: 50 }}>CANCEL</Text>
-//       </TouchableOpacity>
-//       <Video
-//         ref={video}
-//         style={styles.video}
-//         source={{
-//           uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-//         }}
-//         // useNativeControls
-//         resizeMode={ResizeMode.CONTAIN}
-//         isLooping
-//         isMuted={false}
-//         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-//       />
-//       <View style={styles.buttons}>
-//         <Button
-//           title={status.isPlaying ? "Pause" : "Play"}
-//           onPress={() =>
-//             status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-//           }
-//         />
-//       </View>
-//     </View>
-//   );
-// };
-
-// export default NewReel;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#000",
-//   },
-//   video: {
-//     height: 300,
-//     width: 300,
-//   },
-// });

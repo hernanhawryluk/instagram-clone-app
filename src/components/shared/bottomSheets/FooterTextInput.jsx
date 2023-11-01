@@ -123,12 +123,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#232325",
   },
   iconContainer: {
+    gap: 1,
+    marginLeft: -4,
     marginVertical: 15,
     flexDirection: "row",
     justifyContent: "space-between",
   },
   chatIcon: {
-    fontSize: 30,
+    fontSize: 29,
   },
   writingContainer: {
     flexDirection: "row",
@@ -151,9 +153,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     paddingVertical: 8,
+    marginBottom: 8,
   },
   textInput: {
-    fontSize: 17,
+    fontSize: 16,
     flex: 1,
     fontWeight: "400",
     color: "#fff",

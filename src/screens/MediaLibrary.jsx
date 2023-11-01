@@ -85,11 +85,15 @@ const MediaLibrary = ({ navigation, route }) => {
             }
           >
             <View style={styles.videoContainer}>
-              <Animated.Image
-                source={{ uri: item.uri }}
-                style={styles.image}
-                sharedTransitionTag={item.id.toString()}
-              />
+              {Platform.OS === "ios" ? (
+                <Animated.Image
+                  source={{ uri: item.uri }}
+                  style={styles.image}
+                  sharedTransitionTag={item.id.toString()}
+                />
+              ) : (
+                <Image source={{ uri: item.uri }} style={styles.image} />
+              )}
             </View>
           </TouchableOpacity>
         ) : (
@@ -100,11 +104,18 @@ const MediaLibrary = ({ navigation, route }) => {
             }
           >
             <View style={styles.videoContainer}>
-              <Animated.Image
-                source={{ uri: item.uri }}
-                style={styles.image}
-                sharedTransitionTag={item.id.toString()}
-              />
+              {Platform.OS === "ios" ? (
+                <Animated.Image
+                  source={{ uri: item.uri }}
+                  style={styles.image}
+                  sharedTransitionTag={item.id.toString()}
+                />
+              ) : (
+                <Animated.Image
+                  source={{ uri: item.uri }}
+                  style={styles.image}
+                />
+              )}
             </View>
           </TouchableOpacity>
         )}
@@ -272,13 +283,15 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: "#fff",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: 16,
+    marginBottom: 2,
   },
   nextButton: {
     color: "#08f",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: 17,
+    marginBottom: 2,
   },
   nullButton: {
     color: "#000",
@@ -311,10 +324,11 @@ const styles = StyleSheet.create({
   albunButtonText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "800",
   },
   albunButtonIcon: {
-    paddingTop: 1,
+    paddingTop: 6,
+    marginLeft: 2,
   },
   cameraButtonContainer: {
     justifyContent: "center",
@@ -358,6 +372,7 @@ const styles = StyleSheet.create({
   },
   selectorButton: {
     fontSize: 15,
-    fontWeight: "500",
+    fontWeight: "600",
+    marginBottom: 4,
   },
 });

@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     marginHorizontal: 16,
-    marginVertical: 15,
+    height: 53,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

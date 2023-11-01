@@ -49,7 +49,7 @@ const Chating = ({ navigation, route }) => {
               onPress={() => navigation.goBack()}
               style={styles.rowContainer}
             >
-              <MaterialIcons name="arrow-back-ios" size={23} color={"#fff"} />
+              <MaterialIcons name="arrow-back-ios" size={28} color={"#fff"} />
               <FastImage
                 source={{ uri: user.profile_picture }}
                 style={styles.profilePicture}
@@ -65,7 +65,7 @@ const Chating = ({ navigation, route }) => {
                   handleFeatureNotImplemented(setMessageModalVisible)
                 }
               >
-                <Feather name="phone" size={23} color={"#fff"} />
+                <Feather name="phone" size={25} color={"#fff"} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
@@ -74,7 +74,7 @@ const Chating = ({ navigation, route }) => {
               >
                 <Feather
                   name="video"
-                  size={23}
+                  size={25}
                   color={"#fff"}
                   style={{ transform: [{ scaleY: 1.15 }] }}
                 />
@@ -140,7 +140,7 @@ const Chating = ({ navigation, route }) => {
               />
             </View>
             {loading ? (
-              <ActivityIndicator style={{ marginRight: 10 }} />
+              <ActivityIndicator style={{ marginRight: 14 }} />
             ) : textMessage.length > 0 ? (
               <TouchableOpacity
                 onPress={() => {
@@ -151,20 +151,22 @@ const Chating = ({ navigation, route }) => {
                 <Text style={styles.sendText}>Send</Text>
               </TouchableOpacity>
             ) : (
-              <View style={[styles.rowContainer, { gap: 8, marginRight: 14 }]}>
+              <View style={styles.rowContainer}>
                 <TouchableOpacity
                   onPress={() =>
                     handleFeatureNotImplemented(setMessageModalVisible)
                   }
+                  style={{ marginRight: 6 }}
                 >
-                  <Ionicons name="image-outline" size={23} color={"#fff"} />
+                  <Ionicons name="image-outline" size={25} color={"#fff"} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
                     handleFeatureNotImplemented(setMessageModalVisible)
                   }
+                  style={{ marginRight: 12 }}
                 >
-                  <Feather name="mic" size={20} color={"#fff"} />
+                  <Feather name="mic" size={22} color={"#fff"} />
                 </TouchableOpacity>
               </View>
             )}
@@ -197,8 +199,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profilePicture: {
-    height: 40,
-    width: 40,
+    height: 44,
+    width: 44,
     borderRadius: 100,
     borderWidth: 4,
     borderColor: "#000",
@@ -212,13 +214,14 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     color: "#fff",
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "700",
   },
   subtitle: {
     color: "#bbb",
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "300",
+    marginBottom: 6,
   },
   searchWrapper: {
     marginTop: 10,
@@ -226,7 +229,7 @@ const styles = StyleSheet.create({
     marginLeft: SIZES.Width * 0.04,
     marginRight: SIZES.Width * 0.04,
     backgroundColor: "#252525",
-    minHeight: 40,
+    minHeight: 46,
     borderRadius: 50,
     flexDirection: "row",
     alignItems: "center",
@@ -236,13 +239,15 @@ const styles = StyleSheet.create({
   searchInput: {
     color: "#fff",
     height: "100%",
+    fontSize: 17,
+    marginBottom: 4,
     marginLeft: 10,
     width: SIZES.Width * 0.65,
   },
   cameraWrapper: {
-    marginLeft: 3,
-    height: 29,
-    width: 29,
+    marginLeft: 8,
+    height: 34,
+    width: 34,
     borderRadius: 100,
     backgroundColor: "#07f",
     alignItems: "center",

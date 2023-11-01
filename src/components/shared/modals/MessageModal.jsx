@@ -56,8 +56,9 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   modalText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
     color: "#fff",
+    marginBottom: 4,
   },
 });

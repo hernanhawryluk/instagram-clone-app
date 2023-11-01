@@ -83,7 +83,7 @@ const Chat = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.rowContainer}
         >
-          <MaterialIcons name="arrow-back-ios" size={23} color={"#fff"} />
+          <MaterialIcons name="arrow-back-ios" size={26} color={"#fff"} />
           <Text style={styles.textTitle}>{currentUser.username}</Text>
         </TouchableOpacity>
       </View>
@@ -181,14 +181,16 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     color: "#fff",
-    fontSize: 21,
-    fontWeight: "700",
+    fontSize: 22,
+    fontWeight: "800",
+    marginBottom: 6,
+    transform: [{ scaleY: 1.1 }],
   },
   subtitle: {
     color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-    marginTop: 10,
+    fontSize: 17,
+    fontWeight: "800",
+    marginTop: 14,
     marginLeft: 15,
   },
   searchBar: {
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: SIZES.Width * 0.04,
     backgroundColor: "#252525",
-    height: 36,
+    height: 42,
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -210,13 +212,15 @@ const styles = StyleSheet.create({
   searchInput: {
     color: "#fff",
     height: "100%",
+    fontSize: 16,
+    marginBottom: 3,
     flex: 1,
     marginLeft: 5,
   },
   cancelBtn: {
     color: "#fff",
     fontWeight: "500",
-    fontSize: 16,
+    fontSize: 15,
     marginLeft: 15,
   },
   result: {

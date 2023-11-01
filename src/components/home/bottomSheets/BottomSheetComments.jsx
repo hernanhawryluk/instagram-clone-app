@@ -56,7 +56,7 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
       ref={bottomSheetRef}
       index={0}
       snapPoints={Platform.OS == "ios" ? ["68", "94%"] : ["99%"]}
-      topInset={Platform.OS == "android" ? SIZES.Height * 0.05 : 0}
+      topInset={Platform.OS == "android" ? SIZES.Height * 0.06 : 0}
       footerComponent={Platform.OS == "ios" && RenderFooter}
       backgroundStyle={{ borderRadius: 25, backgroundColor: "#232325" }}
       keyboardBehavior="extend"
@@ -83,7 +83,7 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
                 styles.iosVsAndroidContainer,
                 {
                   height: keyboardVisible
-                    ? SIZES.Height * 0.53
+                    ? SIZES.Height * 0.55
                     : SIZES.Height * 0.9,
                 },
               ]}

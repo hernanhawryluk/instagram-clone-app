@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
   usernameText: {
     color: "#fff",
     fontSize: 14.5,
-    fontWeight: "500",
+    fontWeight: "700",
     marginTop: 10,
   },
   bioText: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 14.5,
     fontWeight: "400",
     marginTop: 4,
   },
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 20,
     marginRight: 12,
-    gap: 24,
+    gap: 20,
   },
   socialColumn: {
     alignItems: "center",
@@ -162,12 +162,12 @@ const styles = StyleSheet.create({
   socialBoldText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 17,
   },
   socialText: {
     color: "#fff",
-    fontWeight: "400",
-    fontSize: 14,
+    fontWeight: "500",
+    fontSize: 15,
   },
   btnContainers: {
     marginTop: 24,
