@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useState } from "react";
 import Unfollow from "./Unfollow";
 import FastImage from "react-native-fast-image";
@@ -6,7 +13,7 @@ import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
 import { SIZES } from "../../constants";
 
-const Following = ({ user, currentUser }) => {
+const Following = ({ user, currentUser, navigation }) => {
   const { checkStoriesSeen } = useCheckStoriesSeen();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -14,42 +21,50 @@ const Following = ({ user, currentUser }) => {
     setModalVisible(!modalVisible);
   };
 
+  const handleViewProfile = () => {
+    navigation.navigate("UserDetail", {
+      email: user.email,
+    });
+  };
+
   return (
     <View style={styles.container}>
-      {checkStoriesSeen(user.username, currentUser.email) ? (
-        <View style={styles.rowContainer}>
-          <LinearGradient
-            start={[0.9, 0.45]}
-            end={[0.07, 1.03]}
-            colors={["#ff00ff", "#ff4400", "#ffff00"]}
-            style={styles.rainbowBorder}
-          >
+      <TouchableWithoutFeedback onPress={() => handleViewProfile()}>
+        {checkStoriesSeen(user.username, currentUser.email) ? (
+          <View style={styles.rowContainer}>
+            <LinearGradient
+              start={[0.9, 0.45]}
+              end={[0.07, 1.03]}
+              colors={["#ff00ff", "#ff4400", "#ffff00"]}
+              style={styles.rainbowBorder}
+            >
+              <FastImage
+                source={{ uri: user.profile_picture }}
+                style={styles.image}
+              />
+            </LinearGradient>
+            <View style={styles.userContainer}>
+              <Text numberOfLines={1} style={styles.username}>
+                {user.username}
+              </Text>
+              <Text numberOfLines={1} style={styles.name}>
+                {user.name}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.rowContainer}>
             <FastImage
               source={{ uri: user.profile_picture }}
-              style={styles.image}
+              style={styles.nonRainbowImage}
             />
-          </LinearGradient>
-          <View style={styles.userContainer}>
-            <Text numberOfLines={1} style={styles.username}>
-              {user.username}
-            </Text>
-            <Text numberOfLines={1} style={styles.name}>
-              {user.name}
-            </Text>
+            <View style={styles.userContainer}>
+              <Text style={styles.username}>{user.username}</Text>
+              <Text style={styles.name}>{user.name}</Text>
+            </View>
           </View>
-        </View>
-      ) : (
-        <View style={styles.rowContainer}>
-          <FastImage
-            source={{ uri: user.profile_picture }}
-            style={styles.nonRainbowImage}
-          />
-          <View style={styles.userContainer}>
-            <Text style={styles.username}>{user.username}</Text>
-            <Text style={styles.name}>{user.name}</Text>
-          </View>
-        </View>
-      )}
+        )}
+      </TouchableWithoutFeedback>
 
       <TouchableOpacity onPress={() => handleModal()}>
         <View style={styles.button}>

@@ -39,6 +39,7 @@ export default PostsSkeleton;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 14,
     marginHorizontal: 8,
     opacity: 0.3,
   },

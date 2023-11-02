@@ -1,17 +1,23 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import BottomSheetFollowing from "./bottomSheets/BottomSheetFollowing";
 import useHandleFollow from "../../hooks/useHandleFollow";
 import FastImage from "react-native-fast-image";
 import useChatAddUser from "../../hooks/useChatAddUser";
+import { useStoriesContext } from "../../contexts/StoriesContext";
+import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SubHeader = ({ user, navigation, numberOfPosts }) => {
   const { currentUser } = useUserContext();
+  const { stories, updatedStories } = useStoriesContext();
   const { handleFollow } = useHandleFollow();
   const { chatAddUser } = useChatAddUser();
   const bottomSheetRefFollowing = useRef(null);
+
+  const { checkStoriesSeen } = useCheckStoriesSeen();
 
   const handleFollowingModal = () => {
     bottomSheetRefFollowing.current.present();
@@ -21,12 +27,37 @@ const SubHeader = ({ user, navigation, numberOfPosts }) => {
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <View style={styles.userContainer}>
-          <TouchableOpacity>
-            <FastImage
-              source={{ uri: user.profile_picture }}
-              style={styles.userImage}
-            />
-          </TouchableOpacity>
+          {checkStoriesSeen(user.username, currentUser.email) ? (
+            <TouchableOpacity>
+              <FastImage
+                source={{ uri: user.profile_picture }}
+                style={styles.userImage}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Story", {
+                  stories: stories.filter(
+                    (eachStory) => user.username === eachStory.username
+                  ),
+                  currentUser: currentUser,
+                });
+              }}
+            >
+              <LinearGradient
+                start={[0.9, 0.45]}
+                end={[0.07, 1.03]}
+                colors={["#ff00ff", "#ff4400", "#ffff00"]}
+                style={styles.unseenRainbowBorder}
+              >
+                <FastImage
+                  source={{ uri: user.profile_picture }}
+                  style={styles.userImageWithRainbow}
+                />
+              </LinearGradient>
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.socialContainer}>
@@ -133,8 +164,24 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   userImage: {
-    height: 84,
-    width: 84,
+    height: 93,
+    width: 93,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: "#777",
+  },
+  userImageWithRainbow: {
+    height: 93,
+    width: 93,
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: "#000",
+  },
+  unseenRainbowBorder: {
+    height: 99,
+    width: 99,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 100,
   },
   usernameText: {
@@ -153,10 +200,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingBottom: 20,
-    marginRight: 12,
+    marginRight: 8,
     gap: 20,
   },
   socialColumn: {
+    minWidth: 60,
     alignItems: "center",
   },
   socialBoldText: {

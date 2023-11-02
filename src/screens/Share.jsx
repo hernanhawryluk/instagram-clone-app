@@ -20,13 +20,15 @@ const Share = ({ navigation, route }) => {
               value={"http://instagram.com/" + user.username}
               backgroundColor={"transparent"}
               logoSize={55}
-              logo={require("../../assets/images/instagram_logo.png")} // or logo={{uri: base64logo}}
+              logo={require("../../assets/images/instagram_logo.png")}
               logoMargin={3}
               logoBorderRadius={15}
               logoBackgroundColor={"#fff"}
             />
           </View>
-          <Text style={styles.user}>{"@" + user.username.toUpperCase()}</Text>
+          <Text numberOfLines={1} style={styles.user}>
+            {"@" + user.username.toUpperCase()}
+          </Text>
         </View>
         <Text style={styles.infoText}>
           People can scan this QR code with their smartphone's camera to see
@@ -107,6 +109,7 @@ const styles = StyleSheet.create({
   infoText: {
     paddingHorizontal: 15,
     textAlign: "center",
+    textAlignVertical: "center",
     color: "#bbb",
     fontSize: 15,
     fontWeight: "500",

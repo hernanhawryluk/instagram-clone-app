@@ -69,7 +69,7 @@ export default StoryHightlights;
 const styles = StyleSheet.create({
   title: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "700",
     marginHorizontal: 20,
     marginTop: 20,

@@ -30,6 +30,7 @@ const Signup = ({ navigation }) => {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <View style={styles.mainContainer}>
+            <View style={{ height: 56 }} />
             <View>
               <Animated.View style={styles.logoContainer}>
                 <FastImage
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
     marginTop: -SIZES.Width * 0.15,
   },
   goBackIcon: {
-    margin: 20,
+    marginTop: 20,
+    marginLeft: 5,
   },
   logoContainer: {
     alignItems: "center",

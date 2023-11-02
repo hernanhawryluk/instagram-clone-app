@@ -50,53 +50,46 @@ const Bio = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialIcons name="arrow-back-ios" size={24} color={"#fff"} />
-          </TouchableOpacity>
-          <Text style={styles.textTitle}>Bio</Text>
-          {loader ? (
-            <ActivityIndicator />
-          ) : (
-            <TouchableOpacity
-              onPress={() => isValid && handleSubmitBio(values)}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back-ios" size={24} color={"#fff"} />
+        </TouchableOpacity>
+        <Text style={styles.textTitle}>Bio</Text>
+        {loader ? (
+          <ActivityIndicator />
+        ) : (
+          <TouchableOpacity onPress={() => isValid && handleSubmitBio(values)}>
+            <Text
+              style={[styles.doneBtn, { color: isValid ? "#09f" : "#333" }]}
             >
-              <Text
-                style={[styles.doneBtn, { color: isValid ? "#09f" : "#333" }]}
-              >
-                Done
-              </Text>
-            </TouchableOpacity>
-          )}
+              Done
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      <Divider width={0.5} color="#222" />
+      <View style={styles.inputContainer}>
+        <View style={styles.rowContainer}>
+          <TextInput
+            value={values}
+            onFocus={() => setCounter(150 - values.length)}
+            onChangeText={(text) => setValues(text)}
+            autoCapitalize="none"
+            autoCorrect={true}
+            style={styles.textInput}
+            maxLength={255}
+            multiline
+            autoFocus
+          />
         </View>
-        <Divider width={0.5} color="#222" />
-        <View style={styles.inputContainer}>
-          <View style={styles.rowContainer}>
-            <TextInput
-              value={values}
-              onFocus={() => setCounter(150 - values.length)}
-              onChangeText={(text) => setValues(text)}
-              autoCapitalize="none"
-              autoCorrect={true}
-              style={styles.textInput}
-              maxLength={255}
-              multiline
-              autoFocus
-            />
-          </View>
-        </View>
-        <Divider width={0.5} color="#222" />
+      </View>
+      <Divider width={0.5} color="#222" />
 
-        <View style={styles.counterContainer}>
-          <Text style={[styles.counter, counter < 0 && { color: "#f00" }]}>
-            {counter}
-          </Text>
-        </View>
-      </KeyboardAvoidingView>
+      <View style={styles.counterContainer}>
+        <Text style={[styles.counter, counter < 0 && { color: "#f00" }]}>
+          {counter}
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -114,12 +107,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 14,
-    marginVertical: 10,
+    height: 50,
   },
   textTitle: {
     color: "#fff",
     fontSize: 17,
     fontWeight: "700",
+    marginBottom: 4,
   },
   doneBtn: {
     fontSize: 17,

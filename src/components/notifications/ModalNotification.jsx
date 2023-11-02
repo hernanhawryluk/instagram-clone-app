@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     right: 61,
-    top: 62,
+    top: 66,
     borderRadius: 4,
     transform: [{ rotate: "45deg" }],
   },

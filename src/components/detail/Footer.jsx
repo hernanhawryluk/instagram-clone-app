@@ -39,12 +39,14 @@ const Footer = ({
               name="cards-heart"
               size={27}
               color={"#f00"}
+              style={styles.heartIcon}
             />
           ) : (
             <MaterialCommunityIcons
               name="cards-heart-outline"
               size={27}
               color={"#fff"}
+              style={styles.heartIcon}
             />
           )}
         </TouchableOpacity>
@@ -53,7 +55,7 @@ const Footer = ({
             name="chat-outline"
             size={27}
             color={"#fff"}
-            style={styles.headerChatIcon}
+            style={styles.chatIcon}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleSharePost()}>
@@ -61,7 +63,7 @@ const Footer = ({
             name="send"
             size={24}
             color={"#fff"}
-            style={styles.headerSendIcon}
+            style={styles.sendIcon}
           />
         </TouchableOpacity>
       </View>
@@ -71,14 +73,14 @@ const Footer = ({
             name="bookmark"
             size={24}
             color={"#fff"}
-            style={styles.headerDots}
+            style={styles.bookmarkIcon}
           />
         ) : (
           <Feather
             name="bookmark"
             size={24}
             color={"#fff"}
-            styles={styles.headerDots}
+            style={styles.bookmarkIcon}
           />
         )}
       </TouchableOpacity>
@@ -100,12 +102,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 13,
   },
-  headerSendIcon: {
-    transform: [{ rotate: "20deg" }],
+  heartIcon: {
+    transform: [{ scaleX: 1.05 }, { scaleY: 1.05 }],
+  },
+  sendIcon: {
+    transform: [{ rotate: "20deg" }, { scaleX: 0.95 }, { scaleY: 1.05 }],
     marginTop: -2,
   },
-  headerChatIcon: {
-    transform: [{ scaleX: -1 }],
+  chatIcon: {
+    transform: [{ scaleX: -1 }, { scaleY: 1.15 }],
+  },
+  bookmarkIcon: {
+    transform: [{ scaleX: 1.15 }, { scaleY: 1.1 }],
   },
   headerIcons: {
     marginRight: 15,

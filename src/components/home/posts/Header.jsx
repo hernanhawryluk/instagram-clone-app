@@ -49,7 +49,7 @@ const Header = ({ navigation, post, currentUser }) => {
             >
               <FastImage
                 source={{ uri: post.profile_picture }}
-                style={styles.headerImage}
+                style={styles.headerImageWithRainbow}
               />
             </LinearGradient>
           )}
@@ -112,12 +112,20 @@ const styles = StyleSheet.create({
     width: 37,
     resizeMode: "cover",
     borderRadius: 100,
+    borderWidth: 0.6,
+    borderColor: "#444",
+  },
+  headerImageWithRainbow: {
+    height: 36.5,
+    width: 36.5,
+    resizeMode: "cover",
+    borderRadius: 100,
     borderWidth: 2,
     borderColor: "#000",
   },
   rainbowBorder: {
-    height: 41,
-    width: 41,
+    height: 39,
+    width: 39,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "#333",
     borderRadius: 10,
-    height: 36,
+    height: 35,
     paddingHorizontal: 12,
     marginRight: 15,
     justifyContent: "center",
@@ -149,6 +157,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   headerDots: {
+    transform: [{ scaleX: 1.1 }],
     marginRight: 6,
   },
 });

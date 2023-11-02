@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
 import firebase from "firebase/compat";
-import { getLocales, getCalendars } from "expo-localization";
+import { getLocales } from "expo-localization";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 
 const SignupForm = ({ navigation }) => {
   const [userOnFocus, setUserOnFocus] = useState(false);
@@ -21,10 +22,18 @@ const SignupForm = ({ navigation }) => {
   const [obsecureText, setObsecureText] = useState(true);
   const [passwordToValidate, SetPasswordToValidate] = useState(false);
   const [country, setCountry] = useState(null);
+  const [developerMessage, setDeveloperMessage] = useState(false);
 
   useEffect(() => {
     const locales = getLocales();
     setCountry(locales[0].regionCode);
+
+    setTimeout(() => {
+      setDeveloperMessage(true);
+    }, 2000);
+    setTimeout(() => {
+      setDeveloperMessage(false);
+    }, 12000);
   }, []);
 
   const LoginFormSchema = Yup.object().shape({
@@ -223,6 +232,20 @@ const SignupForm = ({ navigation }) => {
                 <Text style={styles.btnText}>Sign up</Text>
               </View>
             </TouchableOpacity>
+            <View style={{ height: 56 }}>
+              {developerMessage && (
+                <Animated.View
+                  style={styles.modalContainer}
+                  entering={FadeInDown.duration(1000)}
+                  exiting={FadeOutDown.duration(1000)}
+                >
+                  <Ionicons name={"logo-react"} size={24} color="#fff" />
+                  <Text style={styles.modalText}>
+                    Developed by Hernan Hawryluk
+                  </Text>
+                </Animated.View>
+              )}
+            </View>
           </View>
         )}
       </Formik>
@@ -282,5 +305,29 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "800",
+  },
+  modalContainer: {
+    marginTop: 14,
+    marginHorizontal: 20,
+    backgroundColor: "#333",
+    flexDirection: "row",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 7,
+      height: 7,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderRadius: 10,
+    height: 56,
+    paddingHorizontal: 20,
+    gap: 12,
+  },
+  modalText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#fff",
+    marginBottom: 4,
   },
 });

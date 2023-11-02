@@ -112,12 +112,14 @@ const Reels = ({ navigation }) => {
                 name="cards-heart"
                 size={30}
                 color="#e33"
+                style={styles.heartIcon}
               />
             ) : (
               <MaterialCommunityIcons
                 name="cards-heart-outline"
                 size={30}
                 color="#fff"
+                style={styles.heartIcon}
               />
             )}
             <Text style={styles.sideText}>{item.likes_by_users.length}</Text>
@@ -132,12 +134,12 @@ const Reels = ({ navigation }) => {
               color="#fff"
               style={styles.chatIcon}
             />
+            <Text style={styles.sideText}>{item.comments.length}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
             style={styles.touchableOpacity}
           >
-            <Text style={styles.sideText}>{item.comments.length}</Text>
             <Feather
               name="send"
               size={26}
@@ -209,7 +211,12 @@ const Reels = ({ navigation }) => {
           style={styles.titleContainer}
         >
           <Text style={styles.titleText}>Reels</Text>
-          <MaterialIcons name="keyboard-arrow-down" size={22} color="#fff" />
+          <MaterialIcons
+            name="keyboard-arrow-down"
+            size={22}
+            color="#fff"
+            style={{ marginTop: 6 }}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -218,7 +225,12 @@ const Reels = ({ navigation }) => {
             });
           }}
         >
-          <Ionicons name="camera-outline" size={32} color="#fff" />
+          <Ionicons
+            name="camera-outline"
+            size={32}
+            color="#fff"
+            style={{ marginTop: 6 }}
+          />
         </TouchableOpacity>
       </View>
 
@@ -333,11 +345,12 @@ const styles = StyleSheet.create({
     marginRight: 15,
     justifyContent: "center",
     alignItems: "center",
-    paddingBottom: 12,
-    gap: 7,
+    paddingBottom: 26,
+    gap: 10,
   },
   touchableOpacity: {
     alignItems: "center",
+    gap: 3,
   },
   sideText: {
     color: "#fff",
@@ -345,11 +358,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 26,
   },
+  heartIcon: {
+    transform: [{ scaleY: 1.2 }, { scaleX: 1.2 }],
+  },
   chatIcon: {
-    transform: [{ scaleX: -1 }],
+    transform: [{ scaleX: -1 }, { scaleY: 1.2 }, { scaleX: 1.2 }],
   },
   sendIcon: {
-    transform: [{ rotate: "20deg" }],
+    transform: [{ rotate: "20deg" }, { scaleY: 1.2 }, { scaleX: 1.2 }],
   },
   userContainer: {
     position: "absolute",
@@ -368,7 +384,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   rainbowBorder: {
-    padding: 1,
+    height: 40.5,
+    width: 40.5,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -385,6 +402,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 14,
     marginLeft: 3,
+    marginBottom: 4,
   },
   followContainer: {
     borderWidth: 0.7,
@@ -403,8 +421,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "400",
     fontSize: 14,
-    marginVertical: 10,
+    marginTop: 4,
     maxWidth: SIZES.Width * 0.8,
+    marginBottom: 14,
   },
   progressBar: {
     position: "absolute",

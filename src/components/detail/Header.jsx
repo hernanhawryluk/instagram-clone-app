@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
     marginLeft: 9,
+    marginBottom: 4,
   },
   headerDots: {
     marginRight: 6,

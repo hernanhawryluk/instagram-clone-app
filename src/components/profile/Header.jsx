@@ -19,7 +19,7 @@ const Header = ({ currentUser, navigation }) => {
         <Text style={styles.username}>{currentUser.username}</Text>
         <MaterialIcons
           name="keyboard-arrow-down"
-          size={22}
+          size={24}
           color={"#fff"}
           style={styles.arrowIcon}
         />
@@ -58,7 +58,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 2,
+    marginTop: 8,
     marginLeft: 20,
     marginRight: 15,
     flexDirection: "row",
@@ -71,16 +71,17 @@ const styles = StyleSheet.create({
   },
   username: {
     color: "#fff",
-    fontSize: 26,
-    fontWeight: "700",
+    fontSize: 22,
+    fontWeight: "800",
+    transform: [{ scaleY: 1.05 }],
   },
   arrowIcon: {
-    paddingTop: 2,
+    paddingTop: 6,
   },
   IconsContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 14,
-    marginTop: 5,
+    marginTop: 8,
   },
 });

@@ -142,7 +142,11 @@ const Follow = ({ navigation }) => {
             data={onSearch ? filteredFollowers : followers}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
-              <Followers user={item} currentUser={currentUser} />
+              <Followers
+                user={item}
+                currentUser={currentUser}
+                navigation={navigation}
+              />
             )}
           />
 
@@ -157,7 +161,11 @@ const Follow = ({ navigation }) => {
             data={onSearch ? filteredFollowing : following}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
-              <Following user={item} currentUser={currentUser} />
+              <Following
+                user={item}
+                currentUser={currentUser}
+                navigation={navigation}
+              />
             )}
           />
 
@@ -173,7 +181,11 @@ const Follow = ({ navigation }) => {
             data={requests}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
-              <Requests user={item} currentUser={currentUser} />
+              <Requests
+                user={item}
+                currentUser={currentUser}
+                navigation={navigation}
+              />
             )}
           />
         </Animated.View>

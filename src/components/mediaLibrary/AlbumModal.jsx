@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import React from "react";
 import { Divider } from "react-native-elements";
@@ -34,32 +35,36 @@ const AlbumModal = ({
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View>
-              {item.title === "WhatsApp" && (
+              {item.image !== undefined && (
                 <View>
-                  <Text style={styles.subtitle}>MY ALBUMS</Text>
-                </View>
-              )}
-              {item.title === "Videos" && (
-                <View>
-                  <Text style={styles.subtitle}>MEDIA TYPES</Text>
-                </View>
-              )}
+                  {item.title === "WhatsApp" && (
+                    <View>
+                      <Text style={styles.subtitle}>MY ALBUMS</Text>
+                    </View>
+                  )}
+                  {item.title === "Videos" && (
+                    <View>
+                      <Text style={styles.subtitle}>MEDIA TYPES</Text>
+                    </View>
+                  )}
 
-              <TouchableOpacity
-                onPress={() => handleAlbumSelection(item)}
-                style={styles.rowContainer}
-              >
-                <View>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={styles.albumImage}
-                  />
+                  <TouchableOpacity
+                    onPress={() => handleAlbumSelection(item)}
+                    style={styles.rowContainer}
+                  >
+                    <View>
+                      <Image
+                        source={{ uri: item.image }}
+                        style={styles.albumImage}
+                      />
+                    </View>
+                    <View>
+                      <Text style={styles.albumName}>{item.title}</Text>
+                      <Text style={styles.albumCount}>{item.assetCount}</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-                <View>
-                  <Text style={styles.albumName}>{item.title}</Text>
-                  <Text style={styles.albumCount}>{item.assetCount}</Text>
-                </View>
-              </TouchableOpacity>
+              )}
             </View>
           )}
         />
@@ -72,7 +77,7 @@ export default AlbumModal;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
+    paddingTop: Platform.OS === "ios" ? 50 : 0,
     backgroundColor: "#000",
     flex: 1,
   },
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
   cancelButton: {
     color: "#fff",
     fontWeight: "400",
-    fontSize: 17,
+    fontSize: 15,
   },
   headerText: {
     color: "#fff",

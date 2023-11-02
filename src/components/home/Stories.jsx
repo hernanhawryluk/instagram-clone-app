@@ -90,7 +90,7 @@ const Stories = ({ navigation, currentUser }) => {
                       source={{
                         uri: currentUser.profile_picture,
                       }}
-                      style={styles.image}
+                      style={styles.imageWithStory}
                     />
                   </View>
 
@@ -108,7 +108,7 @@ const Stories = ({ navigation, currentUser }) => {
                       source={{
                         uri: currentUser.profile_picture,
                       }}
-                      style={styles.image}
+                      style={styles.imageWithStory}
                     />
                   </LinearGradient>
 
@@ -136,7 +136,7 @@ const Stories = ({ navigation, currentUser }) => {
                       <View style={styles.seenStoryBorder}>
                         <FastImage
                           source={{ uri: story.profile_picture }}
-                          style={styles.image}
+                          style={styles.imageWithStory}
                         />
                       </View>
                       <Text numberOfLines={1} style={styles.seenUser}>
@@ -153,7 +153,7 @@ const Stories = ({ navigation, currentUser }) => {
                       >
                         <FastImage
                           source={{ uri: story.profile_picture }}
-                          style={styles.image}
+                          style={styles.imageWithStory}
                         />
                       </LinearGradient>
                       <Text numberOfLines={1} style={styles.user}>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 11,
     marginLeft: 12,
   },
   itemContainer: {
@@ -188,14 +188,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    height: 86,
-    width: 86,
+    height: 83,
+    width: 83,
     borderRadius: 100,
-    borderWidth: 2,
-    borderColor: "#000",
+    borderWidth: 1,
+    borderColor: "#444",
+    marginBottom: 7,
   },
   user: {
-    marginTop: 2,
+    marginTop: 3,
     fontSize: 12,
     color: "#fff",
     textAlign: "center",
@@ -205,6 +206,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#bbb",
     textAlign: "center",
+  },
+  imageWithStory: {
+    height: 86,
+    width: 86,
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: "#000",
   },
   seenStoryBorder: {
     height: 91.5,

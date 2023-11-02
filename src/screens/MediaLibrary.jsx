@@ -8,6 +8,7 @@ import {
   Modal,
   Platform,
   StatusBar,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SIZES } from "../constants";
@@ -126,7 +127,10 @@ const MediaLibrary = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ width: 50 }}
+        >
           <MaterialIcons
             name="close"
             size={32}
@@ -135,16 +139,25 @@ const MediaLibrary = ({ navigation, route }) => {
           />
         </TouchableOpacity>
         <Text style={styles.headerText}>{selectedType}</Text>
-        {selectedType === "New post" ? (
-          <TouchableOpacity onPress={() => handleNextButton()}>
-            <Text style={styles.nextButton}>Next</Text>
-          </TouchableOpacity>
+        {selectedImage !== blankPhotoUri ? (
+          <View style={{ width: 50 }}>
+            {selectedType === "New post" ? (
+              <TouchableOpacity onPress={() => handleNextButton()}>
+                <Text style={styles.nextButton}>Next</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() =>
+                  handleFeatureNotImplemented(setMessageModalVisible)
+                }
+                style={{ alignItems: "flex-end", marginRight: 4 }}
+              >
+                <MaterialIcons name="settings" size={24} color={"#fff"} />
+              </TouchableOpacity>
+            )}
+          </View>
         ) : (
-          <TouchableOpacity
-            onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
-          >
-            <MaterialIcons name="settings" size={24} color={"#fff"} />
-          </TouchableOpacity>
+          <ActivityIndicator />
         )}
       </View>
       <View style={styles.mediaContainer}>
@@ -170,7 +183,7 @@ const MediaLibrary = ({ navigation, route }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setCameraModalVisible(true)}>
             <View style={styles.cameraButtonContainer}>
-              <Feather name="camera" size={16} color={"#fff"} />
+              <Feather name="camera" size={17} color={"#fff"} />
             </View>
           </TouchableOpacity>
         </View>
@@ -278,25 +291,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     height: 45,
   },
-  iconCorrection: {
-    marginLeft: -10,
-  },
   headerText: {
     color: "#fff",
     fontWeight: "800",
-    fontSize: 16,
+    fontSize: 17,
     marginBottom: 2,
   },
   nextButton: {
     color: "#08f",
     fontWeight: "800",
-    fontSize: 17,
+    fontSize: 16,
     marginBottom: 2,
-  },
-  nullButton: {
-    color: "#000",
-    fontWeight: "700",
-    fontSize: 20,
   },
   mediaContainer: {
     flex: 1,
@@ -316,7 +321,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 15,
-    height: 48,
+    height: 46,
   },
   albunButtonContainer: {
     flexDirection: "row",
@@ -327,7 +332,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   albunButtonIcon: {
-    paddingTop: 6,
+    paddingTop: 3,
     marginLeft: 2,
   },
   cameraButtonContainer: {

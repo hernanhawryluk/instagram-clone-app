@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   Keyboard,
 } from "react-native";
-import React, { useState } from "react";
-import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import firebase from "firebase/compat";
 import MessageModal from "../shared/modals/MessageModal";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 
 const LoginForm = ({ navigation }) => {
   const [obsecureText, setObsecureText] = useState(true);
@@ -20,6 +21,16 @@ const LoginForm = ({ navigation }) => {
   const [passwordToValidate, SetPasswordToValidate] = useState(false);
   const [messageModalVisible, setMessageModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [developerMessage, setDeveloperMessage] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDeveloperMessage(true);
+    }, 2000);
+    setTimeout(() => {
+      setDeveloperMessage(false);
+    }, 12000);
+  }, []);
 
   const handleDataError = (message) => {
     setErrorMessage(message);
@@ -157,9 +168,24 @@ const LoginForm = ({ navigation }) => {
                 <Text style={styles.btnText}>Log in</Text>
               </View>
             </TouchableOpacity>
+            <View style={{ height: 56 }}>
+              {developerMessage && (
+                <Animated.View
+                  style={styles.modalContainer}
+                  entering={FadeInDown.duration(1000)}
+                  exiting={FadeOutDown.duration(1000)}
+                >
+                  <Ionicons name={"logo-react"} size={24} color="#fff" />
+                  <Text style={styles.modalText}>
+                    Developed by Hernan Hawryluk
+                  </Text>
+                </Animated.View>
+              )}
+            </View>
           </View>
         )}
       </Formik>
+
       <MessageModal
         messageModalVisible={messageModalVisible}
         message={errorMessage}
@@ -224,5 +250,29 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "800",
+  },
+  modalContainer: {
+    marginTop: 14,
+    marginHorizontal: 20,
+    backgroundColor: "#333",
+    flexDirection: "row",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 7,
+      height: 7,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderRadius: 10,
+    height: 56,
+    paddingHorizontal: 20,
+    gap: 12,
+  },
+  modalText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#fff",
+    marginBottom: 4,
   },
 });

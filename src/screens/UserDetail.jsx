@@ -43,7 +43,7 @@ const User = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons name="arrow-back-ios" size={22} color={"#fff"} />
+          <MaterialIcons name="arrow-back-ios" size={24} color={"#fff"} />
         </TouchableOpacity>
         <Text style={styles.textTitle}>{user.username}</Text>
         {user.username ? (
@@ -52,8 +52,9 @@ const User = ({ route, navigation }) => {
           >
             <MaterialCommunityIcons
               name="dots-horizontal"
-              size={22}
+              size={24}
               color={"#fff"}
+              style={{ marginTop: 2 }}
             />
           </TouchableOpacity>
         ) : (
@@ -96,5 +97,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 17,
     fontWeight: "700",
+    // marginBottom: 4,
   },
 });

@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useState } from "react";
 import useHandleFollow from "../../hooks/useHandleFollow";
 import RemoveFollower from "./RemoveFollower";
@@ -7,7 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { SIZES } from "../../constants";
 
-const Followers = ({ user, currentUser }) => {
+const Followers = ({ user, currentUser, navigation }) => {
   const { checkStoriesSeen } = useCheckStoriesSeen();
   const { handleFollow } = useHandleFollow({ user });
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,52 +23,66 @@ const Followers = ({ user, currentUser }) => {
     setModalVisible(!modalVisible);
   };
 
+  const handleViewProfile = () => {
+    navigation.navigate("UserDetail", {
+      email: user.email,
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.rowContainer}>
-        {checkStoriesSeen(user.username, currentUser.email) ? (
-          <LinearGradient
-            start={[0.9, 0.45]}
-            end={[0.07, 1.03]}
-            colors={["#ff00ff", "#ff4400", "#ffff00"]}
-            style={styles.rainbowBorder}
-          >
+      <TouchableWithoutFeedback onPress={() => handleViewProfile()}>
+        <View style={styles.rowContainer}>
+          {checkStoriesSeen(user.username, currentUser.email) ? (
+            <LinearGradient
+              start={[0.9, 0.45]}
+              end={[0.07, 1.03]}
+              colors={["#ff00ff", "#ff4400", "#ffff00"]}
+              style={styles.rainbowBorder}
+            >
+              <FastImage
+                source={{ uri: user.profile_picture }}
+                style={styles.image}
+              />
+            </LinearGradient>
+          ) : (
             <FastImage
               source={{ uri: user.profile_picture }}
-              style={styles.image}
+              style={styles.nonRainbowImage}
             />
-          </LinearGradient>
-        ) : (
-          <FastImage
-            source={{ uri: user.profile_picture }}
-            style={styles.nonRainbowImage}
-          />
-        )}
-        <View style={styles.userContainer}>
-          <View style={styles.rowContainer}>
-            {currentUser.following.includes(user.email) ? (
-              <Text numberOfLines={1} style={styles.username}>
-                {user.username}
-              </Text>
-            ) : currentUser.following_request.includes(user.email) ? (
-              <Text numberOfLines={1} style={styles.username}>
-                {user.username + " • "}
-                <TouchableOpacity onPress={() => handleFollow(user.email)}>
-                  <Text style={styles.removeText}> Requested</Text>
-                </TouchableOpacity>
-              </Text>
-            ) : (
-              <Text numberOfLines={1} style={styles.username}>
-                {user.username + " • "}
-                <TouchableOpacity onPress={() => handleFollow(user.email)}>
-                  <Text style={styles.buttonText}> Follow</Text>
-                </TouchableOpacity>
-              </Text>
-            )}
+          )}
+
+          <View style={styles.userContainer}>
+            <View style={styles.rowContainer}>
+              {currentUser.following.includes(user.email) ? (
+                <Text numberOfLines={1} style={styles.username}>
+                  {user.username}
+                </Text>
+              ) : currentUser.following_request.includes(user.email) ? (
+                <View style={{ flexDirection: "row" }}>
+                  <Text numberOfLines={1} style={styles.username}>
+                    {user.username}
+                  </Text>
+                  <TouchableOpacity onPress={() => handleFollow(user.email)}>
+                    <Text style={styles.buttonTextRequested}> • Requested</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={{ flexDirection: "row" }}>
+                  <Text numberOfLines={1} style={styles.username}>
+                    {user.username}
+                  </Text>
+                  <TouchableOpacity onPress={() => handleFollow(user.email)}>
+                    <Text style={styles.buttonTextFollow}> • Follow</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+
+            <Text style={styles.name}>{user.name}</Text>
           </View>
-          <Text style={styles.name}>{user.name}</Text>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
 
       <TouchableOpacity onPress={() => handleModal()}>
         <View style={styles.button}>
@@ -117,15 +138,15 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
-    width: SIZES.Width * 0.5,
+    maxWidth: SIZES.Width * 0.29,
   },
   name: {
-    marginTop: 3,
+    marginTop: 2,
     marginLeft: 12,
     color: "#999",
     fontSize: 13,
     fontWeight: "400",
-    width: SIZES.Width * 0.5,
+    width: SIZES.Width * 0.45,
     marginBottom: 4,
   },
   button: {
@@ -136,11 +157,17 @@ const styles = StyleSheet.create({
     width: 90,
     borderRadius: 10,
   },
-  buttonText: {
+  buttonTextFollow: {
     color: "#08f",
     fontWeight: "700",
     fontSize: 13,
-    marginBottom: 4,
+    marginBottom: -3.5,
+  },
+  buttonTextRequested: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 13,
+    marginBottom: -3.5,
   },
   removeText: {
     color: "#fff",

@@ -48,7 +48,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
                   style={styles.userImageWithoutStory}
                 />
                 <View style={styles.plusBadgeContainer}>
-                  <Entypo name="plus" size={18} color="#eee" />
+                  <Entypo name="plus" size={18} color="#fff" />
                 </View>
               </View>
             ) : seenOwnStory ? (
@@ -76,7 +76,6 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
               </View>
             )}
           </TouchableOpacity>
-          <Text style={styles.usernameText}>{currentUser.name}</Text>
         </View>
 
         <View style={styles.socialContainer}>
@@ -112,6 +111,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <Text style={styles.usernameText}>{currentUser.name}</Text>
       <Text style={styles.bioText}>{currentUser.bio}</Text>
       <View style={styles.btnContainers}>
         <TouchableOpacity
@@ -148,80 +148,81 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   userImageWithoutStory: {
-    height: 90,
-    width: 90,
+    height: 89,
+    width: 89,
     borderRadius: 100,
-    borderWidth: 3,
-    borderColor: "#000",
+    borderWidth: 0.8,
+    borderColor: "#444",
   },
   plusBadgeContainer: {
     position: "absolute",
-    backgroundColor: "#18d",
+    backgroundColor: "#19d",
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#000",
     borderWidth: 3.5,
-    right: -1,
-    bottom: -1,
-    height: 30,
-    width: 30,
+    right: -3,
+    bottom: -3,
+    height: 29,
+    width: 29,
   },
   userImage: {
-    height: 86,
-    width: 86,
+    height: 84,
+    width: 84,
     borderRadius: 100,
-    borderWidth: 3,
+    borderWidth: 2,
     borderColor: "#000",
   },
   seenStoryBorder: {
-    marginTop: 4,
-    padding: 1,
+    height: 91.5,
+    width: 91.5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderColor: "#666",
   },
   unseenRainbowBorder: {
-    marginTop: 4,
-    padding: 3,
+    height: 91.5,
+    width: 91.5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
   },
   usernameText: {
     color: "#fff",
-    fontSize: 14.5,
-    fontWeight: "500",
+    fontSize: 14,
+    fontWeight: "600",
+    marginHorizontal: 6,
     marginTop: 10,
   },
   bioText: {
     color: "#fff",
     fontSize: 14,
     fontWeight: "400",
-    marginTop: 4,
     marginHorizontal: 6,
   },
   socialContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingBottom: 20,
-    marginRight: 12,
-    gap: 18,
+    paddingBottom: 2,
+    marginRight: 8,
+    gap: 20,
   },
   socialColumn: {
+    minWidth: 60,
     alignItems: "center",
   },
   socialBoldText: {
     color: "#fff",
-    fontWeight: "700",
-    fontSize: 16,
+    fontWeight: "800",
+    fontSize: 15,
   },
   socialText: {
     color: "#fff",
-    fontWeight: "400",
-    fontSize: 14,
+    fontWeight: "600",
+    fontSize: 13,
   },
   btnContainers: {
     marginTop: 24,

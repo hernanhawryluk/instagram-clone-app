@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 20,
-    marginVertical: 15,
+    height: 50,
   },
   textTitle: {
     color: "#fff",

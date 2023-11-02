@@ -7,6 +7,7 @@ import { SIZES } from "../../constants";
 const RenderItem = ({ navigation, item }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.6}
       onPress={() => navigation.navigate("Detail", { item: item })}
       style={styles.imagesContainer}
       key={item.id}

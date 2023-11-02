@@ -1,7 +1,6 @@
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import SIZES from "../../../constants/SIZES";
 
 const StoriesSkeleton = () => {
   return (
@@ -57,10 +56,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
-    marginTop: 4,
+    marginTop: 11,
     marginHorizontal: 6,
     opacity: 0.3,
-    marginBottom: 20,
   },
   rowContainer: {
     justifyContent: "center",
@@ -73,8 +71,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   image: {
-    width: 83,
-    height: 83,
+    width: 90,
+    height: 90,
     borderRadius: 100,
   },
   text: {

@@ -25,12 +25,14 @@ const Footer = ({ post, currentUser }) => {
               name="cards-heart"
               size={27}
               color={"#f33"}
+              style={styles.heartIcon}
             />
           ) : (
             <MaterialCommunityIcons
               name="cards-heart-outline"
               size={27}
               color={"#fff"}
+              style={styles.heartIcon}
             />
           )}
         </TouchableOpacity>
@@ -43,7 +45,7 @@ const Footer = ({ post, currentUser }) => {
             name="chat-outline"
             size={27}
             color={"#fff"}
-            style={styles.headerChatIcon}
+            style={styles.chatIcon}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => sharePost(post)}>
@@ -51,7 +53,7 @@ const Footer = ({ post, currentUser }) => {
             name="send"
             size={24}
             color={"#fff"}
-            style={styles.headerSendIcon}
+            style={styles.sendIcon}
           />
         </TouchableOpacity>
       </View>
@@ -62,14 +64,14 @@ const Footer = ({ post, currentUser }) => {
             name="bookmark"
             size={24}
             color={"#fff"}
-            styles={styles.headerDots}
+            style={styles.bookmarkIcon}
           />
         ) : (
           <Feather
             name="bookmark"
             size={24}
             color={"#fff"}
-            styles={styles.headerDots}
+            style={styles.bookmarkIcon}
           />
         )}
       </TouchableOpacity>
@@ -96,12 +98,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 13,
   },
-  headerSendIcon: {
-    transform: [{ rotate: "20deg" }],
+  heartIcon: {
+    transform: [{ scaleX: 1.05 }, { scaleY: 1.05 }],
+  },
+  sendIcon: {
+    transform: [{ rotate: "20deg" }, { scaleX: 0.95 }, { scaleY: 1.05 }],
     marginTop: -2,
   },
-  headerChatIcon: {
-    transform: [{ scaleX: -1 }],
+  chatIcon: {
+    transform: [{ scaleX: -1 }, { scaleY: 1.15 }],
+  },
+  bookmarkIcon: {
+    transform: [{ scaleX: 1.15 }, { scaleY: 1.1 }],
   },
   headerIcons: {
     marginRight: 15,

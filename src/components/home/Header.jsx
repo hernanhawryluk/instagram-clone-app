@@ -62,16 +62,12 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
             }}
           >
             {currentUser && currentUser.event_notification > 0 && (
-              <View style={styles.unreadBadgeContainer}>
-                <Text style={styles.unreadBadgeText}>
-                  {currentUser.event_notification}
-                </Text>
-              </View>
+              <View style={styles.unreadBadgeSmallContainer} />
             )}
             <View style={styles.iconsContainer}>
               <MaterialCommunityIcons
                 name="cards-heart-outline"
-                size={27}
+                size={28}
                 color={"#fff"}
               />
             </View>
@@ -101,7 +97,7 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
       >
         <TouchableWithoutFeedback onPress={() => setFilterModalVisible(false)}>
           <View style={styles.modalBackdrop}>
-            <BlurView intensity={50} style={styles.modalContainer}>
+            <BlurView intensity={70} style={styles.modalContainer}>
               <TouchableOpacity
                 style={styles.modalRowContainer}
                 onPress={() => {
@@ -155,8 +151,8 @@ const styles = StyleSheet.create({
     marginLeft: 14,
   },
   logo: {
-    width: 122,
-    height: 40,
+    width: 128,
+    height: 42,
     resizeMode: "cover",
   },
   iconsContainer: {
@@ -165,8 +161,20 @@ const styles = StyleSheet.create({
   },
   messenger: {
     marginTop: 1,
-    width: 27,
+    width: 28,
     height: 27,
+  },
+  unreadBadgeSmallContainer: {
+    backgroundColor: "#FF3250",
+    position: "absolute",
+    right: 0,
+    top: 1,
+    height: 9,
+    width: 9,
+    borderRadius: 10,
+    zIndex: 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
   unreadBadgeContainer: {
     backgroundColor: "#FF3250",
@@ -197,9 +205,9 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 100 : SIZES.Height * 0.05,
-    left: 17,
-    backgroundColor: "rgba(35,35,35,0.4)",
+    top: Platform.OS === "ios" ? 100 : SIZES.Height * 0.07,
+    left: 22,
+    backgroundColor: "rgba(35,35,35,0.6)",
     borderRadius: 15,
     overflow: "hidden",
   },
@@ -209,12 +217,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 15,
     marginRight: 15,
+    height: 46,
   },
   modalText: {
     color: "#fff",
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: "500",
-    marginVertical: 14,
     marginHorizontal: 15,
   },
   modalDivider: {

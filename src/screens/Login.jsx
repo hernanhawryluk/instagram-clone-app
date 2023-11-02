@@ -13,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import LoginForm from "../components/login/LoginForm";
 import Footer from "../components/login/Footer";
 import FastImage from "react-native-fast-image";
-import MessageModal from "../components/shared/modals/MessageModal";
 
 const LoginScreen = ({ navigation }) => {
   const [messageModalVisible, setMessageModalVisible] = useState(false);
@@ -48,11 +47,6 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </KeyboardAvoidingView>
         <Footer navigation={navigation} />
-        <MessageModal
-          messageModalVisible={messageModalVisible}
-          message={"Developed by Hernan Hawryluk."}
-          height={90}
-        />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
