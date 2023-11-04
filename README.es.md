@@ -1,6 +1,6 @@
 # instagram-clone-app
 
-![Instagram Replica](./assets/images/header-logo.png)
+<img alt="Instagram Logo" src="./assets/images/header-logo.png" width="60%">
 
 <div>
 <h4>Opciones de lenguaje</h4>
