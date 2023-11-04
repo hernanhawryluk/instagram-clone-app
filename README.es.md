@@ -50,20 +50,20 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 ## Capturas de Pantalla
 
 <div align="center">
-  <img src="./assets/screenshots/LoginScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/HomeScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/PostsScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/SearchScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/NewPostScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/NewStoryScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/ReelsScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/ProfileScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/ShareQRModal.png" width=280 height=590>
-  <img src="./assets/screenshots/DetailScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/CommentsModal.png" width=280 height=590>
-  <img src="./assets/screenshots/FollowersScreen.png" width=280 height=590>
-  <img src="./assets/screenshots/OptionsModal.png" width=280 height=590>
-  <img src="./assets/screenshots/PictureModal.png" width=280 height=590>
+  <img src="./assets/screenshots/LoginScreen.png" width="32%">
+  <img src="./assets/screenshots/HomeScreen.png" width="32%">
+  <img src="./assets/screenshots/PostsScreen.png" width="32%">
+  <img src="./assets/screenshots/SearchScreen.png" width="32%">
+  <img src="./assets/screenshots/NewPostScreen.png" width="32%">
+  <img src="./assets/screenshots/NewStoryScreen.png" width="32%">
+  <img src="./assets/screenshots/ReelsScreen.png" width="32%">
+  <img src="./assets/screenshots/ProfileScreen.png" width="32%">
+  <img src="./assets/screenshots/ShareQRModal.png" width="32%">
+  <img src="./assets/screenshots/DetailScreen.png" width="32%">
+  <img src="./assets/screenshots/CommentsModal.png" width="32%">
+  <img src="./assets/screenshots/FollowersScreen.png" width="32%">
+  <img src="./assets/screenshots/OptionsModal.png" width="32%">
+  <img src="./assets/screenshots/PictureModal.png" width="32%">
 </div>
 
 ## ¿Donde encontrarme?

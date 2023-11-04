@@ -50,20 +50,20 @@ A fully functional Instagram replica developed in React Native as part of my dev
 ## Screenshots
 
 <div align="center">
-  <img src="./assets/screenshots/LoginScreen.png" width="30%">
-  <img src="./assets/screenshots/HomeScreen.png" width="30%">
-  <img src="./assets/screenshots/PostsScreen.png" width="30%">
-  <img src="./assets/screenshots/SearchScreen.png" width="30%">
-  <img src="./assets/screenshots/NewPostScreen.png" width="30%">
-  <img src="./assets/screenshots/NewStoryScreen.png" width="30%">
-  <img src="./assets/screenshots/ReelsScreen.png" width="30%">
-  <img src="./assets/screenshots/ProfileScreen.png" width="30%">
-  <img src="./assets/screenshots/ShareQRModal.png" width="30%">
-  <img src="./assets/screenshots/DetailScreen.png" width="30%">
-  <img src="./assets/screenshots/CommentsModal.png" width="30%">
-  <img src="./assets/screenshots/FollowersScreen.png" width="30%">
-  <img src="./assets/screenshots/OptionsModal.png" width="30%">
-  <img src="./assets/screenshots/PictureModal.png" width="30%">
+  <img src="./assets/screenshots/LoginScreen.png" width="32%">
+  <img src="./assets/screenshots/HomeScreen.png" width="32%">
+  <img src="./assets/screenshots/PostsScreen.png" width="32%">
+  <img src="./assets/screenshots/SearchScreen.png" width="32%">
+  <img src="./assets/screenshots/NewPostScreen.png" width="32%">
+  <img src="./assets/screenshots/NewStoryScreen.png" width="32%">
+  <img src="./assets/screenshots/ReelsScreen.png" width="32%">
+  <img src="./assets/screenshots/ProfileScreen.png" width="32%">
+  <img src="./assets/screenshots/ShareQRModal.png" width="32%">
+  <img src="./assets/screenshots/DetailScreen.png" width="32%">
+  <img src="./assets/screenshots/CommentsModal.png" width="32%">
+  <img src="./assets/screenshots/FollowersScreen.png" width="32%">
+  <img src="./assets/screenshots/OptionsModal.png" width="32%">
+  <img src="./assets/screenshots/PictureModal.png" width="32%">
 </div>
 
 ## Where to find me?
