@@ -36,7 +36,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 
 ## Descargar la aplicación para dispositivos Android
 
-- [![es](https://img.shields.io/badge/Google%20Drive-instagram--clone-app.apk-blue?logo=googledrive)](#)
+- [![Descargar APK para Android](https://img.shields.io/badge/Google%20Drive-instagram--clone--app.apk-blue?logo=googledrive)](#)
 - Disponible próximamente...
 
 ## Video de la aplicación en funcionamiento en Android:
@@ -50,20 +50,20 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 ## Capturas de Pantalla
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-  <img src="./assets/screenshots/LoginScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/HomeScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/PostsScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/SearchScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/NewPostScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/NewStoryScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/ReelsScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/ProfileScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/ShareQRModal.png" width=350 height=700>
-  <img src="./assets/screenshots/DetailScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/CommentsModal.png" width=350 height=700>
-  <img src="./assets/screenshots/FollowersScreen.png" width=350 height=700>
-  <img src="./assets/screenshots/OptionsModal.png" width=350 height=700>
-  <img src="./assets/screenshots/PictureModal.png" width=350 height=700>
+  <img src="./assets/screenshots/LoginScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/HomeScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/PostsScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/SearchScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/NewPostScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/NewStoryScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/ReelsScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/ProfileScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/ShareQRModal.png" width=300 height=600>
+  <img src="./assets/screenshots/DetailScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/CommentsModal.png" width=300 height=600>
+  <img src="./assets/screenshots/FollowersScreen.png" width=300 height=600>
+  <img src="./assets/screenshots/OptionsModal.png" width=300 height=600>
+  <img src="./assets/screenshots/PictureModal.png" width=300 height=600>
 </div>
 
 ## ¿Donde encontrarme?
