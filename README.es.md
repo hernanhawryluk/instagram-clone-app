@@ -49,7 +49,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 
 ## Capturas de Pantalla
 
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+<div align="center">
   <img src="./assets/screenshots/LoginScreen.png" width=280 height=590>
   <img src="./assets/screenshots/HomeScreen.png" width=280 height=590>
   <img src="./assets/screenshots/PostsScreen.png" width=280 height=590>

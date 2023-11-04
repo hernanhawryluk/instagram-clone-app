@@ -49,7 +49,7 @@ A fully functional Instagram replica developed in React Native as part of my dev
 
 ## Screenshots
 
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+<div align="center">
   <img src="./assets/screenshots/LoginScreen.png" width=280 height=590>
   <img src="./assets/screenshots/HomeScreen.png" width=280 height=590>
   <img src="./assets/screenshots/PostsScreen.png" width=280 height=590>
