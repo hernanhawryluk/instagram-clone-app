@@ -4,8 +4,8 @@
 
 <div>
 <h4>Opciones de lenguaje</h4>
-  <a href="https://github.com/hernanhawryluk/instagram-clone-app/blob/main/README.es.md"><img alt="Cambiar idioma al español" src="https://img.shields.io/badge/idioma-español-yellow.svg"></a>
-  <a href="#"><img alt="Visitor Badge" src="https://visitor-badge.laobi.icu/badge?page_id=hernanhawryluk.instagram-clone-app"></a>
+  <a href="https://github.com/hernanhawryluk/instagram-clone-app/blob/main/README.md"><img alt="Change language to english" src="https://img.shields.io/badge/language-english-yellow.svg"></a>
+  <a href="#"><img alt="Cantidad de visitas" src="https://visitor-badge.laobi.icu/badge?page_id=hernanhawryluk.instagram-clone-app"></a>
 </div>
 <div>
   <h3>Tecnologías utilizadas</h3>
@@ -14,11 +14,11 @@
   <a href="#"><img alt="Firebase" src="https://img.shields.io/badge/Firebase-10.5.2-blue?logo=firebase"></a>
 </div>
 
-## Description
+## Descripción
 
 Una réplica funcional de Instagram desarrollada en React Native como parte de mi portafolio como desarrollador.
 
-## Features
+## Características
 
 - Autenticación de usuarios.
 - Descubre, busca y comparte contenido y usuarios.
@@ -28,7 +28,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 - Perfiles de usuarios personalizados con información y lista de publicaciones.
 - Notificaciones y chat en tiempo real para mantenerte conectado.
 
-## Technologies Used
+## Tecnologías utilizadas
 
 - Expo.
 - React Native.
@@ -47,7 +47,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 
 - Próximamente..
 
-## Screenshots
+## Capturas de Pantalla
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
   <img src="./assets/screenshots/LoginScreen.png" width=350 height=700>
@@ -66,7 +66,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
   <img src="./assets/screenshots/PictureModal.png" width=350 height=700>
 </div>
 
-## Where to find me?
+## ¿Donde encontrarme?
 
 <div>
   <a href="https://github.com/hernanhawryluk"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-grey?style=for-the-badge&logo=github"></a>
