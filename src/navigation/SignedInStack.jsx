@@ -37,20 +37,104 @@ const SignedInStack = () => {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="Main Screen" component={BottomTabs} />
               <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="NewPost" component={NewPost} />
-              <Stack.Screen name="EditProfile" component={EditProfile} />
-              <Stack.Screen name="EditingProfile" component={EditingProfile} />
-              <Stack.Screen name="UserDetail" component={UserDetail} />
-              <Stack.Screen name="UserFollow" component={UserFollow} />
-              <Stack.Screen name="Follow" component={Follow} />
-              <Stack.Screen name="Notifications" component={Notifications} />
-              <Stack.Screen name="Likes" component={Likes} />
-              <Stack.Screen name="EditPost" component={EditPost} />
-              <Stack.Screen name="Following" component={Following} />
-              <Stack.Screen name="Favorites" component={Favorites} />
-              <Stack.Screen name="About" component={About} />
-              <Stack.Screen name="Chat" component={Chat} />
-              <Stack.Screen name="Chating" component={Chating} />
+              <Stack.Screen
+                name="NewPost"
+                component={NewPost}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="EditProfile"
+                component={EditProfile}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="EditingProfile"
+                component={EditingProfile}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="UserDetail"
+                component={UserDetail}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="UserFollow"
+                component={UserFollow}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Follow"
+                component={Follow}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Notifications"
+                component={Notifications}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Likes"
+                component={Likes}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="EditPost"
+                component={EditPost}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Following"
+                component={Following}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Favorites"
+                component={Favorites}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="About"
+                component={About}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
+              <Stack.Screen
+                name="Chating"
+                component={Chating}
+                options={{
+                  animation: "slide_from_right",
+                }}
+              />
               <Stack.Screen
                 name="ShareQR"
                 component={Share}
@@ -70,14 +154,17 @@ const SignedInStack = () => {
               <Stack.Screen
                 name="MediaLibrary"
                 component={MediaLibrary}
-                options={{}}
+                options={{
+                  gestureEnabled: false,
+                  animation: "slide_from_left",
+                }}
               />
               <Stack.Screen
                 name="Detail"
                 component={Detail}
                 options={{
                   presentation: "transparentModal",
-                  animation: "none",
+                  animation: "fade",
                 }}
               />
               <Stack.Screen
@@ -85,7 +172,7 @@ const SignedInStack = () => {
                 component={NewStory}
                 options={{
                   presentation: "transparentModal",
-                  animation: "none",
+                  animation: "fade",
                 }}
               />
               <Stack.Screen
@@ -93,7 +180,7 @@ const SignedInStack = () => {
                 component={NewReel}
                 options={{
                   presentation: "transparentModal",
-                  animation: "none",
+                  animation: "fade",
                 }}
               />
             </Stack.Navigator>

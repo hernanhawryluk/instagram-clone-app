@@ -130,6 +130,7 @@ const Detail = ({ navigation, route }) => {
           bottomSheetRef={bottomSheetRefComments}
           post={posts[bottomSheetIndex]}
           currentUser={currentUser}
+          navigation={navigation}
         />
         <BottomSheetComment
           bottomSheetRefComment={bottomSheetRefComment}

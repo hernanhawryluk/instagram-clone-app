@@ -82,7 +82,9 @@ const NewPost = ({ navigation, route }) => {
                 onFocus={() => handleFocus()}
                 onBlur={() => handleBlur()}
                 maxLength={2200}
+                autoCorrect={true}
                 autoFocus={true}
+                textAlignVertical="center"
               />
             </View>
           </View>
@@ -165,8 +167,9 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
-    marginTop: 30,
+    marginTop: 15,
     marginHorizontal: 15,
+    marginBottom: 14,
   },
   image: {
     height: SIZES.Width * 0.2,
@@ -176,15 +179,12 @@ const styles = StyleSheet.create({
   captionContainer: {
     flex: 1,
     justifyContent: "center",
-    minHeight: SIZES.Width * 0.2,
-    marginBottom: 14,
   },
   captionText: {
     color: "#fff",
     fontSize: 16,
     marginHorizontal: 15,
     width: SIZES.Width * 0.66,
-    flex: 1,
     marginBottom: 8,
   },
   secondContainer: {

@@ -31,7 +31,7 @@ const useMediaLibrary = (selectedAlbum) => {
       if (permissionGranted) {
         const { assets } = await MediaLibrary.getAssetsAsync({
           album: selectedAlbum,
-          mediaType: "photo", first: 64
+          mediaType: "photo", first: 128, sortBy: ["creationTime"]
         });
         const allImages = assets.map((asset) => {
           return { id: asset.id, uri: asset.uri };
@@ -44,7 +44,7 @@ const useMediaLibrary = (selectedAlbum) => {
       if (permissionGranted) {
         const { assets } = await MediaLibrary.getAssetsAsync({
           album: selectedAlbum,
-          mediaType: "video", first: 24
+          mediaType: "video", first: 24, sortBy: ["creationTime"]
         });
         const allVideos = await Promise.all(assets.map(async (asset) => {
           const  { localUri } = await MediaLibrary.getAssetInfoAsync(asset.id);

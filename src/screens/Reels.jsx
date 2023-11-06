@@ -296,14 +296,13 @@ export default Reels;
 
 const styles = StyleSheet.create({
   container: {
-    width: SIZES.Width,
     backgroundColor: "#000",
-    height: Platform.OS === "ios" ? SIZES.Height * 0.91 : SIZES.Height * 0.97,
+    width: SIZES.Width,
+    height: Platform.OS === "ios" ? SIZES.Height * 0.92 : SIZES.Height * 0.987,
   },
   video: {
-    flex: 1,
-    height: Platform.OS === "ios" ? SIZES.Height * 0.91 : SIZES.Height * 0.97,
     width: SIZES.Width,
+    height: Platform.OS === "ios" ? SIZES.Height * 0.92 : SIZES.Height * 0.987,
   },
   muteContainer: {
     position: "absolute",

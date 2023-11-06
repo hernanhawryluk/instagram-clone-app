@@ -16,7 +16,12 @@ import { SIZES } from "../../../constants";
 import FooterTextInput from "../../shared/bottomSheets/FooterTextInput";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 
-const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
+const BottomSheetComments = ({
+  bottomSheetRef,
+  currentUser,
+  post,
+  navigation,
+}) => {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -92,7 +97,8 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
               ]}
             >
               <BottomSheetFlatList
-                data={post.comments.slice().reverse()}
+                inverted
+                data={post.comments}
                 renderItem={({ item, index }) => (
                   <Comments
                     comment={item}
@@ -102,8 +108,14 @@ const BottomSheetComments = ({ bottomSheetRef, currentUser, post }) => {
                     userId={post.owner_email}
                     currentUser={currentUser}
                     comments={post.comments}
+                    navigation={navigation}
+                    bottomSheetRef={bottomSheetRef}
                   />
                 )}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  justifyContent: "flex-end",
+                }}
               />
               {Platform.OS == "android" && (
                 <FooterTextInput post={post} currentUser={currentUser} />

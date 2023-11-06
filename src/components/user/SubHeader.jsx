@@ -252,6 +252,7 @@ const styles = StyleSheet.create({
     width: 36,
   },
   btnText: {
+    marginBottom: 4,
     color: "#fff",
     fontSize: 13.5,
     fontWeight: "600",

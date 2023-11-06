@@ -25,11 +25,12 @@ const Searching = ({ navigation, searchResult, currentUser }) => {
   return (
     <View style={styles.container}>
       <View style={styles.divider} />
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         {visibleUsers.length > 0 ? (
           visibleUsers.map((item, index) => (
             <View style={styles.rowContainer} key={index}>
               <TouchableOpacity
+                activeOpacity={1}
                 onPress={() => {
                   navigation.navigate("UserDetail", {
                     email: item.email,

@@ -6,7 +6,6 @@ import useSavePost from "../../hooks/useSavePost";
 import useHandleLike from "../../hooks/useHandleLike";
 
 const Footer = ({
-  handleLike,
   post,
   currentUser,
   bottomSheetRef,

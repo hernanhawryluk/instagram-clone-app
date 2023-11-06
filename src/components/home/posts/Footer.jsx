@@ -6,7 +6,7 @@ import useSharePost from "../../../hooks/useSharePost";
 import useSavePost from "../../../hooks/useSavePost";
 import useHandleLike from "../../../hooks/useHandleLike";
 
-const Footer = ({ post, currentUser }) => {
+const Footer = ({ post, currentUser, navigation }) => {
   const { handlePostLike } = useHandleLike();
   const { sharePost } = useSharePost();
   const { savePost } = useSavePost();
@@ -79,6 +79,7 @@ const Footer = ({ post, currentUser }) => {
         bottomSheetRef={bottomSheetRef}
         currentUser={currentUser}
         post={post}
+        navigation={navigation}
       />
     </View>
   );

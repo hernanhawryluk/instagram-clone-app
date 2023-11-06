@@ -15,10 +15,10 @@ const Posts = ({ navigation, post, currentUser, key }) => {
       <Divider width={0.7} color="#222" />
       <Header navigation={navigation} post={post} currentUser={currentUser} />
       <PostImage post={post} currentUser={currentUser} />
-      <Footer post={post} currentUser={currentUser} />
+      <Footer post={post} currentUser={currentUser} navigation={navigation} />
       <Likes post={post} navigation={navigation} />
       <Caption post={post} />
-      <Comments post={post} currentUser={currentUser} />
+      <Comments post={post} currentUser={currentUser} navigation={navigation} />
       <Date post={post} />
     </View>
   );

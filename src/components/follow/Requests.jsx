@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   },
   userContainer: {
     justifyContent: "center",
+    width: SIZES.Width * 0.34,
     marginLeft: 15,
   },
   username: {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     color: "#999",
     fontSize: 14,
     fontWeight: "400",
-    width: "99%",
+    width: "95%",
     marginBottom: 4,
   },
   buttonContainer: {

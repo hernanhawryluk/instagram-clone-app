@@ -10,8 +10,20 @@ const SignedOutStack = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Forgot" component={Forgot} />
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Forgot"
+        component={Forgot}
+        options={{
+          animation: "slide_from_right",
+        }}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );

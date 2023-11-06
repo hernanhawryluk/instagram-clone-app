@@ -34,10 +34,21 @@ const MediaLibrary = ({ navigation, route }) => {
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
   const [messageModalVisible, setMessageModalVisible] = useState(false);
 
-  const { scrollY, flatListRef, animatedStyle } = useOpacityAnimation();
+  const { scrollY, animatedStyle } = useOpacityAnimation();
   const { allAlbums, selectedAlbum, selectedAlbumTitle, handleAlbumSelection } =
     useAlbumSelector({ setAlbumModalVisible });
   const { images, videos } = useMediaLibrary(selectedAlbum);
+  const [selectorVisible, setSelectorVisible] = useState(true);
+
+  const handleScroll = (event) => {
+    scrollY.value = event.nativeEvent.contentOffset.y;
+
+    if (event.nativeEvent.contentOffset.y < 900) {
+      setSelectorVisible(true);
+    } else {
+      setSelectorVisible(false);
+    }
+  };
 
   useEffect(() => {
     if (images.length > 0) {
@@ -194,12 +205,11 @@ const MediaLibrary = ({ navigation, route }) => {
           keyExtractor={(item, index) => item.id.toString()}
           numColumns={selectedType === "New post" ? 4 : 3}
           onScroll={(event) => {
-            scrollY.value = event.nativeEvent.contentOffset.y;
+            handleScroll(event);
           }}
-          ref={flatListRef}
         />
 
-        {selectorAvailable && (
+        {selectorAvailable && selectorVisible && (
           <Animated.View style={animatedStyle}>
             <BlurView
               intensity={30}

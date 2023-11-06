@@ -28,8 +28,8 @@ const screenOptions = {
     left: 0,
     elevation: 0,
     borderTopWidth: 0.3,
-    borderTopColor: "#222",
-    height: 82,
+    borderTopColor: "#444",
+    height: 54,
     backgroundColor: "#000",
   },
 };

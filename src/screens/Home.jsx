@@ -60,11 +60,10 @@ const Home = ({ navigation }) => {
           scrollEventThrottle={16}
           onEndReached={() => fetchOlderPosts()}
           onEndReachedThreshold={0.5}
-          initialNumToRender={10}
+          initialNumToRender={20}
           refreshing={isLoading}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => <View style={{ height: 80 }} />}
-          windowSize={13}
         />
       ) : (
         <View style={{ marginTop: 50 }}>

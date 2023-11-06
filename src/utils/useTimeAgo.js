@@ -6,19 +6,19 @@ const useTimeAgo = () => {
         const currentTime = new Date().getTime() / 1000;
         const seconds = (fullSeconds - currentTime) * -1;
 
-        if (seconds < 60) return `${Math.floor(seconds)}s`;
+        if (seconds < 60) return `${Math.floor(seconds)}s ago`;
 
         const minutes = seconds / 60;
-        if (minutes < 60) return `${Math.floor(minutes)}m`;
+        if (minutes < 60) return `${Math.floor(minutes)}m ago`;
 
         const hours = seconds / 3600;
-        if (hours < 24) return `${Math.floor(hours)}h`;
+        if (hours < 24) return `${Math.floor(hours)}h ago`;
 
         const days = seconds / 86400;
-        if (days < 7) return `${Math.floor(days)}d`;
+        if (days < 7) return `${Math.floor(days)}d ago`;
 
         const weeks = seconds / 604800;
-        return `${Math.floor(weeks)}w`;
+        return `${Math.floor(weeks)}w ago`;
       };
 
       const timeAgoLong = (fullSeconds) => {

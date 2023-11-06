@@ -16,7 +16,7 @@ import useEditPostCaption from "../hooks/useEditPostCaption";
 
 const EditPost = ({ navigation, route }) => {
   const { post } = route.params || {};
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(post.caption);
   const { editPostCaption, loading } = useEditPostCaption({ navigation, post });
 
   return (
@@ -74,6 +74,7 @@ const EditPost = ({ navigation, route }) => {
           style={styles.textInput}
           placeholder="Write a caption..."
           placeholderTextColor={"#bbb"}
+          maxLength={255}
           multiline
           autoFocus
         />
@@ -136,13 +137,14 @@ const styles = StyleSheet.create({
     height: SIZES.Height * 0.36,
   },
   inputContainer: {
-    height: 50,
+    marginTop: 5,
+    minHeight: 50,
     justifyContent: "center",
     paddingHorizontal: 15,
   },
   textInput: {
     color: "#fff",
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "500",
   },
 });

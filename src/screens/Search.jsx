@@ -64,73 +64,71 @@ const Search = ({ navigation }) => {
   );
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={styles.container}>
-        <Animated.View
-          style={[
-            styles.header(70), // 43 to 60
-            {
-              transform: [{ translateY: headerTranslate }],
-            },
-          ]}
-        >
-          <View style={styles.searchBar}>
-            <Animated.View
-              style={[
-                styles.searchWrapper,
-                { width: slideAnimation },
-                { opacity: headerOpacity },
-              ]}
-            >
-              <Ionicons
-                name="search"
-                size={20}
-                color={"#999"}
-                style={styles.searchIcon}
-              />
+    <SafeAreaView style={styles.container}>
+      <Animated.View
+        style={[
+          styles.header(70), // 43 to 60
+          {
+            transform: [{ translateY: headerTranslate }],
+          },
+        ]}
+      >
+        <View style={styles.searchBar}>
+          <Animated.View
+            style={[
+              styles.searchWrapper,
+              { width: slideAnimation },
+              { opacity: headerOpacity },
+            ]}
+          >
+            <Ionicons
+              name="search"
+              size={20}
+              color={"#999"}
+              style={styles.searchIcon}
+            />
 
-              <TextInput
-                value={searchKey}
-                onChangeText={setSearchKey}
-                maxLength={30}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="Search"
-                placeholderTextColor={"#999"}
-                style={[styles.searchInput, { width: inputWidth }]}
-                enterKeyHint="search"
-                onFocus={() => handleFocus()}
-              />
-            </Animated.View>
-            {focusedBar && (
-              <TouchableOpacity onPress={() => handleCancel()}>
-                <Text style={styles.cancelBtn}>Cancel</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </Animated.View>
-        <View style={styles.result}>
-          <DefaultPosts navigation={navigation} handleScroll={handleScroll} />
-
-          {searching && (
-            <Animated.View
-              style={[
-                styles.searchingContainer,
-                {
-                  opacity: fadeEffect,
-                },
-              ]}
-            >
-              <Searching
-                navigation={navigation}
-                searchResult={searchKey.length > 0 ? searchResult : users}
-                currentUser={currentUser}
-              />
-            </Animated.View>
+            <TextInput
+              value={searchKey}
+              onChangeText={setSearchKey}
+              maxLength={30}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Search"
+              placeholderTextColor={"#999"}
+              style={[styles.searchInput, { width: inputWidth }]}
+              enterKeyHint="search"
+              onFocus={() => handleFocus()}
+            />
+          </Animated.View>
+          {focusedBar && (
+            <TouchableOpacity onPress={() => handleCancel()}>
+              <Text style={styles.cancelBtn}>Cancel</Text>
+            </TouchableOpacity>
           )}
         </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+      </Animated.View>
+      <View style={styles.result}>
+        <DefaultPosts navigation={navigation} handleScroll={handleScroll} />
+
+        {searching && (
+          <Animated.View
+            style={[
+              styles.searchingContainer,
+              {
+                opacity: fadeEffect,
+              },
+            ]}
+          >
+            <Searching
+              navigation={navigation}
+              searchResult={searchKey.length > 0 ? searchResult : users}
+              currentUser={currentUser}
+            />
+          </Animated.View>
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 

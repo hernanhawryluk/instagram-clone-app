@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 38,
-    width: 100,
+    width: 115,
     borderRadius: 10,
   },
   buttonGrey: {
@@ -151,13 +151,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 38,
-    width: 110,
+    width: 115,
     borderRadius: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 15,
     marginBottom: 4,
   },
 });

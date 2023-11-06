@@ -10,7 +10,7 @@ import BottomSheetComments from "../bottomSheets/BottomSheetComments";
 import BottomSheetComment from "../bottomSheets/BottomSheetComment";
 import FastImage from "react-native-fast-image";
 
-const Comments = ({ post, currentUser }) => {
+const Comments = ({ post, currentUser, navigation }) => {
   const bottomSheetRefComments = useRef(null);
   const bottomSheetRefComment = useRef(null);
 
@@ -65,6 +65,7 @@ const Comments = ({ post, currentUser }) => {
         bottomSheetRef={bottomSheetRefComments}
         currentUser={currentUser}
         post={post}
+        navigation={navigation}
       />
       <BottomSheetComment
         bottomSheetRef={bottomSheetRefComment}

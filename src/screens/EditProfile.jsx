@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
   descriptiveText: {
     color: "#fff",
-    minWidth: 100,
+    minWidth: 110,
     marginVertical: 15,
     fontSize: 16,
   },

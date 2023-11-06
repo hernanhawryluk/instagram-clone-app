@@ -240,8 +240,9 @@ const styles = StyleSheet.create({
     height: 34,
   },
   btnText: {
+    marginBottom: 4,
     color: "#fff",
-    fontSize: 14,
+    fontSize: 13.5,
     fontWeight: "600",
   },
 });

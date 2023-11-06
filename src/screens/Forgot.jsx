@@ -12,7 +12,7 @@ import {
   TextInput,
 } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import useIsEmail from "../utils/useIsEmail";
 import useResetPassword from "../hooks/useResetPassword";
 
@@ -23,6 +23,11 @@ const Forgot = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
+        <View style={styles.goBackIcon}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MaterialIcons name="arrow-back-ios" size={30} color={"#fff"} />
+          </TouchableOpacity>
+        </View>
         <KeyboardAvoidingView
           style={styles.mainContainer}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -81,6 +86,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     Platform: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  goBackIcon: {
+    marginTop: 60,
+    marginLeft: 20,
   },
   mainContainer: {
     flex: 1,

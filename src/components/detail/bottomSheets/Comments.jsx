@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { SIZES } from "../../../constants";
 import FastImage from "react-native-fast-image";
 import useTimeAgo from "../../../utils/useTimeAgo";
 import useHandleCommentLike from "../../../hooks/useHandleCommentLike";
+import useHandleCommentDelete from "../../../hooks/useHandleCommentDelete";
 
 const Comments = ({
   comment,
@@ -13,9 +14,14 @@ const Comments = ({
   userId,
   postId,
   currentUser,
+  navigation,
+  bottomSheetRef,
 }) => {
   const { timeAgo } = useTimeAgo();
   const { handleCommentLike } = useHandleCommentLike();
+  const { handleCommentDelete } = useHandleCommentDelete();
+  const [deleteStatus, setDeleteStatus] = useState(false);
+  const timerRef = useRef(null);
 
   const likes = () => {
     const likeQuantity = comment.likes_by_users.split(",").length - 1;
@@ -27,6 +33,26 @@ const Comments = ({
       default:
         return likeQuantity + " likes";
     }
+  };
+
+  const deleteCountDown = () => {
+    setDeleteStatus(true);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    timerRef.current = setTimeout(() => {
+      clearTimeout(timerRef.current);
+      setDeleteStatus(false);
+      handleCommentDelete(index, comments, userId, postId);
+    }, 5000);
+  };
+
+  const cancelCountDown = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    setDeleteStatus(false);
   };
 
   return (
@@ -51,38 +77,62 @@ const Comments = ({
           </View>
 
           {comment.likes_by_users.split(",").length - 1 > 0 && (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                bottomSheetRef.current.close();
+                navigation.navigate("Likes", {
+                  likesByEmail: comment.likes_by_users,
+                });
+              }}
+            >
               <Text style={styles.likes}>{likes()}</Text>
             </TouchableOpacity>
           )}
         </View>
       </View>
 
-      <TouchableOpacity
-        onPress={() =>
-          handleCommentLike(
-            comment,
-            index,
-            comments,
-            userId,
-            postId,
-            currentUser
-          )
-        }
-      >
-        <Ionicons
-          name={
-            comment.likes_by_users.includes(currentUser.email)
-              ? "heart"
-              : "heart-outline"
+      {comment.username !== currentUser.username ? (
+        <TouchableOpacity
+          onPress={() =>
+            handleCommentLike(
+              comment,
+              index,
+              comments,
+              userId,
+              postId,
+              currentUser
+            )
           }
-          size={17}
-          color={
-            comment.likes_by_users.includes(currentUser.email) ? "#c11" : "#fff"
-          }
-          style={styles.heartIcon}
-        />
-      </TouchableOpacity>
+        >
+          <Ionicons
+            name={
+              comment.likes_by_users.includes(currentUser.email)
+                ? "heart"
+                : "heart-outline"
+            }
+            size={17}
+            color={
+              comment.likes_by_users.includes(currentUser.email)
+                ? "#c11"
+                : "#fff"
+            }
+            style={styles.heartIcon}
+          />
+        </TouchableOpacity>
+      ) : deleteStatus ? (
+        <TouchableOpacity onPress={() => cancelCountDown()}>
+          <Text style={styles.undoText}>Undo</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={() => deleteCountDown()}>
+          <Ionicons
+            name={"trash-outline"}
+            size={17}
+            color={"#c11"}
+            style={styles.heartIcon}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -134,5 +184,11 @@ const styles = StyleSheet.create({
   heartIcon: {
     marginTop: 12,
     marginRight: 10,
+  },
+  undoText: {
+    color: "#fff",
+    fontWeight: "800",
+    fontSize: 14,
+    marginTop: 12,
   },
 });
