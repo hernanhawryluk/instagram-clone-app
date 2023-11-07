@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
 import React from "react";
 import useFetchUserPosts from "../../hooks/useFetchUserPosts";
 import { Divider } from "react-native-elements";
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
     marginHorizontal: 20,
-    marginTop: 20,
+    marginTop: Platform.OS === "android" ? 20 : 15,
     marginBottom: 10,
   },
   imagesContainer: {

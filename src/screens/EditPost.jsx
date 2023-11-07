@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 10,
-    height: 50,
+    height: Platform.OS === "android" ? 50 : 44,
   },
   textTitle: {
     color: "#fff",
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     height: SIZES.Height * 0.36,
   },
   inputContainer: {
-    marginTop: 5,
+    marginTop: Platform.OS === "android" ? 5 : 0,
     minHeight: 50,
     justifyContent: "center",
     paddingHorizontal: 15,

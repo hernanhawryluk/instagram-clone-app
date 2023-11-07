@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import QRCode from "react-native-qrcode-svg";
 import * as Clipboard from "expo-clipboard";
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#333",
     borderRadius: 30,
-    height: 564,
+    height: Platform.OS === "android" ? 564 : 534,
     width: 290,
   },
   mainContainer: {
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     color: "#bbb",
     fontSize: 15,
     fontWeight: "500",
-    height: 80,
+    height: Platform.OS === "android" ? 80 : 54,
     marginBottom: 10,
   },
   divider: {

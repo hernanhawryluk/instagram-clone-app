@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    height: 70,
+    height: Platform.OS === "android" ? 70 : 60,
     width: 200,
     resizeMode: "cover",
   },

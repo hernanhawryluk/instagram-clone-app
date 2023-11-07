@@ -146,7 +146,7 @@ export default Detail;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 45,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 44,
     flex: 1,
     backgroundColor: "#000",
   },

@@ -239,14 +239,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -5,
     width: "100%",
-    height: SIZES.Height * 0.925,
+    height:
+      Platform.OS === "android" ? SIZES.Height * 0.925 : SIZES.Height * 0.85,
     resizeMode: "cover",
     borderRadius: 25,
     zIndex: -1,
   },
   video: {
     width: "100%",
-    height: SIZES.Height * 0.925,
+    height:
+      Platform.OS === "android" ? SIZES.Height * 0.925 : SIZES.Height * 0.85,
     borderRadius: 25,
   },
   backButtonContainer: {

@@ -298,11 +298,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     width: SIZES.Width,
-    height: Platform.OS === "ios" ? SIZES.Height * 0.92 : SIZES.Height * 0.987,
+    height: Platform.OS === "ios" ? SIZES.Height * 0.913 : SIZES.Height * 0.987,
   },
   video: {
     width: SIZES.Width,
-    height: Platform.OS === "ios" ? SIZES.Height * 0.92 : SIZES.Height * 0.987,
+    height: Platform.OS === "ios" ? SIZES.Height * 0.913 : SIZES.Height * 0.987,
   },
   muteContainer: {
     position: "absolute",
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 40 : StatusBar.currentHeight - 8,
+    top: Platform.OS === "ios" ? 30 : StatusBar.currentHeight - 8,
     left: 0,
     right: 0,
     flexDirection: "row",

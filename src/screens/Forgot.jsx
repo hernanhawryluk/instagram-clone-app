@@ -23,11 +23,6 @@ const Forgot = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.goBackIcon}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialIcons name="arrow-back-ios" size={30} color={"#fff"} />
-          </TouchableOpacity>
-        </View>
         <KeyboardAvoidingView
           style={styles.mainContainer}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -87,10 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     Platform: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
-  goBackIcon: {
-    marginTop: 60,
-    marginLeft: 20,
-  },
   mainContainer: {
     flex: 1,
     justifyContent: "center",
@@ -141,8 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#444",
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingHorizontal: 15,
     width: "100%",
     height: 56,
     flexDirection: "row",
@@ -156,11 +146,13 @@ const styles = StyleSheet.create({
     width: "95%",
   },
   buttonWrapper: {
-    marginTop: 15,
+    marginTop: 28,
     alignItems: "center",
     backgroundColor: "#07f",
     width: "100%",
-    paddingVertical: 14,
+    height: Platform.OS === "android" ? 56 : 54,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
     marginBottom: 70,
   },
@@ -170,7 +162,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   footerContainer: {
-    height: 75,
+    height: Platform.OS === "android" ? 70 : 50,
     width: "100%",
   },
   fulDivider: {
@@ -179,11 +171,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#222",
   },
   footerTextContainer: {
-    flex: 1,
+    flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
+    height: Platform.OS === "android" ? 70 : 50,
+    paddingBottom: Platform.OS === "android" ? 5 : 0,
   },
   footerText: {
-    marginVertical: 10,
     color: "#0af",
     fontSize: 13,
     fontWeight: "700",

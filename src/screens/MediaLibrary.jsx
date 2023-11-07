@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 15,
+    marginHorizontal: Platform.OS === "android" ? 15 : 10,
     height: 45,
   },
   headerText: {

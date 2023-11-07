@@ -29,7 +29,7 @@ export default PostImage;
 
 const styles = StyleSheet.create({
   postImage: {
-    marginTop: 7,
+    marginTop: 6,
     marginBottom: 11,
     height: SIZES.Width * 1.1,
     width: SIZES.Width,

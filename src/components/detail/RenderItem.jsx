@@ -34,6 +34,7 @@ const RenderItem = ({
         findHeight(event.nativeEvent.layout);
       }}
     >
+      <Divider width={0.5} color="#222" />
       <Header
         navigation={navigation}
         post={post}
@@ -42,7 +43,6 @@ const RenderItem = ({
         setBottomSheetIndex={setBottomSheetIndex}
         sharedIndex={sharedIndex}
       />
-      <Divider width={0.5} color="#222" />
       {Platform.OS === "ios" && sharedIndex === 0 && (
         <Animated.Image
           source={{ uri: post.imageUrl }}

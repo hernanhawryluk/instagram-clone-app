@@ -133,6 +133,7 @@ const EditProfile = ({ navigation }) => {
         >
           <Text style={styles.descriptiveText}>Link</Text>
           <Text
+            numberOfLines={1}
             style={
               currentUser.link.length > 0
                 ? styles.editableText
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 15,
+    height: 50,
   },
   textTitle: {
     fontSize: 17,
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: Platform.OS === "android" ? 20 : 16,
   },
   image: {
     height: 90,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
   },
   descriptiveText: {
     color: "#fff",
-    minWidth: 110,
+    minWidth: Platform.OS === "android" ? 110 : 100,
     marginVertical: 15,
     fontSize: 16,
   },

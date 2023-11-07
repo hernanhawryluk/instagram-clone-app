@@ -1,4 +1,10 @@
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Platform,
+} from "react-native";
 import React, { useRef } from "react";
 import { Entypo } from "@expo/vector-icons";
 import FastImage from "react-native-fast-image";
@@ -97,7 +103,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 7,
+    marginTop: 6,
     marginHorizontal: 8,
     flexDirection: "row",
     alignItems: "center",
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
     marginLeft: 9,
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 1,
   },
   rowContainer: {
     flexDirection: "row",
@@ -144,7 +150,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "#333",
     borderRadius: 10,
-    height: 35,
+    height: Platform.OS === "android" ? 35 : 30,
     paddingHorizontal: 12,
     marginRight: 15,
     justifyContent: "center",
@@ -154,7 +160,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     fontSize: 13,
-    marginBottom: 2,
+    marginBottom: Platform.OS === "android" ? 2 : 0,
   },
   headerDots: {
     transform: [{ scaleX: 1.1 }],

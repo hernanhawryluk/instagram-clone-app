@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import FastImage from "react-native-fast-image";
@@ -80,14 +81,14 @@ export default Searching;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 10,
+    paddingTop: Platform.OS === "android" ? 10 : 0,
   },
   divider: {
     height: 0.7,
     width: "100%",
     backgroundColor: "#252525",
-    marginTop: 50,
-    marginBottom: 10,
+    marginTop: Platform.OS === "android" ? 50 : 44,
+    marginBottom: Platform.OS === "android" ? 10 : 8,
   },
   rowContainer: {
     flexDirection: "row",

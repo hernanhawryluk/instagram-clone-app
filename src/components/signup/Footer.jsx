@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { Divider } from "react-native-elements";
 import React from "react";
 
@@ -23,8 +29,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    height: 70,
-    paddingBottom: 5,
+    height: Platform.OS === "android" ? 70 : 50,
+    paddingBottom: Platform.OS === "android" ? 5 : 0,
   },
   signUpText: {
     color: "#bbb",

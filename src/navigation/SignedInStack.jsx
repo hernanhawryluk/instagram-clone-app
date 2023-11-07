@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import BottomTabs from "./BottomTabs";
 import Home from "../screens/Home";
 import NewPost from "../screens/NewPost";
@@ -148,7 +149,7 @@ const SignedInStack = () => {
                 component={Story}
                 options={{
                   presentation: "transparentModal",
-                  animation: "fade",
+                  animation: Platform.OS === "android" ? "fade" : "none",
                 }}
               />
               <Stack.Screen

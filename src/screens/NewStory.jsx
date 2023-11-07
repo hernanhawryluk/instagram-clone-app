@@ -200,7 +200,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: SIZES.Width,
-    height: SIZES.Height * 0.925,
+    height:
+      Platform.OS === "android" ? SIZES.Height * 0.925 : SIZES.Height * 0.85,
     borderRadius: 25,
   },
   backButtonContainer: {
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     fontSize: 12,
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
   },
   nextButtonContainer: {
     backgroundColor: "#fff",

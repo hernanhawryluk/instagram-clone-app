@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, Platform } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
   searchWrapper: {
     flex: 1,
     backgroundColor: "#333",
-    height: 44,
+    height: Platform.OS === "android" ? 44 : 38,
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 8,
+    marginBottom: Platform.OS === "android" ? 8 : 0,
   },
   searchIcon: {
     marginLeft: 8,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     height: "100%",
     marginLeft: 5,
-    marginBottom: 5,
+    marginBottom: Platform.OS === "android" ? 5 : 1,
     fontSize: 17,
     flex: 1,
   },

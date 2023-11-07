@@ -6,7 +6,6 @@ import {
   Animated,
   View,
   SafeAreaView,
-  TouchableWithoutFeedback,
   Keyboard,
   Platform,
   StatusBar,
@@ -67,7 +66,7 @@ const Search = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <Animated.View
         style={[
-          styles.header(70), // 43 to 60
+          styles.header(70),
           {
             transform: [{ translateY: headerTranslate }],
           },

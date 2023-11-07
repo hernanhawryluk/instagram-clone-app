@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: Platform.OS === "android" ? 15 : 12,
     marginHorizontal: 15,
     marginBottom: 14,
   },

@@ -7,7 +7,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useUserContext } from "../contexts/UserContext";
 import useHeaderScrollAnim from "../utils/useHeaderScrollAnim";
 import useFetchPosts from "../hooks/useFetchPosts";
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    top: 36, // 50
+    top: 36,
     height: ContainerHeight,
     zIndex: 1,
     backgroundColor: "#000",

@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import React from "react";
 import FastImage from "react-native-fast-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginHorizontal: 15,
-    marginTop: 15,
+    marginTop: Platform.OS === "android" ? 15 : 8,
   },
   rowContainer: {
     flexDirection: "row",

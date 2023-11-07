@@ -36,8 +36,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 
 ## Descargar la aplicación para dispositivos Android
 
-- [![Descargar APK para Android](https://img.shields.io/badge/Google%20Drive-instagram--clone--app.apk-blue?logo=googledrive)](#)
-- Disponible próximamente...
+- [![Descargar APK para Android](https://img.shields.io/badge/Google%20Drive-instagram--clone--app.apk-blue?logo=googledrive)](https://drive.google.com/file/d/15ahphglkz-yoSmbGTq201YoZ-xWay-pn/view?usp=drive_link)
 
 ## Video de la aplicación en funcionamiento en Android:
 

@@ -20,11 +20,6 @@ const Signup = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.goBackIcon}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialIcons name="arrow-back-ios" size={30} color={"#fff"} />
-          </TouchableOpacity>
-        </View>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -64,15 +59,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: -SIZES.Width * 0.15,
   },
-  goBackIcon: {
-    marginTop: 20,
-    marginLeft: 5,
-  },
   logoContainer: {
     alignItems: "center",
   },
   logo: {
-    height: 70,
+    height: Platform.OS === "android" ? 70 : 60,
     width: 200,
     resizeMode: "cover",
   },

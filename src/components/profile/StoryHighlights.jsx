@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
 import React from "react";
 import useFetchUserPosts from "../../hooks/useFetchUserPosts";
 import SubHeader from "./SubHeader";
@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
   title: {
     color: "#fff",
     fontSize: 13,
-    fontWeight: "600",
+    fontWeight: Platform.OS === "android" ? "600" : "700",
     marginHorizontal: 20,
-    marginTop: 22,
-    marginBottom: 12,
+    marginTop: Platform.OS === "android" ? 22 : 15,
+    marginBottom: Platform.OS === "android" ? 12 : 8,
   },
 });

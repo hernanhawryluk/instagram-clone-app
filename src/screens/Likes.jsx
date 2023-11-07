@@ -66,6 +66,6 @@ const styles = StyleSheet.create({
   divider: {
     height: 0.5,
     backgroundColor: "#222",
-    marginBottom: 8,
+    marginBottom: Platform.OS === "android" ? 8 : 0,
   },
 });

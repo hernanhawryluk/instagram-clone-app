@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     marginHorizontal: 20,
-    marginTop: 9,
-    marginBottom: 14,
+    marginTop: Platform.OS === "android" ? 9 : 0,
+    marginBottom: Platform.OS === "android" ? 14 : 10,
   },
   textTitle: {
     marginTop: 5,

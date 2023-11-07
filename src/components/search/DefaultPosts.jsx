@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList, View, Platform } from "react-native";
 import React from "react";
 import useFetchPosts from "../../hooks/useFetchPosts";
 import SkeletonDefaultPosts from "./Skeletons/SkeletonDefaultPosts";
@@ -45,7 +45,7 @@ export default DefaultPosts;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 15,
+    marginTop: Platform.OS === "android" ? 15 : 0,
     backgroundColor: "#000",
     alignItems: "center",
   },

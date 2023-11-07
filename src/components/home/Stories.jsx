@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ScrollView,
+  Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState, useEffect } from "react";
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 11,
+    marginTop: Platform.OS === "android" ? 11 : 0,
     marginLeft: 12,
   },
   itemContainer: {

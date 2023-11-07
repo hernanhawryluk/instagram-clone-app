@@ -250,7 +250,8 @@ const styles = StyleSheet.create({
   image: {
     position: "absolute",
     top: Platform.OS === "ios" ? 50 : StatusBar.currentHeight,
-    height: SIZES.Height * 0.925,
+    height:
+      Platform.OS === "android" ? SIZES.Height * 0.925 : SIZES.Height * 0.86,
     width: "100%",
     borderRadius: 15,
   },
@@ -273,7 +274,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 15,
+    marginTop: Platform.OS === "android" ? 15 : 10,
     marginHorizontal: 15,
   },
   rowContainer: {
@@ -300,7 +301,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 15,
-    marginBottom: 10,
+    marginBottom: Platform.OS === "android" ? 10 : 20,
   },
   inputWrapper: {
     flex: 1,

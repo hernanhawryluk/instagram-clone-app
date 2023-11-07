@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     height: 34,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: Platform.OS === "android" ? 10 : 4,
   },
   textTitle: {
     color: "#fff",

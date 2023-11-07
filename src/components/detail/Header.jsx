@@ -1,4 +1,10 @@
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Platform,
+} from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import "firebase/compat/storage";
@@ -76,7 +82,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 10,
+    marginTop: 6,
     marginHorizontal: 8,
     flexDirection: "row",
     alignItems: "center",

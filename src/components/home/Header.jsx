@@ -137,7 +137,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 24,
+    marginTop: Platform.OS === "android" ? 24 : 22,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

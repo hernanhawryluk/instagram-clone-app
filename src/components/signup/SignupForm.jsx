@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
@@ -294,11 +295,12 @@ const styles = StyleSheet.create({
   },
   btnContainer: (isValid) => ({
     marginTop: 35,
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#07f",
     opacity: isValid ? 1 : 0.6,
     marginHorizontal: 20,
-    paddingVertical: 16,
+    height: Platform.OS === "android" ? 56 : 54,
     borderRadius: 10,
   }),
   btnText: {
@@ -320,7 +322,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     borderRadius: 10,
-    height: 56,
+    height: Platform.OS === "android" ? 56 : 54,
     paddingHorizontal: 20,
     gap: 12,
   },
@@ -328,6 +330,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     color: "#fff",
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
   },
 });

@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 20,
     marginTop: 14,
-    marginBottom: 20,
+    marginBottom: Platform.OS === "android" ? 20 : 4,
     gap: 3,
   },
   textTitle: {

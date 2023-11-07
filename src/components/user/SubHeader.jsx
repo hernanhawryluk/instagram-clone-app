@@ -1,5 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useRef, useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
+import React, { useRef } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import BottomSheetFollowing from "./bottomSheets/BottomSheetFollowing";
@@ -153,7 +159,7 @@ export default SubHeader;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 5,
+    marginTop: Platform.OS === "android" ? 5 : 0,
     marginHorizontal: 20,
   },
   rowContainer: {
@@ -199,7 +205,7 @@ const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingBottom: 20,
+    paddingBottom: Platform.OS === "android" ? 20 : 8,
     marginRight: 8,
     gap: 20,
   },
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 34,
+    height: Platform.OS === "android" ? 34 : 32,
   },
   btnWrapperBlue: {
     flexDirection: "row",
@@ -240,7 +246,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 34,
+    height: Platform.OS === "android" ? 34 : 32,
   },
   btnAddUser: {
     flexDirection: "row",
@@ -248,11 +254,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    height: 34,
+    height: Platform.OS === "android" ? 34 : 32,
     width: 36,
   },
   btnText: {
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
     color: "#fff",
     fontSize: 13.5,
     fontWeight: "600",

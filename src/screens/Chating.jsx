@@ -134,7 +134,9 @@ const Chating = ({ navigation, route }) => {
                 style={styles.searchInput}
                 enterKeyHint="search"
                 onFocus={() =>
-                  scrollViewRef.current.scrollToEnd({ aniamted: true })
+                  setTimeout(() => {
+                    scrollViewRef.current.scrollToEnd({ animated: true });
+                  }, 100)
                 }
                 multiline
               />
@@ -158,7 +160,7 @@ const Chating = ({ navigation, route }) => {
                   }
                   style={{ marginRight: 6 }}
                 >
-                  <Ionicons name="image-outline" size={25} color={"#fff"} />
+                  <Ionicons name="image-outline" size={22} color={"#fff"} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
@@ -166,7 +168,7 @@ const Chating = ({ navigation, route }) => {
                   }
                   style={{ marginRight: 12 }}
                 >
-                  <Feather name="mic" size={22} color={"#fff"} />
+                  <Feather name="mic" size={19} color={"#fff"} />
                 </TouchableOpacity>
               </View>
             )}
@@ -226,8 +228,8 @@ const styles = StyleSheet.create({
   searchWrapper: {
     marginTop: 10,
     paddingVertical: 3,
-    marginLeft: SIZES.Width * 0.04,
-    marginRight: SIZES.Width * 0.04,
+    marginLeft: 12,
+    marginRight: 12,
     backgroundColor: "#252525",
     minHeight: 46,
     borderRadius: 50,

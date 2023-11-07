@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
@@ -29,7 +29,7 @@ const screenOptions = {
     elevation: 0,
     borderTopWidth: 0.3,
     borderTopColor: "#444",
-    height: 54,
+    height: Platform.OS === "Android" ? 54 : 80,
     backgroundColor: "#000",
   },
 };

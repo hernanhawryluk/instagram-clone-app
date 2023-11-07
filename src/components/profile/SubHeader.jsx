@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import FastImage from "react-native-fast-image";
 import { useStoriesContext } from "../../contexts/StoriesContext";
@@ -135,7 +141,7 @@ export default SubHeader;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 15,
+    marginTop: Platform.OS === "android" ? 15 : 8,
     marginHorizontal: 12,
     marginBottom: 5,
   },
@@ -184,8 +190,8 @@ const styles = StyleSheet.create({
     borderColor: "#666",
   },
   unseenRainbowBorder: {
-    height: 91.5,
-    width: 91.5,
+    height: Platform.OS === "android" ? 91.5 : 91,
+    width: Platform.OS === "android" ? 91.5 : 91,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
@@ -202,6 +208,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     marginHorizontal: 6,
+    marginTop: Platform.OS === "ios" ? 2 : 0,
   },
   socialContainer: {
     flexDirection: "row",
@@ -225,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   btnContainers: {
-    marginTop: 24,
+    marginTop: Platform.OS === "android" ? 24 : 20,
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
@@ -237,10 +244,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 34,
+    height: Platform.OS === "android" ? 34 : 32,
   },
   btnText: {
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
     color: "#fff",
     fontSize: 13.5,
     fontWeight: "600",
