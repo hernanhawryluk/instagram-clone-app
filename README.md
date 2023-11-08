@@ -40,7 +40,7 @@ Fully functional Instagram replica built in React Native, showcasing my skills a
 
 ## Video of the App running on iOS:
 
-- [![YouTube Video](https://img.shields.io/badge/YouTube-instagram--clone--app-d00?logo=youtube&logoColor=d00)](https://youtu.be/llQH79EdmfU)
+- [![YouTube Video](https://img.shields.io/badge/YouTube-instagram--clone--app-d22?logo=youtube&logoColor=d22)](https://youtu.be/llQH79EdmfU)
 
 ## Screenshots
 
