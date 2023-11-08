@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import useHandleFollow from "../../hooks/useHandleFollow";
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
     justifyContent: "center",
     alignItems: "center",
-    height: 34,
+    height: Platform.OS === "android" ? 32 : 30,
     width: 94,
     borderRadius: 10,
   },
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#08f",
     justifyContent: "center",
     alignItems: "center",
-    height: 30,
+    height: Platform.OS === "android" ? 32 : 30,
     width: 90,
     borderRadius: 10,
   },
@@ -171,6 +172,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 13,
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
   },
 });

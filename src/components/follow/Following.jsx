@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import Unfollow from "./Unfollow";
@@ -121,33 +122,33 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
-    width: SIZES.Width * 0.5,
+    width: SIZES.Width * 0.47,
   },
   name: {
     color: "#999",
     fontSize: 14,
     fontWeight: "400",
-    width: SIZES.Width * 0.5,
+    width: SIZES.Width * 0.47,
     marginBottom: 4,
   },
   button: {
     backgroundColor: "#333",
     justifyContent: "center",
     alignItems: "center",
-    height: 36,
-    width: 105,
+    height: Platform.OS === "android" ? 36 : 32,
+    width: Platform.OS === "android" ? 105 : 90,
     borderRadius: 10,
   },
   buttonText: {
     color: "#08f",
     fontWeight: "700",
     fontSize: 14,
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
   },
   removeText: {
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
   },
 });

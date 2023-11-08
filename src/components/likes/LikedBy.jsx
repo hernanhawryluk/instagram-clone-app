@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import FastImage from "react-native-fast-image";
 import useHandleFollow from "../../hooks/useHandleFollow";
@@ -142,22 +149,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#18f",
     justifyContent: "center",
     alignItems: "center",
-    height: 38,
-    width: 115,
+    height: Platform.OS === "android" ? 38 : 36,
+    width: Platform.OS === "android" ? 115 : 100,
     borderRadius: 10,
   },
   buttonGrey: {
     backgroundColor: "#333",
     justifyContent: "center",
     alignItems: "center",
-    height: 38,
-    width: 115,
+    height: Platform.OS === "android" ? 38 : 36,
+    width: Platform.OS === "android" ? 115 : 100,
     borderRadius: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "700",
     fontSize: 15,
-    marginBottom: 4,
+    marginBottom: Platform.OS === "android" ? 4 : 0,
   },
 });

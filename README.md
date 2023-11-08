@@ -34,17 +34,13 @@ A fully functional Instagram replica developed in React Native as part of my dev
 - React Native.
 - Firebase (authentication and cloud storage).
 
-## Download the application for Android devices
+## Download the App for Android devices
 
 - [![Download APK for Android](https://img.shields.io/badge/Google%20Drive-instagram--clone--app.apk-blue?logo=googledrive)](https://drive.google.com/file/d/15ahphglkz-yoSmbGTq201YoZ-xWay-pn/view?usp=drive_link)
 
-## Video of the application in operation on Android:
+## Video of the App running on iOS:
 
-- Coming soon...
-
-## Video of the application in operation on iOS:
-
-- Coming soon...
+- https://youtu.be/llQH79EdmfU
 
 ## Screenshots
 
