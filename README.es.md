@@ -40,7 +40,7 @@ Una réplica funcional de Instagram desarrollada en React Native como parte de m
 
 ## Video de la aplicación corriendo en iOS:
 
-- [![Video en YouTube](https://img.shields.io/badge/YouTube-instagram--clone--app-red?logo=googledrive)](https://youtu.be/llQH79EdmfU)
+- [![Video en YouTube](https://img.shields.io/badge/YouTube-instagram--clone--app-red?logo=youtube)](https://youtu.be/llQH79EdmfU)
 
 ## Capturas de Pantalla
 
