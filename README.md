@@ -16,7 +16,7 @@
 
 ## Description
 
-A fully functional Instagram replica developed in React Native as part of my developer portfolio.
+Fully functional Instagram replica built in React Native, showcasing my skills as a mobile app developer. Explore the features and functionality of Instagram in this project.
 
 ## Features
 

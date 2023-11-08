@@ -16,7 +16,7 @@
 
 ## Descripción
 
-Una réplica funcional de Instagram desarrollada en React Native como parte de mi portafolio como desarrollador.
+Una réplica funcional de Instagram desarrollada en React Native como parte de mi portafolio como desarrollador. Explora las características y funcionalidades de Instagram en este proyecto.
 
 ## Características
 
