@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useRef } from "react";
-import { MaterialIcons, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, Octicons } from "@expo/vector-icons";
 import BottomSheetAddNew from "./bottomSheets/BottomSheetAddNew";
 import BottomSheetLogout from "./bottomSheets/BottomSheetLogout";
 import BottomSheetOptions from "./bottomSheets/BottomSheetOptions";
@@ -34,7 +34,7 @@ const Header = ({ currentUser, navigation }) => {
         <TouchableOpacity
           onPress={() => bottomSheetRefOptions.current.present()}
         >
-          <Ionicons name="md-menu" size={34} color={"#fff"} />
+          <Octicons name="gear" size={20} color={"#fff"} />
         </TouchableOpacity>
       </View>
       <BottomSheetAddNew

@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import useHandleFollow from "../../hooks/useHandleFollow";
 import RemoveFollower from "./RemoveFollower";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { SIZES } from "../../constants";
@@ -41,13 +41,13 @@ const Followers = ({ user, currentUser, navigation }) => {
               colors={["#ff00ff", "#ff4400", "#ffff00"]}
               style={styles.rainbowBorder}
             >
-              <FastImage
+              <Image
                 source={{ uri: user.profile_picture }}
                 style={styles.image}
               />
             </LinearGradient>
           ) : (
-            <FastImage
+            <Image
               source={{ uri: user.profile_picture }}
               style={styles.nonRainbowImage}
             />

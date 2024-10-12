@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
-  platform,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";

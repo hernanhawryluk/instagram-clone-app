@@ -8,7 +8,7 @@ import {
 import React, { useRef } from "react";
 import BottomSheetComments from "../bottomSheets/BottomSheetComments";
 import BottomSheetComment from "../bottomSheets/BottomSheetComment";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 
 const Comments = ({ post, currentUser, navigation }) => {
   const bottomSheetRefComments = useRef(null);
@@ -31,7 +31,7 @@ const Comments = ({ post, currentUser, navigation }) => {
       {post.comments.length <= 0 ? (
         <TouchableOpacity onPress={() => handleViewComment()}>
           <View style={styles.container}>
-            <FastImage
+            <Image
               source={{ uri: currentUser.profile_picture }}
               style={styles.image}
             />

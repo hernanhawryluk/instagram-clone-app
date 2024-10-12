@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 import React, { useState } from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useHandleFollow from "../../hooks/useHandleFollow";
 import { LinearGradient } from "expo-linear-gradient";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
@@ -47,13 +47,13 @@ const LikedBy = ({ navigation, user, currentUser }) => {
             colors={["#ff00ff", "#ff4400", "#ffff00"]}
             style={styles.rainbowBorder}
           >
-            <FastImage
+            <Image
               source={{ uri: user.profile_picture }}
               style={styles.image}
             />
           </LinearGradient>
         ) : (
-          <FastImage
+          <Image
             source={{ uri: user.profile_picture }}
             style={styles.nonRainbowImage}
           />

@@ -14,7 +14,7 @@ import {
   MaterialIcons,
   Feather,
 } from "@expo/vector-icons";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { BlurView } from "expo-blur";
 import ModalNotification from "../notifications/ModalNotification";
 import { SIZES } from "../../constants";
@@ -42,7 +42,7 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
           style={styles.instagramContainer}
           onPress={() => setFilterModalVisible(true)}
         >
-          <FastImage
+          <Image
             style={styles.logo}
             source={require("../../../assets/images/header-logo.png")}
           />
@@ -81,7 +81,7 @@ const Header = ({ navigation, headerOpacity, currentUser }) => {
               </View>
             )}
             <View style={styles.iconsContainer}>
-              <FastImage
+              <Image
                 style={styles.messenger}
                 source={require("../../../assets/icons/messenger-white.png")}
               />
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 128,
     height: 42,
-    resizeMode: "cover",
+    contentFit: "cover",
   },
   iconsContainer: {
     flexDirection: "row",

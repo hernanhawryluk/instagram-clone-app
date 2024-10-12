@@ -16,7 +16,7 @@ import MessageModal, {
 } from "../../shared/modals/MessageModal";
 
 const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
-  const snapPoints = useMemo(() => [688], []);
+  const snapPoints = useMemo(() => [708], []);
   const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   return (
@@ -41,7 +41,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
           style={styles.rowContainer}
         >
           <View style={styles.iconContainer}>
-            <Ionicons name="ios-settings-sharp" size={27} color="#fff" />
+            <Ionicons name="settings-sharp" size={27} color="#fff" />
           </View>
           <Text style={styles.text}>Settings and privacy</Text>
         </TouchableOpacity>
@@ -53,7 +53,7 @@ const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
           style={styles.rowContainer}
         >
           <View style={styles.iconContainer}>
-            <Ionicons name="ios-timer-outline" size={28} color="#fff" />
+            <Ionicons name="timer-outline" size={28} color="#fff" />
           </View>
           <Text style={styles.text}>Your activity</Text>
         </TouchableOpacity>

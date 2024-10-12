@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     minWidth: SIZES.Width,
     zIndex: -1,
   },
-  fastImage: {
+  Image: {
     marginVertical: 12,
     height: SIZES.Width,
     width: SIZES.Width,

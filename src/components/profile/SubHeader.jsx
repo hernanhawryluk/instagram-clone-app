@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { useStoriesContext } from "../../contexts/StoriesContext";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
@@ -49,7 +49,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
           >
             {!ownStory ? (
               <View>
-                <FastImage
+                <Image
                   source={{ uri: currentUser.profile_picture }}
                   style={styles.userImageWithoutStory}
                 />
@@ -60,7 +60,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
             ) : seenOwnStory ? (
               <View>
                 <View style={styles.seenStoryBorder}>
-                  <FastImage
+                  <Image
                     source={{ uri: currentUser.profile_picture }}
                     style={styles.userImage}
                   />
@@ -74,7 +74,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
                   colors={["#ff00ff", "#ff4400", "#ffff00"]}
                   style={styles.unseenRainbowBorder}
                 >
-                  <FastImage
+                  <Image
                     source={{ uri: currentUser.profile_picture }}
                     style={styles.userImage}
                   />

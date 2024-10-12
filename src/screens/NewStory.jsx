@@ -6,7 +6,6 @@ import {
   Platform,
   ActivityIndicator,
   StatusBar,
-  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Animated, { FadeIn, ZoomInDown } from "react-native-reanimated";
@@ -20,7 +19,7 @@ import {
 import { useUserContext } from "../contexts/UserContext";
 import useUploadStory from "../hooks/useUploadStory";
 import useResizePictures from "../hooks/useResizePictures";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
@@ -125,7 +124,7 @@ const NewStory = ({ navigation, route }) => {
           onPress={() => !isLoading && handleSubmitButton()}
           style={styles.userContainer}
         >
-          <FastImage
+          <Image
             source={{ uri: currentUser.profile_picture }}
             style={styles.userImage}
           />

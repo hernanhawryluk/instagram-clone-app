@@ -18,7 +18,7 @@ import {
   MaterialCommunityIcons,
   Feather,
 } from "@expo/vector-icons";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useUserContext } from "../contexts/UserContext";
 import { useIsFocused } from "@react-navigation/native";
@@ -167,7 +167,7 @@ const Reels = ({ navigation }) => {
                 colors={["#ff00ff", "#ff4400", "#ffff00"]}
                 style={styles.rainbowBorder}
               >
-                <FastImage
+                <Image
                   source={{
                     uri: item.profile_picture,
                   }}

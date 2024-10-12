@@ -10,7 +10,7 @@ import {
 import React, { useState, useRef } from "react";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { SIZES } from "../../../constants";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useUploadComment from "../../../hooks/useUploadComment";
 import TransparentBackdrop from "../../shared/bottomSheets/TransparentBackdrop";
 
@@ -126,7 +126,7 @@ const BottomSheetComment = ({ bottomSheetRefComment, currentUser, post }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.writingContainer}>
-            <FastImage
+            <Image
               source={{
                 uri: currentUser.profile_picture,
               }}

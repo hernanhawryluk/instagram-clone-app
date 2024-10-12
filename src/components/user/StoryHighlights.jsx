@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     zIndex: -1,
   },
-  fastImages: {
+  Images: {
     width: "100%",
     height: "100%",
     borderWidth: 1,

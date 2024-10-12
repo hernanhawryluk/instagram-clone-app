@@ -1,19 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Modal,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
 import React, { useState, useMemo, useEffect } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Foundation, Feather, Ionicons } from "@expo/vector-icons";
 import useImageGallery from "../../../hooks/useImageGallery";
 import CameraModule from "../../shared/CameraModule";
-import FastImage from "react-native-fast-image";
-import blankUserImage from "../../../../assets/images/blank-user.png";
+import { Image } from "expo-image";
 
 const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
   const snapPoints = useMemo(() => [312], []);
@@ -24,7 +16,6 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
   const { ChooseImageFromGallery } = useImageGallery({
     setSelectedImage,
   });
-  const blankUserImageUri = Image.resolveAssetSource(blankUserImage).uri;
 
   useEffect(() => {
     setPreviewImage(selectedImage);
@@ -64,7 +55,7 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
       )}
     >
       <View style={styles.mainContainer}>
-        <FastImage
+        <Image
           source={{
             uri: previewImage ? previewImage : currentUser.profile_picture,
           }}
@@ -129,7 +120,7 @@ const styles = StyleSheet.create({
   },
   image: {
     marginVertical: 28,
-    resizeMode: "cover",
+    contentFit: "cover",
     alignSelf: "center",
     height: 100,
     width: 100,

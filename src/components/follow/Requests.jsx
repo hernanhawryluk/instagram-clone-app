@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import useHandleRequests from "../../hooks/useHandleRequests";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { SIZES } from "../../constants";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
@@ -20,10 +20,7 @@ const Requests = ({ user, navigation }) => {
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => handleViewProfile()}>
         <View style={styles.rowContainer}>
-          <FastImage
-            source={{ uri: user.profile_picture }}
-            style={styles.image}
-          />
+          <Image source={{ uri: user.profile_picture }} style={styles.image} />
           <View style={styles.userContainer}>
             <Text numberOfLines={1} style={styles.username}>
               {user.username}

@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import LoginForm from "../components/login/LoginForm";
 import Footer from "../components/login/Footer";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 
 const LoginScreen = ({ navigation }) => {
   const [messageModalVisible, setMessageModalVisible] = useState(false);
@@ -36,7 +36,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.mainContainer}>
             <View>
               <Animated.View style={styles.logoContainer}>
-                <FastImage
+                <Image
                   source={require("../../assets/images/header-logo.png")}
                   style={styles.logo}
                 />
@@ -72,6 +72,6 @@ const styles = StyleSheet.create({
   logo: {
     height: Platform.OS === "android" ? 70 : 60,
     width: 200,
-    resizeMode: "cover",
+    contentFit: "cover",
   },
 });

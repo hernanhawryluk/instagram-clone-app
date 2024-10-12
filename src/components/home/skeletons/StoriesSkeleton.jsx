@@ -1,51 +1,43 @@
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
 const StoriesSkeleton = () => {
   return (
     <View>
-      <SkeletonPlaceholder
-        backgroundColor={"#333"}
-        highlightColor={"#666"}
-        speed={1500}
-        borderRadius={15}
-      >
-        <View style={styles.container}>
-          <View style={styles.rowContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
-          <View style={styles.verticalContainer}>
-            <View style={styles.image} />
-            <View style={styles.text} />
-          </View>
+      <View style={styles.container}>
+        <View style={styles.rowContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
         </View>
-      </SkeletonPlaceholder>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+        <View style={styles.verticalContainer}>
+          <View style={styles.image} />
+          <View style={styles.text} />
+        </View>
+      </View>
     </View>
   );
 };

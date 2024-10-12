@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import Animated from "react-native-reanimated";
 import { SIZES } from "../../constants/";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { GestureDetector } from "react-native-gesture-handler";
 import useLikeAnimation from "../../utils/useLikeAnimation";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,7 +16,7 @@ const PostImage = ({ post, currentUser }) => {
   return (
     <GestureDetector gesture={handleDoubleTap}>
       <View>
-        <FastImage source={{ uri: post.imageUrl }} style={styles.postImage} />
+        <Image source={{ uri: post.imageUrl }} style={styles.postImage} />
         <Animated.View style={[styles.likeContainer, animatedStyles]}>
           <Ionicons name="heart" size={110} color="#f33" />
         </Animated.View>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginBottom: 11,
     height: SIZES.Width * 1.1,
     width: SIZES.Width,
-    resizeMode: "cover",
+    contentFit: "cover",
   },
   likeContainer: {
     position: "absolute",

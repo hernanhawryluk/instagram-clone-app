@@ -19,7 +19,7 @@ import {
 import { useUserContext } from "../contexts/UserContext";
 import useUploadStory from "../hooks/useUploadStory";
 import useResizePictures from "../hooks/useResizePictures";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { Video, ResizeMode } from "expo-av";
 import MessageModal, {
   handleFeatureNotImplemented,
@@ -166,7 +166,7 @@ const NewReel = ({ navigation, route }) => {
           onPress={() => handleFeatureNotImplemented(setMessageModalVisible)}
           style={styles.userContainer}
         >
-          <FastImage
+          <Image
             source={{ uri: currentUser.profile_picture }}
             style={styles.userImage}
           />

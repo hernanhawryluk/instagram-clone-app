@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import TitleBar from "../components/shared/TitleBar";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const About = ({ navigation, route }) => {
@@ -17,21 +17,20 @@ const About = ({ navigation, route }) => {
   const [dateJoined, setDateJoined] = useState("");
 
   useEffect(() => {
-    const timestamp = user.createdAt;
-    const date = new Date(timestamp.seconds * 1000);
-    const options = { year: "numeric", month: "long" };
-    const formattedDate = date.toLocaleDateString("en-US", options);
-    setDateJoined(formattedDate);
-  }, []);
+    if (user?.createdAt?.seconds) {
+      const timestamp = user.createdAt;
+      const date = new Date(timestamp.seconds * 1000);
+      const options = { year: "numeric", month: "long" };
+      const formattedDate = date.toLocaleDateString("en-US", options);
+      setDateJoined(formattedDate);
+    }
+  }, [user]);
 
   return (
     <SafeAreaView style={styles.container}>
       <TitleBar name="About this account" navigation={navigation} />
       <View style={styles.imageContainer}>
-        <FastImage
-          source={{ uri: user.profile_picture }}
-          style={styles.image}
-        />
+        <Image source={{ uri: user.profile_picture }} style={styles.image} />
         <Text style={styles.username}>{user.username}</Text>
         <Text style={styles.smallText}>
           To help keep our community authentic, we're showing information about

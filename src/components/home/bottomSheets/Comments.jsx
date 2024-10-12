@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { SIZES } from "../../../constants";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useTimeAgo from "../../../utils/useTimeAgo";
 import useHandleCommentLike from "../../../hooks/useHandleCommentLike";
 import useHandleCommentDelete from "../../../hooks/useHandleCommentDelete";
@@ -59,7 +59,7 @@ const Comments = ({
     <View style={styles.mainContainer} key={index}>
       <View style={styles.rowContainer}>
         <TouchableOpacity>
-          <FastImage
+          <Image
             source={{ uri: comment.profile_picture }}
             style={styles.profilePicture}
           />

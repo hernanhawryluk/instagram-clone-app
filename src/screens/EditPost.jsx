@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { SIZES } from "../constants";
 import useEditPostCaption from "../hooks/useEditPostCaption";
 
@@ -54,7 +54,7 @@ const EditPost = ({ navigation, route }) => {
       </View>
       <View style={styles.postContainer}>
         <View style={styles.rowContainer}>
-          <FastImage
+          <Image
             source={{ uri: post.profile_picture }}
             style={styles.profileImage}
           />
@@ -65,7 +65,7 @@ const EditPost = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <FastImage source={{ uri: post.imageUrl }} style={styles.image} />
+        <Image source={{ uri: post.imageUrl }} style={styles.image} />
       </View>
       <View style={styles.inputContainer}>
         <TextInput

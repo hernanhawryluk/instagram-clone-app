@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { Feather } from "@expo/vector-icons";
 import useHandleSeenMessage from "../../hooks/useHandleSeenMessage";
 
@@ -32,10 +32,7 @@ const RenderUser = ({ navigation, user, currentUser, handleCamera }) => {
         }}
         style={styles.rowContainer}
       >
-        <FastImage
-          source={{ uri: user.profile_picture }}
-          style={styles.image}
-        />
+        <Image source={{ uri: user.profile_picture }} style={styles.image} />
         {user.status === "unseen" ? (
           <View style={styles.userContainer}>
             <Text style={styles.username}>{handleLongName(user.name)}</Text>

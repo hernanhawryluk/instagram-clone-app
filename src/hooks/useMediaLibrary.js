@@ -6,10 +6,11 @@ const useMediaLibrary = (selectedAlbum) => {
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [images, setImages] = useState([]);
   const [videos, setVideos] = useState([]);
-    
+
   useEffect(() => {
     const requestPermission = async () => {
       const { status } = await MediaLibrary.requestPermissionsAsync();
+
       if (status !== "granted") {
         Alert.alert(
           "Permission required",
@@ -17,21 +18,21 @@ const useMediaLibrary = (selectedAlbum) => {
           [{ text: "OK" }]
         );
         setPermissionGranted(false);
-        return
+        return;
       }
       setPermissionGranted(true);
-    }
+    };
     requestPermission();
   }, []);
-
-  
 
   useEffect(() => {
     const getPhotos = async () => {
       if (permissionGranted) {
         const { assets } = await MediaLibrary.getAssetsAsync({
           album: selectedAlbum,
-          mediaType: "photo", first: 128, sortBy: ["creationTime"]
+          mediaType: "photo",
+          first: 128,
+          sortBy: ["creationTime"],
         });
         const allImages = assets.map((asset) => {
           return { id: asset.id, uri: asset.uri };
@@ -44,26 +45,29 @@ const useMediaLibrary = (selectedAlbum) => {
       if (permissionGranted) {
         const { assets } = await MediaLibrary.getAssetsAsync({
           album: selectedAlbum,
-          mediaType: "video", first: 24, sortBy: ["creationTime"]
+          mediaType: "video",
+          first: 24,
+          sortBy: ["creationTime"],
         });
-        const allVideos = await Promise.all(assets.map(async (asset) => {
-          const  { localUri } = await MediaLibrary.getAssetInfoAsync(asset.id);
-          return { id: asset.id, uri: asset.uri, localUri: localUri };
-        })
+        const allVideos = await Promise.all(
+          assets.map(async (asset) => {
+            const { localUri } = await MediaLibrary.getAssetInfoAsync(asset.id);
+            return { id: asset.id, uri: asset.uri, localUri: localUri };
+          })
         );
         setVideos(allVideos);
       }
-    }
+    };
 
     getPhotos();
     getVideos();
-  }, [permissionGranted, selectedAlbum])
+  }, [permissionGranted, selectedAlbum]);
 
   return {
     images,
     videos,
-    permissionGranted
-  }
-}
+    permissionGranted,
+  };
+};
 
-export default useMediaLibrary
+export default useMediaLibrary;

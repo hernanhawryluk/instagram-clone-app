@@ -12,7 +12,7 @@ import {
   TextInput,
 } from "react-native";
 import React from "react";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import useIsEmail from "../utils/useIsEmail";
 import useResetPassword from "../hooks/useResetPassword";
 
@@ -28,7 +28,7 @@ const Forgot = ({ navigation }) => {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <View style={styles.iconContainer}>
-            <Ionicons name="ios-lock-closed-outline" size={60} color="#fff" />
+            <Ionicons name="lock-closed-outline" size={60} color="#fff" />
           </View>
           <Text style={styles.titleText}>Trouble logging in?</Text>
           <Text style={styles.normalText}>

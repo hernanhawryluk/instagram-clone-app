@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 
 const RenderProfile = ({ navigation, user }) => {
   return (
     <View style={styles.container}>
-      <FastImage source={{ uri: user.profile_picture }} style={styles.image} />
+      <Image source={{ uri: user.profile_picture }} style={styles.image} />
       <Text style={styles.username}>{user.name}</Text>
       <Text style={styles.name}>{user.username} - Instagram</Text>
       <TouchableOpacity

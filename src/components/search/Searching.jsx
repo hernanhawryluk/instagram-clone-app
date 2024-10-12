@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import SkeletonSearching from "./Skeletons/SkeletonSearching";
 
@@ -39,7 +39,7 @@ const Searching = ({ navigation, searchResult, currentUser }) => {
                 }}
                 style={styles.userContainer}
               >
-                <FastImage
+                <Image
                   source={{ uri: item.profile_picture }}
                   style={styles.image}
                 />

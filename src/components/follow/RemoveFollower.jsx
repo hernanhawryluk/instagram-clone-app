@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import firebase from "firebase/compat";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 
 const RemoveFollower = ({ handleModal, user }) => {
   const { currentUser } = useUserContext();
@@ -47,10 +47,7 @@ const RemoveFollower = ({ handleModal, user }) => {
     <TouchableWithoutFeedback onPress={() => handleModal()}>
       <View style={styles.container}>
         <View onStartShouldSetResponder={() => true} style={styles.modalView}>
-          <FastImage
-            source={{ uri: user.profile_picture }}
-            style={styles.image}
-          />
+          <Image source={{ uri: user.profile_picture }} style={styles.image} />
 
           <Text style={styles.textTitle}>Remove follower?</Text>
 

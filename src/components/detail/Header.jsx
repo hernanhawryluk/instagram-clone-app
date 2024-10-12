@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import "firebase/compat/storage";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -41,7 +41,7 @@ const Header = ({
           style={styles.headerUserContainer}
         >
           {checkStoriesSeen(post.username, currentUser.email) ? (
-            <FastImage
+            <Image
               source={{ uri: post.profile_picture }}
               style={styles.headerImage}
             />
@@ -52,7 +52,7 @@ const Header = ({
               colors={["#ff00ff", "#ff4400", "#ffff00"]}
               style={styles.unseenRainbowBorder}
             >
-              <FastImage
+              <Image
                 source={{ uri: post.profile_picture }}
                 style={styles.headerImage}
               />
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   headerImage: {
     height: 37,
     width: 37,
-    resizeMode: "cover",
+    contentFit: "cover",
     borderWidth: 2,
     borderRadius: 100,
   },

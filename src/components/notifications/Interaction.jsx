@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -35,7 +35,7 @@ const Interaction = ({ navigation, item, currentUser, text }) => {
               colors={["#ff00ff", "#ff4400", "#ffff00"]}
               style={styles.rainbowBorder}
             >
-              <FastImage
+              <Image
                 source={{
                   uri:
                     text === "commented"
@@ -46,7 +46,7 @@ const Interaction = ({ navigation, item, currentUser, text }) => {
               />
             </LinearGradient>
           ) : (
-            <FastImage
+            <Image
               source={{
                 uri:
                   text === "commented"
@@ -77,7 +77,7 @@ const Interaction = ({ navigation, item, currentUser, text }) => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => handleCheckPost()}>
-          <FastImage source={{ uri: item.imageUrl }} style={styles.postImage} />
+          <Image source={{ uri: item.imageUrl }} style={styles.postImage} />
         </TouchableOpacity>
       </View>
     </View>

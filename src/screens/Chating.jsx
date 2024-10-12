@@ -16,7 +16,7 @@ import React, { useState, useRef } from "react";
 import { SIZES } from "../constants";
 import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { useUserContext } from "../contexts/UserContext";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import RenderDate from "../components/chat/RenderDate";
 import RenderMessageA from "../components/chat/RenderMessageA";
 import RenderMessageB from "../components/chat/RenderMessageB";
@@ -50,7 +50,7 @@ const Chating = ({ navigation, route }) => {
               style={styles.rowContainer}
             >
               <MaterialIcons name="arrow-back-ios" size={28} color={"#fff"} />
-              <FastImage
+              <Image
                 source={{ uri: user.profile_picture }}
                 style={styles.profilePicture}
               />
@@ -94,7 +94,7 @@ const Chating = ({ navigation, route }) => {
                 </View>
               ) : message.who === "user" ? (
                 <View style={styles.userContainer} key={index}>
-                  <FastImage
+                  <Image
                     source={{ uri: user.profile_picture }}
                     style={styles.littleProfilePicture}
                   />

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState, useEffect } from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import StoriesSkeleton from "./skeletons/StoriesSkeleton";
 import { useStoriesContext } from "../../contexts/StoriesContext";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
@@ -44,7 +44,7 @@ const Stories = ({ navigation, currentUser }) => {
 
   useEffect(() => {
     stories.forEach((story) => {
-      FastImage.preload([{ uri: story.imageUrl }]);
+      Image.prefetch([{ uri: story.imageUrl }]);
     });
   }, []);
 
@@ -71,7 +71,7 @@ const Stories = ({ navigation, currentUser }) => {
               {!ownStory ? (
                 <View>
                   <View style={styles.emptyStoryBorder}>
-                    <FastImage
+                    <Image
                       source={{
                         uri: currentUser.profile_picture,
                       }}
@@ -87,7 +87,7 @@ const Stories = ({ navigation, currentUser }) => {
               ) : seenOwnStory ? (
                 <View>
                   <View style={styles.seenStoryBorder}>
-                    <FastImage
+                    <Image
                       source={{
                         uri: currentUser.profile_picture,
                       }}
@@ -105,7 +105,7 @@ const Stories = ({ navigation, currentUser }) => {
                     colors={["#ff00ff", "#ff4400", "#ffff00"]}
                     style={styles.unseenRainbowBorder}
                   >
-                    <FastImage
+                    <Image
                       source={{
                         uri: currentUser.profile_picture,
                       }}
@@ -135,7 +135,7 @@ const Stories = ({ navigation, currentUser }) => {
                   {checkStoriesSeen(story.username, currentUser.email) ? (
                     <View style={styles.itemContainer}>
                       <View style={styles.seenStoryBorder}>
-                        <FastImage
+                        <Image
                           source={{ uri: story.profile_picture }}
                           style={styles.imageWithStory}
                         />
@@ -152,7 +152,7 @@ const Stories = ({ navigation, currentUser }) => {
                         colors={["#ff00ff", "#ff4400", "#ffff00"]}
                         style={styles.unseenRainbowBorder}
                       >
-                        <FastImage
+                        <Image
                           source={{ uri: story.profile_picture }}
                           style={styles.imageWithStory}
                         />

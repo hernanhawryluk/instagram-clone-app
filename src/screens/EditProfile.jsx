@@ -14,7 +14,7 @@ import React, { useState, useRef } from "react";
 import ProfilePicture from "../components/profile/edit/ProfilePicture";
 import useUploadPicture from "../hooks/useUploadPicture";
 import useUploadProfilePicture from "../hooks/useUploadProfilePicture";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const EditProfile = ({ navigation }) => {
@@ -68,7 +68,7 @@ const EditProfile = ({ navigation }) => {
       <Divider width={0.4} color={"#222"} />
       <View style={styles.imageContainer}>
         <TouchableOpacity onPress={() => handlePictureModal()}>
-          <FastImage
+          <Image
             source={{
               uri: previewImage ? previewImage : currentUser.profile_picture,
             }}
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   image: {
     height: 90,
     width: 90,
-    resizeMode: "cover",
+    contentFit: "cover",
     borderRadius: 100,
   },
   imageText: {

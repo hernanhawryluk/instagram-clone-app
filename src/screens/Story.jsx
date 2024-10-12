@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import React, { useState, useRef } from "react";
 import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import * as Progress from "react-native-progress";
 import { SIZES } from "../constants";
 import useProgressBarTimer from "../utils/useProgressBarTimer";
@@ -98,7 +98,7 @@ const Story = ({ navigation, route }) => {
 
   return (
     <Animated.View entering={ZoomIn.duration(150)} style={styles.container}>
-      <FastImage
+      <Image
         source={{ uri: stories[currentStoryIndex].imageUrl }}
         style={styles.image}
       />
@@ -128,7 +128,7 @@ const Story = ({ navigation, route }) => {
                 onPress={() => handleViewProfile()}
                 style={styles.rowContainer}
               >
-                <FastImage
+                <Image
                   source={{ uri: stories[0].profile_picture }}
                   style={styles.profilePicture}
                 />

@@ -1,4 +1,3 @@
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import SIZES from "../../../constants/SIZES";
@@ -6,31 +5,24 @@ import SIZES from "../../../constants/SIZES";
 const PostsSkeleton = () => {
   return (
     <View>
-      <SkeletonPlaceholder
-        backgroundColor={"#333"}
-        highlightColor={"#666"}
-        speed={1500}
-        borderRadius={15}
-      >
-        <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <View style={styles.profileImage} />
-            <View style={styles.username} />
-            <View style={styles.threeDots} />
-          </View>
-          <View style={styles.image} />
-          <View style={styles.iconContainer}>
-            <View style={styles.rowContainer}>
-              <View style={styles.icon} />
-              <View style={styles.icon} />
-              <View style={styles.icon} />
-            </View>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <View style={styles.profileImage} />
+          <View style={styles.username} />
+          <View style={styles.threeDots} />
+        </View>
+        <View style={styles.image} />
+        <View style={styles.iconContainer}>
+          <View style={styles.rowContainer}>
+            <View style={styles.icon} />
+            <View style={styles.icon} />
             <View style={styles.icon} />
           </View>
-          <View style={styles.textContainer} />
-          <View style={styles.divider} />
+          <View style={styles.icon} />
         </View>
-      </SkeletonPlaceholder>
+        <View style={styles.textContainer} />
+        <View style={styles.divider} />
+      </View>
     </View>
   );
 };

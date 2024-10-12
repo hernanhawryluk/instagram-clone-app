@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import useHandleUnfollow from "../../hooks/useHandleUnfollow";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 
 const Unfollow = ({ handleModal, user }) => {
   const { currentUser } = useUserContext();
@@ -18,10 +18,7 @@ const Unfollow = ({ handleModal, user }) => {
     <TouchableWithoutFeedback onPress={() => handleModal()}>
       <View style={styles.container}>
         <View onStartShouldSetResponder={() => true} style={styles.modalView}>
-          <FastImage
-            source={{ uri: user.profile_picture }}
-            style={styles.image}
-          />
+          <Image source={{ uri: user.profile_picture }} style={styles.image} />
 
           <Text style={styles.text}>
             If you change your mind, you'll have to request to follow{" "}

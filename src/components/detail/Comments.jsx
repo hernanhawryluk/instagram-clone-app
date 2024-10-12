@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 
 const Comments = ({
   post,
@@ -39,7 +39,7 @@ const Comments = ({
           }}
         >
           <View style={styles.container}>
-            <FastImage
+            <Image
               source={{ uri: currentUser.profile_picture }}
               style={styles.image}
             />

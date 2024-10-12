@@ -13,7 +13,7 @@ import {
 import SignupForm from "../components/signup/SignupForm";
 import Footer from "../components/signup/Footer";
 import { MaterialIcons } from "@expo/vector-icons";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { SIZES } from "../constants";
 
 const Signup = ({ navigation }) => {
@@ -28,7 +28,7 @@ const Signup = ({ navigation }) => {
             <View style={{ height: 56 }} />
             <View>
               <Animated.View style={styles.logoContainer}>
-                <FastImage
+                <Image
                   source={require("../../assets/images/header-logo.png")}
                   style={styles.logo}
                 />
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   logo: {
     height: Platform.OS === "android" ? 70 : 60,
     width: 200,
-    resizeMode: "cover",
+    contentFit: "cover",
   },
 });

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useUploadComment from "../../../hooks/useUploadComment";
 
 const FooterTextInput = ({ post, currentUser }) => {
@@ -81,7 +81,7 @@ const FooterTextInput = ({ post, currentUser }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.writingContainer}>
-        <FastImage
+        <Image
           source={{
             uri: currentUser.profile_picture,
           }}

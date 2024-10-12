@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Unfollow from "./Unfollow";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
 import { SIZES } from "../../constants";
@@ -39,7 +39,7 @@ const Following = ({ user, currentUser, navigation }) => {
               colors={["#ff00ff", "#ff4400", "#ffff00"]}
               style={styles.rainbowBorder}
             >
-              <FastImage
+              <Image
                 source={{ uri: user.profile_picture }}
                 style={styles.image}
               />
@@ -55,7 +55,7 @@ const Following = ({ user, currentUser, navigation }) => {
           </View>
         ) : (
           <View style={styles.rowContainer}>
-            <FastImage
+            <Image
               source={{ uri: user.profile_picture }}
               style={styles.nonRainbowImage}
             />

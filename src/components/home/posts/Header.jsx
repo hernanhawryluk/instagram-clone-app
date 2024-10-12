@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useRef } from "react";
 import { Entypo } from "@expo/vector-icons";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import BottomSheetOptions from "../bottomSheets/BottomSheetOptions";
 import useCheckStoriesSeen from "../../../hooks/useCheckStoriesSeen";
@@ -41,7 +41,7 @@ const Header = ({ navigation, post, currentUser }) => {
         >
           {checkStoriesSeen(post.username, currentUser.email) ? (
             <View style={styles.rainbowBorder}>
-              <FastImage
+              <Image
                 source={{ uri: post.profile_picture }}
                 style={styles.headerImage}
               />
@@ -53,7 +53,7 @@ const Header = ({ navigation, post, currentUser }) => {
               colors={["#ff00ff", "#ff4400", "#ffff00"]}
               style={styles.rainbowBorder}
             >
-              <FastImage
+              <Image
                 source={{ uri: post.profile_picture }}
                 style={styles.headerImageWithRainbow}
               />
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   headerImage: {
     height: 37,
     width: 37,
-    resizeMode: "cover",
+    contentFit: "cover",
     borderRadius: 100,
     borderWidth: 0.6,
     borderColor: "#444",
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   headerImageWithRainbow: {
     height: 36.5,
     width: 36.5,
-    resizeMode: "cover",
+    contentFit: "cover",
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#000",

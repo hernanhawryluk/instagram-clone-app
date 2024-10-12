@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, View, Platform } from "react-native";
 import React from "react";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import Animated from "react-native-reanimated";
 import { SIZES } from "../../constants";
 
@@ -20,10 +20,7 @@ const RenderItem = ({ navigation, item }) => {
               source={{ uri: item.imageUrl }}
             />
           )}
-          <FastImage
-            source={{ uri: item.imageUrl }}
-            style={styles.fastImages}
-          />
+          <Image source={{ uri: item.imageUrl }} style={styles.Images} />
         </TouchableOpacity>
       )}
     </View>
@@ -45,7 +42,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     zIndex: -1,
   },
-  fastImages: {
+  Images: {
     width: "100%",
     height: "100%",
     borderWidth: 1,

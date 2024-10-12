@@ -10,7 +10,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import BottomSheetFollowing from "./bottomSheets/BottomSheetFollowing";
 import useHandleFollow from "../../hooks/useHandleFollow";
-import FastImage from "react-native-fast-image";
+import { Image } from "expo-image";
 import useChatAddUser from "../../hooks/useChatAddUser";
 import { useStoriesContext } from "../../contexts/StoriesContext";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
@@ -35,7 +35,7 @@ const SubHeader = ({ user, navigation, numberOfPosts }) => {
         <View style={styles.userContainer}>
           {checkStoriesSeen(user.username, currentUser.email) ? (
             <TouchableOpacity>
-              <FastImage
+              <Image
                 source={{ uri: user.profile_picture }}
                 style={styles.userImage}
               />
@@ -57,7 +57,7 @@ const SubHeader = ({ user, navigation, numberOfPosts }) => {
                 colors={["#ff00ff", "#ff4400", "#ffff00"]}
                 style={styles.unseenRainbowBorder}
               >
-                <FastImage
+                <Image
                   source={{ uri: user.profile_picture }}
                   style={styles.userImageWithRainbow}
                 />
