@@ -61,6 +61,67 @@ Fully functional Instagram replica built in React Native, showcasing my skills a
   <img src="./assets/screenshots/PictureModal.png" width="32%">
 </div>
 
+## Instructions for Running on an Emulator:
+
+### Requirements:
+
+    - Node.js.
+    -	Android Studio (for Android).
+    -	Xcode (for iOS).
+    -	Firebase.
+
+### Instructions:
+
+1. Set Up Firebase:
+
+   - Create a project on Firebase and enable Authentication, Firestore, and Storage.
+   - Apply the Firebase and Firestore rules located in the folders `/src/services/firebase.rules` y `firestore.rules`.
+   - Add your Firebase credentials to the file `/src/services/firebaseConfig.js`.
+   - Rename `/src/services/firebaseConfig.js` to `/src/services/firebase.js`.
+
+2. **Download the repository**
+
+```bash
+git clone https://github.com/hernanhawryluk/instagram-clone-app
+```
+
+3. **Navigate to the project directory**
+
+```bash
+cd instagram-clone-app
+```
+
+4. **Install dependencies**
+
+```bash
+npm install
+```
+
+5. **Create a Developer Build**
+
+- To run on the iOS emulator:
+
+```bash
+npx expo run:ios
+```
+
+- To run on the Android emulator:
+
+```bash
+npx expo run:android
+```
+
+6. **Start the application**
+
+```bash
+npm start
+```
+
+7. **Select the emulator**
+
+   - Press “a” for the Android emulator.
+   - Press “i” for the iOS emulator.
+
 ## Where to find me?
 
 <div>
