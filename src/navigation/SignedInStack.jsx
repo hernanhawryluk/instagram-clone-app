@@ -6,7 +6,6 @@ import EditProfile from "../screens/EditProfile";
 import EditingProfile from "../components/profile/edit/EditingProfile";
 import UserDetail from "../screens/UserDetail";
 import Follow from "../screens/Follow";
-import Likes from "../screens/Likes";
 import Notifications from "../screens/Notifications";
 import NewStory from "../screens/NewStory";
 import NewReel from "../screens/NewReel";
@@ -21,13 +20,13 @@ import About from "../screens/About";
 import UserFollow from "../screens/UserFollow";
 import Chat from "../screens/Chat";
 import Chating from "../screens/Chating";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { UserProvider } from "../contexts/UserContext";
 import { StoriesProvider } from "../contexts/StoriesContext";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const SignedInStack = () => {
   return (
@@ -35,7 +34,12 @@ const SignedInStack = () => {
       <UserProvider>
         <BottomSheetModalProvider>
           <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: "#000" },
+              }}
+            >
               <Stack.Screen name="Main Screen" component={BottomTabs} />
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen
@@ -43,6 +47,7 @@ const SignedInStack = () => {
                 component={NewPost}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -50,6 +55,7 @@ const SignedInStack = () => {
                 component={EditProfile}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -57,6 +63,7 @@ const SignedInStack = () => {
                 component={EditingProfile}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -64,6 +71,7 @@ const SignedInStack = () => {
                 component={UserDetail}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -71,6 +79,7 @@ const SignedInStack = () => {
                 component={UserFollow}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -78,6 +87,7 @@ const SignedInStack = () => {
                 component={Follow}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -85,13 +95,7 @@ const SignedInStack = () => {
                 component={Notifications}
                 options={{
                   animation: "slide_from_right",
-                }}
-              />
-              <Stack.Screen
-                name="Likes"
-                component={Likes}
-                options={{
-                  animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -99,6 +103,7 @@ const SignedInStack = () => {
                 component={EditPost}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -106,6 +111,7 @@ const SignedInStack = () => {
                 component={Following}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -113,6 +119,7 @@ const SignedInStack = () => {
                 component={Favorites}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -120,6 +127,7 @@ const SignedInStack = () => {
                 component={About}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -127,6 +135,7 @@ const SignedInStack = () => {
                 component={Chat}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -134,6 +143,7 @@ const SignedInStack = () => {
                 component={Chating}
                 options={{
                   animation: "slide_from_right",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -142,6 +152,7 @@ const SignedInStack = () => {
                 options={{
                   presentation: "transparentModal",
                   animation: "slide_from_bottom",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -149,15 +160,20 @@ const SignedInStack = () => {
                 component={Story}
                 options={{
                   presentation: "transparentModal",
-                  animation: Platform.OS === "android" ? "fade" : "none",
+                  animation:
+                    Platform.OS === "android" ? "fade" : "slide_from_bottom",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
                 name="MediaLibrary"
                 component={MediaLibrary}
                 options={{
-                  gestureEnabled: false,
-                  animation: "slide_from_left",
+                  animation:
+                    Platform.OS === "ios"
+                      ? "fade_from_bottom"
+                      : "fade_from_bottom",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -165,7 +181,11 @@ const SignedInStack = () => {
                 component={Detail}
                 options={{
                   presentation: "transparentModal",
-                  animation: "fade",
+                  animation:
+                    Platform.OS === "android"
+                      ? "slide_from_right"
+                      : "fade_from_bottom",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -174,6 +194,7 @@ const SignedInStack = () => {
                 options={{
                   presentation: "transparentModal",
                   animation: "fade",
+                  animationDuration: 450,
                 }}
               />
               <Stack.Screen
@@ -182,6 +203,7 @@ const SignedInStack = () => {
                 options={{
                   presentation: "transparentModal",
                   animation: "fade",
+                  animationDuration: 450,
                 }}
               />
             </Stack.Navigator>

@@ -1,37 +1,36 @@
-import { useState, useEffect } from 'react'
-import firebase from 'firebase/compat';
+import { useState, useEffect } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useFetchPost = (item) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [onSnapshotData, setOnSnapshotData] = useState({});
-    const [timeToReplaceData, setTimeToReplaceData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [onSnapshotData, setOnSnapshotData] = useState({});
+  const [timeToReplaceData, setTimeToReplaceData] = useState(false);
 
-    useEffect(() => {
-        setIsLoading(true);
-        try {
-            const unsubscribe = firebase
-            .firestore()
-            .collection("users")
-            .doc(item.owner_email)
-            .collection("posts")
-            .doc(item.id)
-            .onSnapshot(snapshot => {
-                setOnSnapshotData({...snapshot.data(), id: snapshot.id});
-                setTimeToReplaceData(true)
-            });
+  useEffect(() => {
+    setIsLoading(true);
 
-            return () => unsubscribe;
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [])
-    
-    return {
-        onSnapshotData,
-        timeToReplaceData
+    try {
+      const postDocRef = doc(db, "users", item.owner_email, "posts", item.id);
+
+      const unsubscribe = onSnapshot(postDocRef, (snapshot) => {
+        setOnSnapshotData({ ...snapshot.data(), id: snapshot.id });
+        setTimeToReplaceData(true);
+        setIsLoading(false);
+      });
+
+      return () => unsubscribe();
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setIsLoading(false);
     }
-}
+  }, [item.owner_email, item.id]);
 
-export default useFetchPost
+  return {
+    onSnapshotData,
+    timeToReplaceData,
+    isLoading,
+  };
+};
+
+export default useFetchPost;

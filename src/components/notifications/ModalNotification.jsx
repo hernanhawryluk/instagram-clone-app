@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 const ModalNotification = ({ setNotificationModal, notificationCounter }) => {

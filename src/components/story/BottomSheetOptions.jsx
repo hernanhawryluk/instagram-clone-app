@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import React from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../shared/bottomSheets/CustomBackdrop";
 import useSharePost from "../../hooks/useSharePost";

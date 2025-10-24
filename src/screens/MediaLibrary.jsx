@@ -7,14 +7,13 @@ import {
   Image,
   Modal,
   Platform,
-  StatusBar,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SIZES } from "../constants";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 import useMediaLibrary from "../hooks/useMediaLibrary";
-import Animated from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import AlbumModal from "../components/mediaLibrary/AlbumModal";
 import useAlbumSelector from "../utils/useAlbumSelector";
 import useOpacityAnimation from "../utils/useOpacityAnimation";
@@ -24,8 +23,10 @@ import blankPhoto from "../../assets/images/blank-image.jpg";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const MediaLibrary = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { initialSelectedType, selectorAvailable = true } = route.params || {};
   const blankPhotoUri = Image.resolveAssetSource(blankPhoto).uri;
   const [selectedImage, setSelectedImage] = useState(blankPhotoUri);
@@ -33,7 +34,6 @@ const MediaLibrary = ({ navigation, route }) => {
   const [albumModalVisible, setAlbumModalVisible] = useState(false);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
   const [messageModalVisible, setMessageModalVisible] = useState(false);
-
   const { scrollY, animatedStyle } = useOpacityAnimation();
   const { allAlbums, selectedAlbum, selectedAlbumTitle, handleAlbumSelection } =
     useAlbumSelector({ setAlbumModalVisible });
@@ -80,13 +80,17 @@ const MediaLibrary = ({ navigation, route }) => {
     }
   };
 
-  renderItem = ({ item }) => {
+  const renderItem = ({ item }) => {
     return (
       <View style={{ flex: 1 }}>
         {selectedType === "New post" ? (
           <TouchableOpacity onPress={() => handleImageSelection(item)}>
             <View style={styles.imageContainer}>
-              <Image source={{ uri: item.uri }} style={styles.image} />
+              <Animated.Image
+                source={{ uri: item?.uri }}
+                style={styles.image}
+                entering={FadeIn.duration(800)}
+              />
             </View>
           </TouchableOpacity>
         ) : selectedType === "Add to story" ? (
@@ -97,15 +101,11 @@ const MediaLibrary = ({ navigation, route }) => {
             }
           >
             <View style={styles.videoContainer}>
-              {Platform.OS === "ios" ? (
-                <Animated.Image
-                  source={{ uri: item.uri }}
-                  style={styles.image}
-                  sharedTransitionTag={item.id.toString()}
-                />
-              ) : (
-                <Image source={{ uri: item.uri }} style={styles.image} />
-              )}
+              <Animated.Image
+                source={{ uri: item?.uri }}
+                style={styles.image}
+                entering={FadeIn.duration(800)}
+              />
             </View>
           </TouchableOpacity>
         ) : (
@@ -116,18 +116,11 @@ const MediaLibrary = ({ navigation, route }) => {
             }
           >
             <View style={styles.videoContainer}>
-              {Platform.OS === "ios" ? (
-                <Animated.Image
-                  source={{ uri: item.uri }}
-                  style={styles.image}
-                  sharedTransitionTag={item.id.toString()}
-                />
-              ) : (
-                <Animated.Image
-                  source={{ uri: item.uri }}
-                  style={styles.image}
-                />
-              )}
+              <Animated.Image
+                source={{ uri: item?.uri }}
+                style={styles.image}
+                entering={FadeIn.duration(800)}
+              />
             </View>
           </TouchableOpacity>
         )}
@@ -174,9 +167,10 @@ const MediaLibrary = ({ navigation, route }) => {
       <View style={styles.mediaContainer}>
         {selectedType === "New post" ? (
           <View style={styles.selectedImageContainer}>
-            <Image
+            <Animated.Image
               source={{ uri: selectedImage }}
               style={styles.selectedImage}
+              entering={FadeIn.duration(800)}
             />
           </View>
         ) : selectedType === "Add to story" ? null : null}
@@ -282,6 +276,7 @@ const MediaLibrary = ({ navigation, route }) => {
           options={true}
         />
       </Modal>
+      <View style={{ height: insets.bottom }} />
     </View>
   );
 };
@@ -292,7 +287,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
+    paddingTop: 40,
   },
   headerContainer: {
     flexDirection: "row",

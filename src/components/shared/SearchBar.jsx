@@ -1,5 +1,5 @@
 import { StyleSheet, View, TextInput, Platform } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 const SearchBar = ({ onPropChange, resetSearchBar }) => {
@@ -18,7 +18,7 @@ const SearchBar = ({ onPropChange, resetSearchBar }) => {
       <View style={styles.searchWrapper}>
         <Ionicons
           name="search"
-          size={20}
+          size={19}
           color={"#aaa"}
           style={styles.searchIcon}
         />
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   searchWrapper: {
     flex: 1,
-    backgroundColor: "#333",
+    backgroundColor: "#262A31",
     height: Platform.OS === "android" ? 44 : 38,
     borderRadius: 12,
     flexDirection: "row",

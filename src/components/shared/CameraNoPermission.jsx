@@ -4,10 +4,7 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { SIZES } from "../../constants";
 
@@ -98,7 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   shadowBowTop: {
     position: "absolute",

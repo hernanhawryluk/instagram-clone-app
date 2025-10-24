@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Image } from "expo-image";
 import { useStoriesContext } from "../../contexts/StoriesContext";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
@@ -21,11 +21,13 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
   useEffect(() => {
     setOwnStory(
       stories.find((story) => {
-        return story.username === currentUser.username;
+        return story?.username === currentUser?.username;
       })
     );
 
-    setSeenOwnStory(checkStoriesSeen(currentUser.username, currentUser.email));
+    setSeenOwnStory(
+      checkStoriesSeen(currentUser?.username, currentUser?.email)
+    );
   }, [updatedStories]);
 
   return (
@@ -37,7 +39,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
               ownStory
                 ? navigation.navigate("Story", {
                     stories: stories.filter(
-                      (story) => story.username === currentUser.username
+                      (story) => story?.username === currentUser?.username
                     ),
                     currentUser: currentUser,
                   })
@@ -50,7 +52,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
             {!ownStory ? (
               <View>
                 <Image
-                  source={{ uri: currentUser.profile_picture }}
+                  source={{ uri: currentUser?.profile_picture }}
                   style={styles.userImageWithoutStory}
                 />
                 <View style={styles.plusBadgeContainer}>
@@ -61,7 +63,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
               <View>
                 <View style={styles.seenStoryBorder}>
                   <Image
-                    source={{ uri: currentUser.profile_picture }}
+                    source={{ uri: currentUser?.profile_picture }}
                     style={styles.userImage}
                   />
                 </View>
@@ -75,7 +77,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
                   style={styles.unseenRainbowBorder}
                 >
                   <Image
-                    source={{ uri: currentUser.profile_picture }}
+                    source={{ uri: currentUser?.profile_picture }}
                     style={styles.userImage}
                   />
                 </LinearGradient>
@@ -96,7 +98,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
             style={styles.socialColumn}
           >
             <Text style={styles.socialBoldText}>
-              {currentUser.followers.length > 0
+              {currentUser?.followers.length > 0
                 ? currentUser.followers.length
                 : 0}
             </Text>
@@ -109,7 +111,7 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
             style={styles.socialColumn}
           >
             <Text style={styles.socialBoldText}>
-              {currentUser.following.length > 0
+              {currentUser?.following.length > 0
                 ? currentUser.following.length
                 : 0}
             </Text>
@@ -117,8 +119,8 @@ const SubHeader = ({ navigation, currentUser, numberOfPosts }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.usernameText}>{currentUser.name}</Text>
-      <Text style={styles.bioText}>{currentUser.bio}</Text>
+      <Text style={styles.usernameText}>{currentUser?.name}</Text>
+      <Text style={styles.bioText}>{currentUser?.bio}</Text>
       <View style={styles.btnContainers}>
         <TouchableOpacity
           onPress={() => navigation.navigate("EditProfile")}
@@ -148,6 +150,7 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 4,
   },
   userContainer: {
     alignItems: "flex-start",

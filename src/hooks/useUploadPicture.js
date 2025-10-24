@@ -1,41 +1,53 @@
-  import { useState } from "react";
-  import firebase from "firebase/compat";
-  import "firebase/compat/storage";
+import { useState } from "react";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 const useUploadPicture = () => {
-    const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const storage = getStorage();
 
-    const uploadPicture = async (uri, email, name) => {
-        if (!uploading) {
-          setUploading(true);
-          try { 
-            const storageRef = firebase.storage().ref(`${email}/${name}`);
-            const response = await fetch(uri);
-            const blob = await response.blob();
+  const uploadPicture = async (uri, email, name) => {
+    if (uploading) return;
+    setUploading(true);
+    try {
+      const storageRef = ref(storage, `${email}/${name}`);
 
-            const uploadSnapshot = storageRef.put(blob);
+      const response = await fetch(uri);
+      const blob = await response.blob();
 
-            uploadSnapshot.on("state_changed", (snapshot) => {
-              const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-              console.log("Upload is " + progress + "% done");
-            });
+      const uploadTask = uploadBytesResumable(storageRef, blob);
 
-            await uploadSnapshot;
-    
-            const downloadUrl = await storageRef.getDownloadURL();
-            return downloadUrl;
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setUploading(false);
-          }
-        }
-      };
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            console.log("Upload is " + progress + "% done");
+          },
+          (error) => reject(error),
+          () => resolve()
+        );
+      });
 
-      return {
-        uploadPicture,
-        uploading
-      }
-  }
+      const downloadUrl = await getDownloadURL(storageRef);
+      return downloadUrl;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return {
+    uploadPicture,
+    uploading,
+  };
+};
 
 export default useUploadPicture;

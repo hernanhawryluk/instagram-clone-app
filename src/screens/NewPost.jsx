@@ -2,7 +2,6 @@ import {
   StyleSheet,
   View,
   Text,
-  SafeAreaView,
   Keyboard,
   TouchableWithoutFeedback,
   TouchableOpacity,
@@ -10,9 +9,8 @@ import {
   Image,
   ActivityIndicator,
   Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import useResizePictures from "../hooks/useResizePictures";
 import useUploadPost from "../hooks/useUploadPost";
@@ -22,6 +20,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const NewPost = ({ navigation, route }) => {
   const { selectedImage } = route.params || {};
@@ -47,7 +46,7 @@ const NewPost = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back-ios" size={23} color={"#fff"} />
@@ -137,8 +136,8 @@ export default NewPost;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: "#000000",
+    paddingTop: 0,
   },
   headerContainer: {
     flexDirection: "row",

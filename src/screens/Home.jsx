@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  SafeAreaView,
-  Animated,
-  FlatList,
-  View,
-  Platform,
-  StatusBar,
-} from "react-native";
-import React from "react";
+import { StyleSheet, Animated, FlatList, View } from "react-native";
 import { useUserContext } from "../contexts/UserContext";
 import useHeaderScrollAnim from "../utils/useHeaderScrollAnim";
 import useFetchPosts from "../hooks/useFetchPosts";
@@ -15,6 +6,7 @@ import Header from "../components/home/Header";
 import Stories from "../components/home/Stories";
 import Posts from "../components/home/Posts";
 import PostsSkeleton from "../components/home/skeletons/PostsSkeleton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = ({ navigation }) => {
   const { currentUser } = useUserContext();
@@ -35,7 +27,7 @@ const Home = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <Animated.View
         style={[
           styles.header(65),
@@ -85,7 +77,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   header: (ContainerHeight) => ({
     position: "absolute",

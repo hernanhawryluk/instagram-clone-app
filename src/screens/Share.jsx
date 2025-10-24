@@ -5,13 +5,15 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import QRCode from "react-native-qrcode-svg";
 import * as Clipboard from "expo-clipboard";
 import useSharePost from "../hooks/useSharePost";
 import CopyClipboardModal from "../components/shared/modals/CopyClipboardModal";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Share = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { user } = route.params || {};
   const { shareUser } = useSharePost();
   const [copyModalVisible, setCopyModalVisible] = useState(false);
@@ -70,6 +72,7 @@ const Share = ({ navigation, route }) => {
 
         <CopyClipboardModal copyModalVisible={copyModalVisible} />
       </View>
+      <View style={{ height: insets.bottom }} />
     </View>
   );
 };

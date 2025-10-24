@@ -1,14 +1,14 @@
-import { StyleSheet, SafeAreaView, Platform, StatusBar } from "react-native";
-import React from "react";
+import { StyleSheet } from "react-native";
 import { useUserContext } from "../contexts/UserContext";
 import StoryHighlights from "../components/profile/StoryHighlights";
 import Header from "../components/profile/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Profile = ({ navigation }) => {
   const { currentUser } = useUserContext();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <Header currentUser={currentUser} navigation={navigation} />
       <StoryHighlights navigation={navigation} currentUser={currentUser} />
     </SafeAreaView>
@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
 });

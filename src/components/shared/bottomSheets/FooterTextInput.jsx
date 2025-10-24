@@ -4,8 +4,9 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { Image } from "expo-image";
 import useUploadComment from "../../../hooks/useUploadComment";
@@ -140,19 +141,20 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     borderRadius: 50,
+    marginTop: Platform.OS === "ios" ? 2 : 5,
   },
   inputWrapper: {
     width: 295,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: "#777",
-    justifyContent: "center",
+    alignItems: "center",
     paddingLeft: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     flex: 1,
-    paddingVertical: 8,
+    paddingVertical: Platform.OS === "ios" ? 8 : 2,
     marginBottom: 8,
   },
   textInput: {

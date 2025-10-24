@@ -3,15 +3,13 @@ import {
   Text,
   View,
   TouchableOpacity,
-  StatusBar,
   Platform,
-  SafeAreaView,
   FlatList,
   TextInput,
   Keyboard,
   Animated,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useUserContext } from "../contexts/UserContext";
 import RenderUser from "../components/chat/RenderUser";
@@ -19,10 +17,12 @@ import useFindUsers from "../hooks/useFindUsers";
 import { SIZES } from "../constants";
 import useSlideOnKeyboard from "../utils/useSlideOnKeyboard";
 import useFetchContactList from "../hooks/useFetchContactList";
-import firebase from "firebase/compat";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Chat = ({ navigation }) => {
   const [searchKey, setSearchKey] = useState("");
@@ -45,15 +45,18 @@ const Chat = ({ navigation }) => {
   useEffect(() => {
     beginSearch();
 
-    if (currentUser.chat_notification > 0) {
-      try {
-        firebase.firestore().collection("users").doc(currentUser.email).update({
-          chat_notification: 0,
-        });
-      } catch (error) {
-        console.log(error);
+    const postSearch = async () => {
+      if (currentUser.chat_notification > 0) {
+        try {
+          await updateDoc(doc(db, "users", currentUser.email), {
+            chat_notification: 0,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
+    };
+    postSearch();
   }, []);
 
   const handleFocus = () => {
@@ -77,7 +80,7 @@ const Chat = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <View style={styles.titleContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -167,11 +170,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 45,
   },
   rowContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 2,
   },
   titleContainer: {
     flexDirection: "row",
@@ -196,6 +199,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 4,
   },
   searchWrapper: {
     marginTop: 10,

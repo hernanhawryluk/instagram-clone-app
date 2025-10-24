@@ -7,7 +7,7 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { SIZES } from "../../../constants";
 import { Image } from "expo-image";
@@ -128,7 +128,7 @@ const BottomSheetComment = ({ bottomSheetRefComment, currentUser, post }) => {
           <View style={styles.writingContainer}>
             <Image
               source={{
-                uri: currentUser.profile_picture,
+                uri: currentUser?.profile_picture,
               }}
               style={styles.profilePicture}
             />

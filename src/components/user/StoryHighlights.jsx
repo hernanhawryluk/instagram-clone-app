@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
-import React from "react";
 import useFetchUserPosts from "../../hooks/useFetchUserPosts";
 import { Divider } from "react-native-elements";
 import SubHeader from "./SubHeader";
@@ -26,7 +25,7 @@ const StoryHightlights = ({ navigation, user }) => {
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       {posts.id === "empty" ? null : posts.length > 0 ? (
         <FlatList
           data={posts}
@@ -67,6 +66,10 @@ const StoryHightlights = ({ navigation, user }) => {
 export default StoryHightlights;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+  },
   title: {
     color: "#fff",
     fontSize: 15,

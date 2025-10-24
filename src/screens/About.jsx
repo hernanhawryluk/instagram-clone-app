@@ -1,16 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Platform,
-  StatusBar,
-} from "react-native";
-import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useState, useEffect } from "react";
 import TitleBar from "../components/shared/TitleBar";
 import { Image } from "expo-image";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const About = ({ navigation, route }) => {
   const { user } = route.params || {};
@@ -27,7 +20,7 @@ const About = ({ navigation, route }) => {
   }, [user]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <TitleBar name="About this account" navigation={navigation} />
       <View style={styles.imageContainer}>
         <Image source={{ uri: user.profile_picture }} style={styles.image} />
@@ -70,7 +63,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   imageContainer: {
     justifyContent: "center",

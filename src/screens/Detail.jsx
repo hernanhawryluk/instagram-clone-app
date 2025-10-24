@@ -1,6 +1,6 @@
-import { StyleSheet, Platform, View, StatusBar } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import TitleBar from "../components/shared/TitleBar";
 import Animated, {
   useAnimatedStyle,
@@ -8,7 +8,6 @@ import Animated, {
   withTiming,
   runOnJS,
   interpolateColor,
-  FadeIn,
 } from "react-native-reanimated";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { useUserContext } from "../contexts/UserContext";
@@ -17,8 +16,10 @@ import BottomSheetComments from "../components/detail/bottomSheets/BottomSheetCo
 import BottomSheetComment from "../components/detail/bottomSheets/BottomSheetComment";
 import useFetchUserPosts from "../hooks/useFetchUserPosts";
 import RenderItem from "../components/detail/RenderItem";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Detail = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { item } = route.params || {};
   const { currentUser } = useUserContext();
   const { timeToReplaceData, onSnapshotData } = useFetchUserPosts(
@@ -93,10 +94,7 @@ const Detail = ({ navigation, route }) => {
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View
-        style={[styles.container, animatedStyle]}
-        entering={FadeIn.delay(300).duration(200)}
-      >
+      <Animated.View style={[styles.container, animatedStyle]}>
         <TitleBar navigation={navigation} name="Detail" activity={false} />
         <FlatList
           data={posts}
@@ -119,6 +117,11 @@ const Detail = ({ navigation, route }) => {
           ListFooterComponent={() => <View style={{ height: 100 }} />}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
+        />
+        <View
+          style={{
+            height: insets.bottom,
+          }}
         />
         <BottomSheetOptions
           bottomSheetRef={bottomSheetRefOptions}
@@ -146,8 +149,8 @@ export default Detail;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 44,
     flex: 1,
     backgroundColor: "#000",
+    paddingTop: 44,
   },
 });

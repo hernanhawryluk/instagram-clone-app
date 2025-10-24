@@ -5,35 +5,31 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
-import firebase from "firebase/compat";
 import { Image } from "expo-image";
+
+import { doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { db } from "../../services/firebase";
 
 const RemoveFollower = ({ handleModal, user }) => {
   const { currentUser } = useUserContext();
   const [loader, setLoader] = useState(false);
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
     if (!loader) {
       try {
         setLoader(true);
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .update({
-            followers: firebase.firestore.FieldValue.arrayRemove(user.email),
-          });
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(user.email)
-          .update({
-            following: firebase.firestore.FieldValue.arrayRemove(
-              currentUser.email
-            ),
-          });
+
+        await updateDoc(doc(db, "users", currentUser.email), {
+          followers: arrayRemove(user.email),
+        });
+
+        // Remover el usuario actual de los following del otro usuario
+        await updateDoc(doc(db, "users", user.email), {
+          following: arrayRemove(currentUser.email),
+        });
+
         handleModal();
       } catch (error) {
         console.log(error);

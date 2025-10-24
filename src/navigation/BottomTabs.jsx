@@ -14,27 +14,36 @@ import {
   Octicons,
   FontAwesome,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
-const screenOptions = {
-  tabBarShowLabel: false,
-  tabBarHideOnKeyboard: true,
-  headerShown: false,
-  tabBarStyle: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    elevation: 0,
-    borderTopWidth: 0.3,
-    borderTopColor: "#444",
-    height: Platform.OS === "Android" ? 54 : 80,
-    backgroundColor: "#000",
-  },
-};
+const BottomTabs = () => {
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
 
-const BottomTabs = ({ navigation }) => {
+  const screenOptions = {
+    lazy: false,
+    tabBarShowLabel: false,
+    tabBarHideOnKeyboard: true,
+    headerShown: false,
+    animation: "none",
+    sceneStyle: { backgroundColor: "#000" },
+    tabBarStyle: {
+      position: "absolute",
+      paddingTop: 12,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      elevation: 0,
+      borderTopWidth: 0.3,
+      borderTopColor: "#444",
+      height: Platform.OS === "android" ? insets.bottom + 54 : 84,
+      backgroundColor: "#000",
+    },
+  };
+
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen

@@ -7,7 +7,6 @@ import {
   Image,
   Platform,
 } from "react-native";
-import React from "react";
 import { Divider } from "react-native-elements";
 
 const AlbumModal = ({

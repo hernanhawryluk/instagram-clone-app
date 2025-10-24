@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Ionicons, Feather, MaterialIcons, Octicons } from "@expo/vector-icons";
-import { Divider } from "react-native-elements";
 import useReportAction from "../../../hooks/useReportAction";
 import useDeletePost from "../../../hooks/useDeletePost";
 import useSharePost from "../../../hooks/useSharePost";
 import useSavePost from "../../../hooks/useSavePost";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const BottomSheetOptions = ({
   bottomSheetRef,
@@ -15,12 +15,13 @@ const BottomSheetOptions = ({
   post,
   currentUser,
 }) => {
+  const insets = useSafeAreaInsets();
   const { handleReportPost } = useReportAction();
   const { deletePost } = useDeletePost();
   const { sharePost } = useSharePost();
   const { savePost } = useSavePost();
 
-  const snapPoints = useMemo(() => [275], []);
+  const snapPoints = useMemo(() => [284], []);
 
   const handleSavePost = async () => {
     await savePost(post, currentUser);
@@ -55,7 +56,7 @@ const BottomSheetOptions = ({
   };
 
   const handleAboutAccount = () => {
-    if (currentUser.email === post.owner_email) {
+    if (currentUser?.email === post.owner_email) {
       bottomSheetRef.current.close();
       navigation.navigate("Profile");
     } else {
@@ -69,6 +70,7 @@ const BottomSheetOptions = ({
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
+      bottomInset={insets.bottom}
       backgroundStyle={{ borderRadius: 25, backgroundColor: "#232325" }}
       backdropComponent={CustomBackdrop}
       handleComponent={() => (
@@ -87,7 +89,7 @@ const BottomSheetOptions = ({
             style={styles.opacityContainer}
           >
             <View style={styles.buttonContainer}>
-              {currentUser.saved_posts &&
+              {currentUser?.saved_posts &&
               currentUser.saved_posts.includes(post.id) ? (
                 <Ionicons name="bookmark" size={24} color="#fff" />
               ) : (
@@ -107,7 +109,7 @@ const BottomSheetOptions = ({
           </TouchableOpacity>
         </View>
 
-        {post.owner_email === currentUser.email && (
+        {post.owner_email === currentUser?.email && (
           <View style={styles.verticalGroup}>
             <TouchableOpacity
               onPress={() => handleEditPost()}
@@ -130,7 +132,7 @@ const BottomSheetOptions = ({
             </TouchableOpacity>
           </View>
         )}
-        {post.owner_email !== currentUser.email && (
+        {post.owner_email !== currentUser?.email && (
           <View style={styles.verticalGroup}>
             <TouchableOpacity
               onPress={() => handleAboutAccount()}

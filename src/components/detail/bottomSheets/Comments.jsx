@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { SIZES } from "../../../constants";
 import { Image } from "expo-image";
@@ -24,7 +24,8 @@ const Comments = ({
   const timerRef = useRef(null);
 
   const likes = () => {
-    const likeQuantity = comment.likes_by_users.split(",").length - 1;
+    const likeQuantity = comment?.likes_by_users?.length || 0;
+
     switch (likeQuantity) {
       case 0:
         return "";
@@ -76,7 +77,7 @@ const Comments = ({
             <Text style={styles.comment}>{comment.comment}</Text>
           </View>
 
-          {comment.likes_by_users.split(",").length - 1 > 0 && (
+          {comment.likes_by_users?.length > 0 && (
             <TouchableOpacity
               onPress={() => {
                 bottomSheetRef.current.close();

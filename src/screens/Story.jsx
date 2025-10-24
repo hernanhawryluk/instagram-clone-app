@@ -9,9 +9,8 @@ import {
   Keyboard,
   ActivityIndicator,
   Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import * as Progress from "react-native-progress";
@@ -23,8 +22,10 @@ import useHandleLike from "../hooks/useHandleLike";
 import Animated, { ZoomIn } from "react-native-reanimated";
 import useChatSendMessage from "../hooks/useChatSendMessage";
 import BottomSheetOptions from "../components/story/BottomSheetOptions";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Story = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { stories, currentUser } = route.params || {};
   const { handleResume, handlePause, currentStoryIndex, progressBar } =
     useProgressBarTimer({ stories, navigation });
@@ -235,6 +236,7 @@ const Story = ({ navigation, route }) => {
         handleResume={handleResume}
         navigation={navigation}
       />
+      <View style={{ height: insets.bottom, backgroundColor: "#000" }} />
     </Animated.View>
   );
 };
@@ -245,11 +247,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 48,
+    paddingTop: 48,
   },
   image: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 50 : StatusBar.currentHeight,
+    top: Platform.OS === "ios" ? 50 : 50,
     height:
       Platform.OS === "android" ? SIZES.Height * 0.925 : SIZES.Height * 0.86,
     width: "100%",

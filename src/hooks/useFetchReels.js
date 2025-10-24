@@ -1,27 +1,26 @@
-import { useState, useEffect } from 'react'
-import firebase from "firebase/compat";
+import { useState, useEffect } from "react";
+import { collectionGroup, onSnapshot } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useFetchReels = () => {
-    const [videos, setVideos] = useState([]);
-  
-    useEffect(() => {
-        const unsubscribe = firebase
-          .firestore()
-          .collectionGroup("reels")
-          .onSnapshot((snapshot) => {
-            const videos = snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
-            setVideos(videos);
-          });
-    
-        return () => unsubscribe;
-      }, []);
+  const [videos, setVideos] = useState([]);
 
-    return { 
-        videos
-    }
-}
+  useEffect(() => {
+    const reelsCollection = collectionGroup(db, "reels");
 
-export default useFetchReels
+    const unsubscribe = onSnapshot(reelsCollection, (snapshot) => {
+      const videos = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setVideos(videos);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return { videos };
+};
+
+export default useFetchReels;

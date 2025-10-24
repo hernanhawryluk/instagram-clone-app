@@ -5,14 +5,16 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BottomSheetModal, BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { SIZES } from "../../../constants";
 import { Image } from "expo-image";
 import useUploadComment from "../../../hooks/useUploadComment";
 import TransparentBackdrop from "../../shared/bottomSheets/TransparentBackdrop";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const BottomSheetComment = ({ bottomSheetRef, currentUser, post }) => {
+  const insets = useSafeAreaInsets();
   const [dynamicSnapPoints, setDynamicSnapPoints] = useState(["14"]);
   const [value, setValue] = useState("");
 
@@ -34,6 +36,7 @@ const BottomSheetComment = ({ bottomSheetRef, currentUser, post }) => {
     <BottomSheetModal
       ref={bottomSheetRef}
       index={0}
+      bottomInset={insets.bottom}
       snapPoints={dynamicSnapPoints}
       backgroundStyle={{
         borderRadius: 0,
@@ -110,7 +113,7 @@ const BottomSheetComment = ({ bottomSheetRef, currentUser, post }) => {
           <View style={styles.writingContainer}>
             <Image
               source={{
-                uri: currentUser.profile_picture,
+                uri: currentUser?.profile_picture,
               }}
               style={styles.profilePicture}
             />

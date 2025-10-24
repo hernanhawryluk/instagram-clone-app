@@ -6,36 +6,31 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Divider } from "react-native-elements";
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { useUserContext } from "../../../contexts/UserContext";
-import firebase from "firebase/compat";
+import { db } from "../../../services/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Name = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const [loader, setLoader] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [values, setValues] = useState(currentUser.name);
+  const [values, setValues] = useState(currentUser?.name);
 
   useEffect(() => {
-    values === currentUser.name ? setIsValid(false) : setIsValid(true);
+    values === currentUser?.name ? setIsValid(false) : setIsValid(true);
   }, [values]);
 
   const handleSubmitName = async (values) => {
     if (!loader) {
       setLoader(true);
       try {
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .update({
-            name: values,
-          });
+        await updateDoc(doc(db, "users", currentUser?.email), {
+          name: values,
+        });
 
         navigation.goBack();
       } catch (error) {
@@ -117,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   headerContainer: {
     flexDirection: "row",

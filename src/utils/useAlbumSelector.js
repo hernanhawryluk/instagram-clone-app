@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as MediaLibrary from "expo-media-library";
 
 const useAlbumSelector = ({ setAlbumModalVisible }) => {
+  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
   const [selectedAlbum, setSelectedAlbum] = useState();
   const [selectedAlbumTitle, setSelectedAlbumTitle] = useState("Recents");
   const [allAlbums, setAllAlbums] = useState();
@@ -38,6 +39,10 @@ const useAlbumSelector = ({ setAlbumModalVisible }) => {
 
   useEffect(() => {
     const loadAlbums = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      if (permissionResponse?.status !== "granted") return;
+
       try {
         const albums = await MediaLibrary.getAlbumsAsync({
           includeSmartAlbums: true,
@@ -52,7 +57,14 @@ const useAlbumSelector = ({ setAlbumModalVisible }) => {
             mediaType: ["photo", "video"],
             first: 1,
           });
-          return { ...album, image: photos.assets[0]?.uri };
+          const asset = photos.assets[0];
+
+          if (asset) {
+            const assetInfo = await MediaLibrary.getAssetInfoAsync(asset.id);
+            return { ...album, image: assetInfo.localUri || asset.uri };
+          } else {
+            return { ...album, image: null };
+          }
         });
         const albumWithPhotos = await Promise.all(albumWithPhotosPromises);
         setAllAlbums(albumWithPhotos);
@@ -60,10 +72,13 @@ const useAlbumSelector = ({ setAlbumModalVisible }) => {
         console.error("Error al obtener álbumes:", error);
       }
     };
+
     loadAlbums();
-  }, []);
+  }, [permissionResponse]);
 
   const handleAlbumSelection = (album) => {
+    if (permissionResponse?.status !== "granted") return;
+
     setSelectedAlbum(album.id);
     setSelectedAlbumTitle(album.title);
     setAlbumModalVisible(false);

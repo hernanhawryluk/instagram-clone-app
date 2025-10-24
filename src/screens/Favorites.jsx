@@ -3,18 +3,16 @@ import {
   Text,
   View,
   TouchableOpacity,
-  SafeAreaView,
   FlatList,
   Platform,
-  StatusBar,
 } from "react-native";
-import React from "react";
 import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useUserContext } from "../contexts/UserContext";
 import useFilterPosts from "../hooks/useFilterPosts";
 import Posts from "../components/home/Posts";
 import PostsSkeleton from "../components/home/skeletons/PostsSkeleton";
 import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Favorites = ({ navigation }) => {
   const { currentUser } = useUserContext();
@@ -52,7 +50,7 @@ const Favorites = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <TouchableOpacity
         style={styles.titleContainer}
         onPress={() => navigation.goBack()}
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   titleContainer: {
     flexDirection: "row",

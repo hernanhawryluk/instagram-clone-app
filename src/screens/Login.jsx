@@ -1,18 +1,17 @@
 import {
   StyleSheet,
   View,
-  SafeAreaView,
   Keyboard,
   TouchableWithoutFeedback,
   Animated,
   Platform,
-  StatusBar,
-  KeyboardAvoidingView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LoginForm from "../components/login/LoginForm";
 import Footer from "../components/login/Footer";
 import { Image } from "expo-image";
+import AvoidKeyboardView from "../components/shared/AvoidKeyboardView";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const LoginScreen = ({ navigation }) => {
   const [messageModalVisible, setMessageModalVisible] = useState(false);
@@ -28,10 +27,12 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
+        <AvoidKeyboardView
+          type={Platform.OS === "ios" ? "padding" : "height"}
+          start={0}
+          end={220}
           style={{ flex: 1 }}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <View style={styles.mainContainer}>
             <View>
@@ -45,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
               <LoginForm navigation={navigation} />
             </View>
           </View>
-        </KeyboardAvoidingView>
+        </AvoidKeyboardView>
         <Footer navigation={navigation} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -58,13 +59,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingHorizontal: 20,
     alignContent: "space-between",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   mainContainer: {
     flex: 1,
     justifyContent: "center",
+    marginHorizontal: 16,
   },
   logoContainer: {
     alignItems: "center",

@@ -2,16 +2,13 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Animated,
   FlatList,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import TitleBar from "../components/shared/TitleBar";
 import SearchBar from "../components/shared/SearchBar";
 import Followers from "../components/follow/Followers";
@@ -23,6 +20,7 @@ import useFetchFollowing from "../hooks/useFetchFollowing";
 import useTabSlideAnimation from "../utils/useTabSlideAnimation";
 import { useUserContext } from "../contexts/UserContext";
 import { SIZES } from "../constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Follow = ({ navigation }) => {
   const { currentUser } = useUserContext();
@@ -64,7 +62,7 @@ const Follow = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} disabled>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
         <TitleBar navigation={navigation} name={currentUser.username} />
         <View style={styles.rowContainer}>
           <TouchableOpacity>
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   rowContainer: {
     flexDirection: "row",

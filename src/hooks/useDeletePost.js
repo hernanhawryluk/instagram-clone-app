@@ -1,40 +1,29 @@
-import firebase from "firebase/compat";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useDeletePost = () => {
-    const deletePost = (post) => {
-        try {
-            firebase
-                .firestore()
-                .collection("users")
-                .doc(post.owner_email)
-                .collection("posts")
-                .doc(post.id)
-                .delete()
-
-        } catch (error) {
-            console.log(error);
-        }
+  const deletePost = async (post) => {
+    try {
+      const postRef = doc(db, "users", post.owner_email, "posts", post.id);
+      await deleteDoc(postRef);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const deleteStory = (story) => {
-        try {
-            firebase
-                .firestore()
-                .collection("users")
-                .doc(story.owner_email)
-                .collection("stories")
-                .doc(story.id)
-                .delete()
-        }
-        catch (error) {
-            console.log(error);
-        }
+  const deleteStory = async (story) => {
+    try {
+      const storyRef = doc(db, "users", story.owner_email, "stories", story.id);
+      await deleteDoc(storyRef);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return {
-        deletePost,
-        deleteStory
-    }
-}
+  return {
+    deletePost,
+    deleteStory,
+  };
+};
 
-export default useDeletePost
+export default useDeletePost;

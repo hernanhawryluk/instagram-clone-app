@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BottomSheetAddNew = ({ bottomSheetRef, navigation }) => {
-  const snapPoints = useMemo(() => [254], []);
+  const snapPoints = useMemo(() => [262], []);
 
   return (
     <BottomSheetModal

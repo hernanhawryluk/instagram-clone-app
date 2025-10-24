@@ -2,19 +2,18 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import StoryHightlights from "../components/user/StoryHighlights";
-import firebase from "firebase/compat";
 import { useUserContext } from "../contexts/UserContext";
 import BottomSheetOptions from "../components/user/bottomSheets/BottomSheetOptions";
 import CopyClipboardModal from "../components/shared/modals/CopyClipboardModal";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../services/firebase";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const User = ({ route, navigation }) => {
   const { email } = route.params || {};
@@ -25,28 +24,25 @@ const User = ({ route, navigation }) => {
 
   useEffect(() => {
     try {
-      const unsubscribe = firebase
-        .firestore()
-        .collection("users")
-        .doc(email)
-        .onSnapshot((snapshot) => {
-          setUser(snapshot.data());
-        });
+      const docRef = doc(db, "users", email);
+      const unsubscribe = onSnapshot(docRef, (snapshot) => {
+        setUser(snapshot.data());
+      });
 
-      return () => unsubscribe;
+      return () => unsubscribe();
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [email]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <View style={styles.titleContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back-ios" size={24} color={"#fff"} />
         </TouchableOpacity>
-        <Text style={styles.textTitle}>{user.username}</Text>
-        {user.username ? (
+        <Text style={styles.textTitle}>{user?.username}</Text>
+        {user?.username ? (
           <TouchableOpacity
             onPress={() => bottomSheetRefOptions.current.present()}
           >
@@ -83,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   titleContainer: {
     flexDirection: "row",
@@ -97,6 +93,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 17,
     fontWeight: "700",
-    // marginBottom: 4,
   },
 });

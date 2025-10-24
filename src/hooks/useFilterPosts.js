@@ -1,59 +1,72 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
-import firebase from "firebase/compat";
+import {
+  collectionGroup,
+  query,
+  where,
+  orderBy,
+  limit,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useFilterPosts = (filterKey) => {
-    const { currentUser } = useUserContext();
-    const [filteredPosts, setFilteredPosts] = useState([]);
-    const [loadLimit, setLoadLimit] = useState(20);
-    const [isLoading, setIsLoading] = useState(false);
+  const { currentUser } = useUserContext();
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [loadLimit, setLoadLimit] = useState(20);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        if (filterKey.length > 0){
-            try {
-                setIsLoading(true);
-                const unsubscribe = firebase
-                .firestore()
-                .collectionGroup("posts")
-                .where("owner_email", "in", filterKey)
-                .orderBy("createdAt", "desc")
-                .limit(loadLimit)
-                .onSnapshot(snapshot => {
-                    const updatedPosts = snapshot.docs.map(post => ({ id: post.id, ...post.data() }));
-                    setFilteredPosts(updatedPosts);
-                });
+  useEffect(() => {
+    if (filterKey.length > 0) {
+      setIsLoading(true);
 
-                return () => unsubscribe;
+      const postsQuery = query(
+        collectionGroup(db, "posts"),
+        where("owner_email", "in", filterKey),
+        orderBy("createdAt", "desc"),
+        limit(loadLimit)
+      );
 
-            } catch (error) {
-                console.error("Error fetching posts:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        } else {
-            setFilteredPosts([{id: "empty"}]);
+      const unsubscribe = onSnapshot(
+        postsQuery,
+        (snapshot) => {
+          const updatedPosts = snapshot.docs.map((post) => ({
+            id: post.id,
+            ...post.data(),
+          }));
+          setFilteredPosts(updatedPosts);
+          setIsLoading(false);
+        },
+        (error) => {
+          console.error("Error fetching posts:", error);
+          setIsLoading(false);
         }
-        }, [loadLimit]
-    );
+      );
 
-    const fetchOlderPosts = () => {
-        if (!isLoading) {
-            setLoadLimit(loadLimit + 10);
-        }
-    };
+      return () => unsubscribe();
+    } else {
+      setFilteredPosts([{ id: "empty" }]);
+    }
+  }, [filterKey, loadLimit]);
 
-    const refreshPosts = async () => {
-        if (!isLoading) {
-            setLoadLimit(20);
-        }
-    };
+  const fetchOlderPosts = () => {
+    if (!isLoading) {
+      setLoadLimit((prev) => prev + 10);
+    }
+  };
 
-    return {
-        filteredPosts,
-        isLoading,
-        fetchOlderPosts,
-        refreshPosts
-    };
+  const refreshPosts = () => {
+    if (!isLoading) {
+      setLoadLimit(20);
+    }
+  };
+
+  return {
+    filteredPosts,
+    isLoading,
+    fetchOlderPosts,
+    refreshPosts,
+  };
 };
 
 export default useFilterPosts;

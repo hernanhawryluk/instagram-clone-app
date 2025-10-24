@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import React from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import useHandleUnfollow from "../../hooks/useHandleUnfollow";
 import { Image } from "expo-image";

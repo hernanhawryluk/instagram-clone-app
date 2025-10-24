@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React from "react";
 import { Image } from "expo-image";
 import { Feather } from "@expo/vector-icons";
 import useHandleSeenMessage from "../../hooks/useHandleSeenMessage";

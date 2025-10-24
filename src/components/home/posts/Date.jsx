@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
 import useTimeAgo from "../../../utils/useTimeAgo";
 
 const Date = ({ post }) => {
@@ -18,13 +17,13 @@ export default Date;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 6,
-    marginHorizontal: 12,
+    marginTop: 8,
+    marginHorizontal: 16,
     marginBottom: 2,
   },
   text: {
-    color: "#aaa",
-    fontSize: 13,
+    color: "#888",
+    fontSize: 11,
     fontWeight: "400",
   },
 });

@@ -6,7 +6,7 @@ import {
   Modal,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Image } from "expo-image";
 import useHandleFollow from "../../hooks/useHandleFollow";
 import { LinearGradient } from "expo-linear-gradient";
@@ -47,6 +47,7 @@ const LikedBy = ({ navigation, user, currentUser }) => {
             colors={["#ff00ff", "#ff4400", "#ffff00"]}
             style={styles.rainbowBorder}
           >
+            <View style={styles.imageBackground} />
             <Image
               source={{ uri: user.profile_picture }}
               style={styles.image}
@@ -123,6 +124,13 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "#000",
   },
+  imageBackground: {
+    position: "absolute",
+    height: 58,
+    width: 58,
+    borderRadius: 100,
+    backgroundColor: "#000",
+  },
   nonRainbowImage: {
     height: 64,
     width: 64,
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   buttonBlue: {
-    backgroundColor: "#18f",
+    backgroundColor: "#008FFE",
     justifyContent: "center",
     alignItems: "center",
     height: Platform.OS === "android" ? 38 : 36,

@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import Unfollow from "./Unfollow";
 import { Image } from "expo-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";

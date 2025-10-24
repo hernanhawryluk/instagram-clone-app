@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React from "react";
 import { Image } from "expo-image";
 
 const Comments = ({
@@ -40,7 +39,7 @@ const Comments = ({
         >
           <View style={styles.container}>
             <Image
-              source={{ uri: currentUser.profile_picture }}
+              source={{ uri: currentUser?.profile_picture }}
               style={styles.image}
             />
             <Text style={styles.text}>Add a comment...</Text>

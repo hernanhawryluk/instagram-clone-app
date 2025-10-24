@@ -8,22 +8,30 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Divider } from "react-native-elements";
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { useUserContext } from "../../../contexts/UserContext";
-import firebase from "firebase/compat";
 import Animated from "react-native-reanimated";
 import useShowHiddenModal from "../../../utils/useShowHiddenModal";
 import useShakeAnimation from "../../../utils/useShakeAnimation";
+import { db } from "../../../services/firebase";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+  writeBatch,
+} from "firebase/firestore";
 
 const Username = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const [loader, setLoader] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [values, setValues] = useState(currentUser.username);
+  const [values, setValues] = useState(currentUser?.username);
   const [modalText, setModalText] = useState("");
   const { showHiddenModal, animatedModalStyle } = useShowHiddenModal();
   const { startShakeAnimation, animatedShakeStyle, shaking } =
@@ -46,70 +54,51 @@ const Username = ({ navigation }) => {
     }
 
     newUsername = newUsername.toLowerCase();
+
     try {
-      const userAvailable = await firebase
-        .firestore()
-        .collection("users")
-        .where("username", "==", newUsername)
-        .get()
-        .then((snapshot) => {
-          return snapshot.empty;
-        });
+      const userQuery = query(
+        collection(db, "users"),
+        where("username", "==", newUsername)
+      );
+
+      const userSnapshot = await getDocs(userQuery);
+
+      const userAvailable = userSnapshot.empty;
 
       if (userAvailable) {
-        const batch = firebase.firestore().batch();
+        const batch = writeBatch(db);
 
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .update({
-            username: newUsername,
-          });
+        await updateDoc(doc(db, "users", currentUser.email), {
+          username: newUsername,
+        });
 
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .collection("posts")
-          .get()
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              batch.update(doc.ref, {
-                username: newUsername,
-              });
-            });
-          });
+        const postsSnapshot = await getDocs(
+          collection(db, "users", currentUser.email, "posts")
+        );
 
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .collection("stories")
-          .get()
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              batch.update(doc.ref, {
-                username: newUsername,
-              });
-            });
-          });
+        postsSnapshot.docs.forEach((document) => {
+          batch.update(document.ref, { username: newUsername });
+        });
 
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .collection("reels")
-          .get()
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              batch.update(doc.ref, {
-                username: newUsername,
-              });
-            });
-          });
+        const storiesSnapshot = await getDocs(
+          collection(db, "users", currentUser.email, "stories")
+        );
+
+        storiesSnapshot.docs.forEach((document) => {
+          batch.update(document.ref, { username: newUsername });
+        });
+
+        const reelsSnapshot = await getDocs(
+          collection(db, "users", currentUser.email, "reels")
+        );
+
+        reelsSnapshot.docs.forEach((document) => {
+          batch.update(document.ref, { username: newUsername });
+        });
 
         await batch.commit();
+
+        navigation.goBack();
       } else {
         setModalText("A user with that username already exists.");
         showHiddenModal();
@@ -209,7 +198,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   headerContainer: {
     flexDirection: "row",

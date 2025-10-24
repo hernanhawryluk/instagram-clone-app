@@ -1,37 +1,49 @@
-import { useEffect, useState } from "react";
-import firebase from "firebase/compat";
+import { useEffect, useState, useCallback } from "react";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { db } from "../services/firebase";
 
-const useFindUsers = ({currentUser, searchKey}) => {
-    const [users, setUsers] = useState([]);
-    const [searchResult, setSearchResult] = useState([]);
+const useFindUsers = ({ currentUser, searchKey }) => {
+  const [users, setUsers] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
 
-    const beginSearch = () => {
-        const unsubscribe = firebase
-            .firestore()
-            .collection("users")
-            .where("username", "!=", currentUser.username)
-            .onSnapshot((snapshot) => {
-                const data = snapshot.docs.map((doc, index) => ({id: index, ...doc.data()}));
-                setUsers(data);
-            });
+  const beginSearch = useCallback(() => {
+    const q = query(
+      collection(db, "users"),
+      where("username", "!=", currentUser.username)
+    );
 
-        return () => unsubscribe();
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map((doc, index) => ({
+        id: index,
+        ...doc.data(),
+      }));
+      setUsers(data);
+    });
+
+    return unsubscribe;
+  }, [currentUser?.username]);
+
+  useEffect(() => {
+    if (!searchKey) {
+      setSearchResult([]);
+      return;
     }
+    const data = users.filter((user) => {
+      const keyLower = searchKey.toLowerCase();
+      return (
+        user.username.toLowerCase().includes(keyLower) ||
+        user.email.toLowerCase().includes(keyLower) ||
+        user.name.toLowerCase().includes(keyLower)
+      );
+    });
+    setSearchResult(data);
+  }, [searchKey, users]);
 
-    useEffect(() => {
-        const data = users.filter((user) => {
-            return user.username.toLowerCase().includes(searchKey.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchKey.toLowerCase()) ||
-            user.name.toLowerCase().includes(searchKey.toLowerCase());
-        });
-        setSearchResult(data);
-    }, [searchKey])
-
-    return {
-        beginSearch,
-        users,
-        searchResult,
-    }
-}
+  return {
+    beginSearch,
+    users,
+    searchResult,
+  };
+};
 
 export default useFindUsers;

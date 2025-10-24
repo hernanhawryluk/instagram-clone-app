@@ -4,28 +4,31 @@ import {
   View,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Keyboard,
-  SafeAreaView,
   Platform,
-  StatusBar,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import useIsEmail from "../utils/useIsEmail";
 import useResetPassword from "../hooks/useResetPassword";
+import AvoidKeyboardView from "../components/shared/AvoidKeyboardView";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Forgot = ({ navigation }) => {
-  const { value, setValue, resetPassword } = useResetPassword();
+  const { value, setValue, resetPassword, loader } = useResetPassword({
+    navigation,
+  });
   const { isEmail } = useIsEmail();
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
+        <AvoidKeyboardView
+          type={Platform.OS === "ios" ? "padding" : "height"}
+          start={0}
+          end={200}
           style={styles.mainContainer}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <View style={styles.iconContainer}>
             <Ionicons name="lock-closed-outline" size={60} color="#fff" />
@@ -57,14 +60,18 @@ const Forgot = ({ navigation }) => {
               { opacity: isEmail(value) ? 1 : 0.6 },
             ]}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            {loader ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Next</Text>
+            )}
           </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </AvoidKeyboardView>
         <View style={styles.footerContainer}>
           <View style={styles.fulDivider}></View>
           <TouchableOpacity
             style={styles.footerTextContainer}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.goBack()}
           >
             <Text style={styles.footerText}>Back to log in</Text>
           </TouchableOpacity>
@@ -80,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    Platform: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    Platform: 0,
   },
   mainContainer: {
     flex: 1,

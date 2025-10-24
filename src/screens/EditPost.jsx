@@ -2,17 +2,16 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   Platform,
-  StatusBar,
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Image } from "expo-image";
 import { SIZES } from "../constants";
 import useEditPostCaption from "../hooks/useEditPostCaption";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const EditPost = ({ navigation, route }) => {
   const { post } = route.params || {};
@@ -20,7 +19,7 @@ const EditPost = ({ navigation, route }) => {
   const { editPostCaption, loading } = useEditPostCaption({ navigation, post });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <View style={styles.titleContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   titleContainer: {
     flexDirection: "row",

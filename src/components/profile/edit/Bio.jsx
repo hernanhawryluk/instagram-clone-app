@@ -5,23 +5,21 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
   ActivityIndicator,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Divider } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useUserContext } from "../../../contexts/UserContext";
-import firebase from "firebase/compat";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../services/firebase";
 
 const Bio = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const [counter, setCounter] = useState(150);
   const [loader, setLoader] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [values, setValues] = useState(currentUser.bio);
+  const [values, setValues] = useState(currentUser?.bio);
 
   useEffect(() => {
     values === currentUser.bio ? setIsValid(false) : setIsValid(true);
@@ -32,13 +30,9 @@ const Bio = ({ navigation }) => {
     if (!loader) {
       setLoader(true);
       try {
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .update({
-            bio: values,
-          });
+        await updateDoc(doc(db, "users", currentUser.email), {
+          bio: values,
+        });
         navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -100,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   headerContainer: {
     flexDirection: "row",

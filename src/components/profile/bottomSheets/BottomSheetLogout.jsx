@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
-import useHandleSingout from "../../../hooks/useHandleSingout";
+import useHandleSignout from "../../../hooks/useHandleSingout";
 
 const BottomSheetLogout = ({ bottomSheetRef, navigation }) => {
-  const { handleSingout } = useHandleSingout();
+  const { handleSignout } = useHandleSignout();
   const snapPoints = useMemo(() => [157], []);
 
   return (
@@ -29,7 +29,7 @@ const BottomSheetLogout = ({ bottomSheetRef, navigation }) => {
         <TouchableOpacity
           onPress={() => {
             bottomSheetRef.current.close();
-            handleSingout();
+            handleSignout();
           }}
           style={styles.rowContainer}
         >

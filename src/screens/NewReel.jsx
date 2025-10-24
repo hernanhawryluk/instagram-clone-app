@@ -4,10 +4,9 @@ import {
   View,
   TouchableOpacity,
   Platform,
-  StatusBar,
   Alert,
 } from "react-native";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Animated, { FadeIn, FadeOut, ZoomInDown } from "react-native-reanimated";
 import { SIZES } from "../constants";
 import {
@@ -20,12 +19,14 @@ import { useUserContext } from "../contexts/UserContext";
 import useUploadStory from "../hooks/useUploadStory";
 import useResizePictures from "../hooks/useResizePictures";
 import { Image } from "expo-image";
-import { Video, ResizeMode } from "expo-av";
+import { Video, ResizeMode } from "expo-video";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const NewReel = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { selectedImage } = route.params || {};
   const { uploadStory, loader } = useUploadStory();
   const { resizeStoryPicture } = useResizePictures();
@@ -193,6 +194,7 @@ const NewReel = ({ navigation, route }) => {
         message={"This feature is not yet implemented."}
         height={80}
       />
+      <View style={{ height: insets.bottom }} />
     </View>
   );
 };
@@ -201,7 +203,7 @@ export default NewReel;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "ios" ? 50 : StatusBar.currentHeight,
+    paddingTop: Platform.OS === "ios" ? 50 : 50,
     backgroundColor: "#000",
     flex: 1,
   },

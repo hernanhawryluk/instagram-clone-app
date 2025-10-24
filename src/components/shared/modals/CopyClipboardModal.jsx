@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, Modal } from "react-native";
-import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const CopyClipboardModal = ({ copyModalVisible }) => {

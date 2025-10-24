@@ -14,13 +14,15 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.hernanhawryluk.instagramcloneapp"
+      "bundleIdentifier": "com.hernanhawryluk.instagramcloneapp",
+      "backgroundColor": "#000000"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#000000"
       },
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO"],
       "package": "com.hernanhawryluk.instagramcloneapp"
     },
     "web": {
@@ -31,6 +33,34 @@
         "projectId": "55ef79b5-c036-4cca-87a6-bca70d51f185"
       }
     },
-    "plugins": ["expo-localization"]
+    "plugins": [
+      "expo-localization",
+      "expo-video",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "imageWidth": 600,
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ]
   }
 }

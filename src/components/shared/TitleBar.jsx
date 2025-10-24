@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   Platform,
 } from "react-native";
-import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const TitleBar = ({ navigation, name, activity }) => {

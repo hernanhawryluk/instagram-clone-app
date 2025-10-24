@@ -1,15 +1,16 @@
-import firebase from "firebase/compat";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
 
-const useHandleSingout = () => {
-    const handleSingout = async () => {
-        try {
-          await firebase.auth().signOut();
-        } catch (error) {
-          console.log(error);
-        }
-    };
+const useHandleSignout = () => {
+  const handleSignout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return { handleSingout };
-}
+  return { handleSignout };
+};
 
-export default useHandleSingout
+export default useHandleSignout;

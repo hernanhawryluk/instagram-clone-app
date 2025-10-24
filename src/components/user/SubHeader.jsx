@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import BottomSheetFollowing from "./bottomSheets/BottomSheetFollowing";
@@ -18,7 +18,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const SubHeader = ({ user, navigation, numberOfPosts }) => {
   const { currentUser } = useUserContext();
-  const { stories, updatedStories } = useStoriesContext();
+  const { stories } = useStoriesContext();
   const { handleFollow } = useHandleFollow();
   const { chatAddUser } = useChatAddUser();
   const bottomSheetRefFollowing = useRef(null);
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     width: 36,
   },
   btnText: {
-    marginBottom: Platform.OS === "android" ? 4 : 0,
+    marginBottom: Platform.OS === "android" ? 2 : 0,
     color: "#fff",
     fontSize: 13.5,
     fontWeight: "600",

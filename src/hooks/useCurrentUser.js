@@ -1,37 +1,37 @@
-import firebase from "firebase/compat";
 import { useEffect, useState } from "react";
+import { auth, db } from "../services/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const useCurrentUser = () => {
-    const [currentUser, setCurrentUser] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        try {
-            setIsLoading(true);
-            if(!isLoading) {
-                const user = firebase.auth().currentUser;
-    
-                if (user) {
-                    const unsubscribe = firebase
-                        .firestore()
-                        .collection("users")
-                        .doc(user.email)
-                        .onSnapshot(snapshot => {
-                          setCurrentUser(snapshot.data())
-                        });
+  useEffect(() => {
+    let unsubscribeSnapshot;
 
-                    return () => unsubscribe;
-                    } 
-                }
-            } catch (error) {
-                console.log(error)
-            } finally {
-                setIsLoading(false);
-            } 
-        }, 
-    []);
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userRef = doc(db, "users", user.email);
 
-    return {
-        currentUser,
+        unsubscribeSnapshot = onSnapshot(userRef, (snapshot) => {
+          setCurrentUser(snapshot.data());
+          setIsLoading(false);
+        });
+      } else {
+        setCurrentUser(null);
+        setIsLoading(false);
+      }
+    });
+
+    return () => {
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
+      unsubscribeAuth();
     };
+  }, []);
+
+  return {
+    currentUser,
+    isLoading,
+  };
 };

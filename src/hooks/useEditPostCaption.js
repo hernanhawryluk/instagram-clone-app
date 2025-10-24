@@ -1,30 +1,24 @@
-import { useState } from 'react'
-import firebase from "firebase/compat";
+import { useState } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 
-const useEditPostCaption = ({navigation, post}) => {
-    const [loading, setLoading] = useState(false);
+const useEditPostCaption = ({ navigation, post }) => {
+  const [loading, setLoading] = useState(false);
 
-    const editPostCaption = async (value) => {
-        setLoading(true);
-        try {
-        await firebase
-            .firestore()
-            .collection("users")
-            .doc(post.owner_email)
-            .collection("posts")
-            .doc(post.id)
-            .update({
-            caption: value,
-            });
-        } catch (error) {
-            console.log(error)
-        } finally {
-        setLoading(false);
-        navigation.goBack();
-        }
-    };
+  const editPostCaption = async (value) => {
+    setLoading(true);
+    try {
+      const postRef = doc(db, "users", post.owner_email, "posts", post.id);
+      await updateDoc(postRef, { caption: value });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      navigation.goBack();
+    }
+  };
 
-    return { editPostCaption, loading };
-}
+  return { editPostCaption, loading };
+};
 
-export default useEditPostCaption
+export default useEditPostCaption;

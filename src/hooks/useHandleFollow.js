@@ -1,40 +1,44 @@
-import firebase from "firebase/compat";
 import { useUserContext } from "../contexts/UserContext";
+import { doc, writeBatch, arrayUnion, arrayRemove } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useHandleFollow = () => {
-    const { currentUser } = useUserContext();
+  const { currentUser } = useUserContext();
 
-    const handleFollow = async (userEmail) => {
-        try {
-            const batch = firebase.firestore().batch();
-            await firebase
-                .firestore()
-                .collection("users")
-                .doc(userEmail)
-                .update({
-                  followers_request: !currentUser.following_request.includes(userEmail)
-                    ? firebase.firestore.FieldValue.arrayUnion(currentUser.email)
-                    : firebase.firestore.FieldValue.arrayRemove(currentUser.email),
-                });
-            await firebase
-                .firestore()
-                .collection("users")
-                .doc(currentUser.email)
-                .update({
-                  following_request: !currentUser.following_request.includes(userEmail)
-                    ? firebase.firestore.FieldValue.arrayUnion(userEmail)
-                    : firebase.firestore.FieldValue.arrayRemove(userEmail),
-                });
-                await batch.commit();
-                console.log("yay");
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  const handleFollow = async (userEmail) => {
+    try {
+      const batch = writeBatch(db);
 
-    return {
-        handleFollow
-    };
-}
+      const userRef = doc(db, "users", userEmail);
+      const currentUserRef = doc(db, "users", currentUser.email);
+
+      const isFollowingRequest =
+        currentUser.following_request?.includes(userEmail);
+
+      if (!isFollowingRequest) {
+        batch.update(userRef, {
+          followers_request: arrayUnion(currentUser.email),
+        });
+        batch.update(currentUserRef, {
+          following_request: arrayUnion(userEmail),
+        });
+      } else {
+        batch.update(userRef, {
+          followers_request: arrayRemove(currentUser.email),
+        });
+        batch.update(currentUserRef, {
+          following_request: arrayRemove(userEmail),
+        });
+      }
+
+      await batch.commit();
+      console.log("Follow request updated successfully");
+    } catch (error) {
+      console.error("Error updating follow requests:", error);
+    }
+  };
+
+  return { handleFollow };
+};
 
 export default useHandleFollow;

@@ -6,14 +6,16 @@ import {
   TouchableOpacity,
   Keyboard,
   Platform,
+  ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import firebase from "firebase/compat";
 import MessageModal from "../shared/modals/MessageModal";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { auth } from "../../services/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = ({ navigation }) => {
   const [obsecureText, setObsecureText] = useState(true);
@@ -23,6 +25,7 @@ const LoginForm = ({ navigation }) => {
   const [messageModalVisible, setMessageModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [developerMessage, setDeveloperMessage] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,20 +56,26 @@ const LoginForm = ({ navigation }) => {
   const onLogin = async (email, password) => {
     Keyboard.dismiss();
     try {
-      const userCredentials = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
+      setLoader(true);
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       console.log(
         "🔥 Firebase Login Successful ✅",
         userCredentials.user.email
       );
     } catch (error) {
+      console.log(error);
       error.message ==
         "Firebase: The password is invalid or the user does not have a password. (auth/wrong-password)." &&
         handleDataError("The password is invalid, try again.");
       error.message ==
         "Firebase: There is no user record corresponding to this identifier. The user may have been deleted. (auth/user-not-found)." &&
         handleDataError("Invalid email. Please verify your input.");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -86,7 +95,6 @@ const LoginForm = ({ navigation }) => {
               style={[
                 styles.inputField,
                 {
-                  paddingVertical: 16,
                   borderColor:
                     emailToValidate && values.email.length < 5
                       ? "#f00"
@@ -166,7 +174,11 @@ const LoginForm = ({ navigation }) => {
             </View>
             <TouchableOpacity onPress={handleSubmit} disabled={!isValid}>
               <View style={styles.btnContainer(isValid)}>
-                <Text style={styles.btnText}>Log in</Text>
+                {loader ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.btnText}>Log in</Text>
+                )}
               </View>
             </TouchableOpacity>
             <View style={{ height: 56 }}>

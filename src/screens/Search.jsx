@@ -5,12 +5,9 @@ import {
   TouchableOpacity,
   Animated,
   View,
-  SafeAreaView,
   Keyboard,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { SIZES } from "../constants";
 import { useUserContext } from "../contexts/UserContext";
@@ -20,6 +17,7 @@ import useFadeInOutAnim from "../utils/useFadeInOutAnim";
 import DefaultPosts from "../components/search/DefaultPosts";
 import useFindUsers from "../hooks/useFindUsers";
 import Searching from "../components/search/Searching";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Search = ({ navigation }) => {
   const { currentUser } = useUserContext();
@@ -63,7 +61,7 @@ const Search = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <Animated.View
         style={[
           styles.header(70),
@@ -82,7 +80,7 @@ const Search = ({ navigation }) => {
           >
             <Ionicons
               name="search"
-              size={20}
+              size={18}
               color={"#999"}
               style={styles.searchIcon}
             />
@@ -137,7 +135,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   header: (ContainerHeight) => ({
     position: "absolute",
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: 23,
+    paddingTop: 22,
   },
   searchWrapper: {
     marginLeft: SIZES.Width * 0.03,

@@ -1,9 +1,10 @@
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { MaterialCommunityIcons, Feather, Ionicons } from "@expo/vector-icons";
-import React from "react";
 import useSharePost from "../../hooks/useSharePost";
 import useSavePost from "../../hooks/useSavePost";
 import useHandleLike from "../../hooks/useHandleLike";
+import LikesBottomSheet from "../shared/bottomSheets/LikesBottomSheet";
+import { useRef } from "react";
 
 const Footer = ({
   post,
@@ -11,10 +12,16 @@ const Footer = ({
   bottomSheetRef,
   setBottomSheetIndex,
   sharedIndex,
+  navigation,
 }) => {
   const { handlePostLike } = useHandleLike();
   const { sharePost } = useSharePost();
   const { savePost } = useSavePost();
+  const LikesBottomSheetRef = useRef(null);
+
+  const handleViewLikes = () => {
+    LikesBottomSheetRef.current.present();
+  };
 
   const handleCommentsSection = () => {
     setBottomSheetIndex(sharedIndex);
@@ -32,32 +39,48 @@ const Footer = ({
   return (
     <View style={styles.footerIconsContainer}>
       <View style={styles.footerIcons}>
-        <TouchableOpacity onPress={() => handlePostLike(post, currentUser)}>
-          {post.likes_by_users.includes(currentUser.email) ? (
+        <View style={styles.rowIconContainer}>
+          <TouchableOpacity onPress={() => handlePostLike(post, currentUser)}>
+            {post?.likes_by_users.includes(currentUser?.email) ? (
+              <MaterialCommunityIcons
+                name="cards-heart"
+                size={27}
+                color={"#f00"}
+                style={styles.heartIcon}
+              />
+            ) : (
+              <MaterialCommunityIcons
+                name="cards-heart-outline"
+                size={27}
+                color={"#fff"}
+                style={styles.heartIcon}
+              />
+            )}
+          </TouchableOpacity>
+          {post?.likes_by_users?.length > 1 && (
+            <TouchableOpacity onPress={handleViewLikes}>
+              <Text style={styles.quantyText}>
+                {post?.likes_by_users?.length}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.rowIconContainer}>
+          <TouchableOpacity onPress={handleCommentsSection}>
             <MaterialCommunityIcons
-              name="cards-heart"
-              size={27}
-              color={"#f00"}
-              style={styles.heartIcon}
-            />
-          ) : (
-            <MaterialCommunityIcons
-              name="cards-heart-outline"
+              name="chat-outline"
               size={27}
               color={"#fff"}
-              style={styles.heartIcon}
+              style={styles.chatIcon}
             />
+          </TouchableOpacity>
+          {post?.comments?.length > 1 && (
+            <TouchableOpacity onPress={handleCommentsSection}>
+              <Text style={styles.quantyText}>{post?.comments?.length}</Text>
+            </TouchableOpacity>
           )}
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleCommentsSection()}>
-          <MaterialCommunityIcons
-            name="chat-outline"
-            size={27}
-            color={"#fff"}
-            style={styles.chatIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleSharePost()}>
+        </View>
+        <TouchableOpacity onPress={handleSharePost}>
           <Feather
             name="send"
             size={24}
@@ -66,8 +89,9 @@ const Footer = ({
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => handleSavePost()}>
-        {currentUser.saved_posts.includes(post.id) ? (
+      <TouchableOpacity onPress={handleSavePost}>
+        {currentUser?.saved_posts &&
+        currentUser.saved_posts.includes(post.id) ? (
           <Ionicons
             name="bookmark"
             size={24}
@@ -83,6 +107,11 @@ const Footer = ({
           />
         )}
       </TouchableOpacity>
+      <LikesBottomSheet
+        likesByEmail={post?.likes_by_users}
+        bottomSheetRef={LikesBottomSheetRef}
+        navigation={navigation}
+      />
     </View>
   );
 };
@@ -116,5 +145,15 @@ const styles = StyleSheet.create({
   },
   headerIcons: {
     marginRight: 15,
+  },
+  rowIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  quantyText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "600",
   },
 });

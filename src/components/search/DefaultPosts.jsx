@@ -1,11 +1,10 @@
 import { StyleSheet, FlatList, View, Platform } from "react-native";
-import React from "react";
 import useFetchPosts from "../../hooks/useFetchPosts";
 import SkeletonDefaultPosts from "./Skeletons/SkeletonDefaultPosts";
 import RenderItem from "./RenderItem";
 
 const DefaultPosts = ({ navigation, handleScroll }) => {
-  const { posts, isLoading, fetchOlderPosts, refreshPosts } = useFetchPosts();
+  const { posts, isLoading, fetchOlderPosts } = useFetchPosts();
 
   return (
     <View style={styles.container}>

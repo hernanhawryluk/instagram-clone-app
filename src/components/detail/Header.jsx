@@ -1,13 +1,5 @@
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  Platform,
-} from "react-native";
-import React from "react";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import "firebase/compat/storage";
 import { Image } from "expo-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";

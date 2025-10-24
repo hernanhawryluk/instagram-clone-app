@@ -2,9 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar,
   Platform,
-  SafeAreaView,
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
@@ -12,7 +10,7 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { SIZES } from "../constants";
 import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { useUserContext } from "../contexts/UserContext";
@@ -27,6 +25,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Chating = ({ navigation, route }) => {
   const { user } = route.params;
@@ -39,7 +38,7 @@ const Chating = ({ navigation, route }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.chatContainer}
@@ -190,7 +189,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 45,
   },
   chatContainer: {
     flex: 1,

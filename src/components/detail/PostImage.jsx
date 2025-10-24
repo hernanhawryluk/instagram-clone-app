@@ -1,5 +1,4 @@
 import { StyleSheet, View } from "react-native";
-import React from "react";
 import Animated from "react-native-reanimated";
 import { SIZES } from "../../constants/";
 import { Image } from "expo-image";
@@ -16,7 +15,7 @@ const PostImage = ({ post, currentUser }) => {
   return (
     <GestureDetector gesture={handleDoubleTap}>
       <View>
-        <Image source={{ uri: post.imageUrl }} style={styles.postImage} />
+        <Image source={{ uri: post?.imageUrl }} style={styles.postImage} />
         <Animated.View style={[styles.likeContainer, animatedStyles]}>
           <Ionicons name="heart" size={110} color="#f33" />
         </Animated.View>

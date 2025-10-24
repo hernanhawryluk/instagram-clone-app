@@ -9,14 +9,18 @@
 </div>
 <div>
   <h3>Technologies used</h3>
-  <a href="#"><img alt="React Native" src="https://img.shields.io/badge/React%20Native-0.72.6-blue?logo=react"></a>
-  <a href="#"><img alt="Expo" src="https://img.shields.io/badge/Expo-49.0.15-blue?logo=expo"></a>
-  <a href="#"><img alt="Firebase" src="https://img.shields.io/badge/Firebase-10.5.2-blue?logo=firebase"></a>
+  <a href="#"><img alt="React Native" src="https://img.shields.io/badge/React%20Native-0.79.2-blue?logo=react"></a>
+    <a href="#"><img alt="Expo" src="https://img.shields.io/badge/Expo-53.0.5-blue?logo=expo"></a>
+    <a href="#"><img alt="Firebase" src="https://img.shields.io/badge/Firebase-11.9.1-blue?logo=firebase"></a>
 </div>
 
 ## Description
 
-Fully functional Instagram replica built in React Native, showcasing my skills as a mobile app developer. Explore the features and functionality of Instagram in this project.
+A functional Instagram clone developed in React Native. This project allows you to explore how some of its main features are implemented. It is compatible with Expo Go and requires no additional configuration or development build. Discover and experience Instagram’s features and functionality in this application.
+
+While the front-end is fully functional and allows interaction with the app similar to Instagram, the back-end is implemented solely with Firebase as a prototype. This means that security and the handling of sensitive data are not optimized for production environments, so it is recommended to use it only for educational and experimental purposes.
+
+⚠️ Android: Due to permission restrictions in Expo Go, the gallery access functionality using expo-media-library is not available. To use this feature on Android, you must create a development build with EAS.
 
 ## Features
 
@@ -32,7 +36,7 @@ Fully functional Instagram replica built in React Native, showcasing my skills a
 
 - Expo.
 - React Native.
-- Firebase (authentication and cloud storage).
+- Firebase (authentication, data base and cloud storage).
 
 ## Download the App for Android devices
 
@@ -42,9 +46,50 @@ Fully functional Instagram replica built in React Native, showcasing my skills a
 
 - [![YouTube Video](https://img.shields.io/badge/YouTube-instagram--clone--app-d22?logo=youtube&logoColor=d22)](https://youtu.be/llQH79EdmfU)
 
+## Instructions for Running on an Emulator:
+
+### Requirements:
+
+    - Node.js.
+    -	Optional: Xcode (for iOS emulator).
+    -	Optional: Android Studio (for Android emulator).
+    -	Optional: Mobile device with the Expo Go app installed.
+
+### Instructions:
+
+1. **Download the repository**
+
+```bash
+git clone https://github.com/hernanhawryluk/instagram-clone-app
+```
+
+2. **Navigate to the project directory**
+
+```bash
+cd instagram-clone-app
+```
+
+3. **Install dependencies**
+
+```bash
+npm install
+```
+
+4. **Start the application**
+
+```bash
+npm start
+```
+
+5. **Select the emulator**
+
+   - Press “i” to open in the iOS emulator.
+   - Press “a” to open in the Android emulator.
+   - Scan the QR code with a mobile device to open in the Expo Go app.
+
 ## Screenshots
 
-<div align="center">
+<div>
   <img src="./assets/screenshots/LoginScreen.png" width="32%">
   <img src="./assets/screenshots/HomeScreen.png" width="32%">
   <img src="./assets/screenshots/PostsScreen.png" width="32%">
@@ -60,67 +105,6 @@ Fully functional Instagram replica built in React Native, showcasing my skills a
   <img src="./assets/screenshots/OptionsModal.png" width="32%">
   <img src="./assets/screenshots/PictureModal.png" width="32%">
 </div>
-
-## Instructions for Running on an Emulator:
-
-### Requirements:
-
-    - Node.js.
-    -	Android Studio (for Android).
-    -	Xcode (for iOS).
-    -	Firebase.
-
-### Instructions:
-
-1. Set Up Firebase:
-
-   - Create a project on Firebase and enable Authentication, Firestore, and Storage.
-   - Apply the Firebase and Firestore rules located in the folders `/src/services/firebase.rules` y `firestore.rules`.
-   - Add your Firebase credentials to the file `/src/services/firebaseConfig.js`.
-   - Rename `/src/services/firebaseConfig.js` to `/src/services/firebase.js`.
-
-2. **Download the repository**
-
-```bash
-git clone https://github.com/hernanhawryluk/instagram-clone-app
-```
-
-3. **Navigate to the project directory**
-
-```bash
-cd instagram-clone-app
-```
-
-4. **Install dependencies**
-
-```bash
-npm install
-```
-
-5. **Create a Developer Build**
-
-- To run on the iOS emulator:
-
-```bash
-npx expo run:ios
-```
-
-- To run on the Android emulator:
-
-```bash
-npx expo run:android
-```
-
-6. **Start the application**
-
-```bash
-npm start
-```
-
-7. **Select the emulator**
-
-   - Press “a” for the Android emulator.
-   - Press “i” for the iOS emulator.
 
 ## Where to find me?
 

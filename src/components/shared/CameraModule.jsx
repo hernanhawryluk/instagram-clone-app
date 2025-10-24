@@ -4,11 +4,9 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useEffect, useState, useRef } from "react";
-import { Camera } from "expo-camera";
+import { useEffect, useState, useRef } from "react";
+import { CameraView, FlashMode, useCameraPermissions } from "expo-camera";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { SIZES } from "../../constants";
 import CameraNoPermission from "./CameraNoPermission";
@@ -21,19 +19,15 @@ const CameraModule = ({
   options = false,
 }) => {
   const camRef = useRef(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
-  const [hasPermission, setHasPermission] = useState(null);
+  const [facing, setFacing] = useState("back");
+  const [permission, requestPermission] = useCameraPermissions();
+  const [flashMode, setFlashMode] = useState("off");
 
-  useEffect(() => {
-    const askPermission = async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
-    };
-    askPermission();
-  }, []);
+  if (!permission) {
+    return <View />;
+  }
 
-  if (!hasPermission) {
+  if (!permission.granted) {
     return (
       <CameraNoPermission
         setCameraModalVisible={setCameraModalVisible}
@@ -68,10 +62,10 @@ const CameraModule = ({
             : styles.cameraFullStyle
         }
       >
-        <Camera
+        <CameraView
           style={styles.camera}
-          type={type}
-          flashMode={flashMode}
+          facing={facing}
+          flash={flashMode}
           ref={camRef}
         />
       </View>
@@ -96,25 +90,17 @@ const CameraModule = ({
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setFlashMode(
-                flashMode === Camera.Constants.FlashMode.off
-                  ? Camera.Constants.FlashMode.on
-                  : Camera.Constants.FlashMode.off
-              );
+              setFlashMode(flashMode === "off" ? "on" : "off");
             }}
           >
             <Ionicons
-              name={
-                flashMode === Camera.Constants.FlashMode.on
-                  ? "flash"
-                  : "flash-off-sharp"
-              }
+              name={flashMode === "on" ? "flash" : "flash-off"}
               size={34}
               color="#fff"
             />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Ionicons name="ios-settings-sharp" size={34} color="#fff" />
+            <Ionicons name="settings-sharp" size={34} color="#fff" />
           </TouchableOpacity>
         </View>
 
@@ -162,13 +148,7 @@ const CameraModule = ({
           )}
 
           <TouchableOpacity
-            onPress={() =>
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              )
-            }
+            onPress={() => setFacing(facing === "back" ? "front" : "back")}
           >
             <Ionicons name="reload-circle-outline" size={34} color="#fff" />
           </TouchableOpacity>
@@ -184,7 +164,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   shadowBowTop: {
     position: "absolute",

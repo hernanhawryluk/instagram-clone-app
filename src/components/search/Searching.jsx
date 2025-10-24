@@ -6,7 +6,7 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import SkeletonSearching from "./Skeletons/SkeletonSearching";

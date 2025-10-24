@@ -1,18 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
-import { Divider } from "react-native-elements";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import firebase from "firebase/compat";
 import useHandleUnfollow from "../../../hooks/useHandleUnfollow";
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { db } from "../../../services/firebase";
 
 const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
   const { handleUnfollow } = useHandleUnfollow({
     currentUser: currentUser,
     user: user,
   });
-  const snapPoints = useMemo(() => [298], []);
+  const snapPoints = useMemo(() => [312], []);
   const [closeFriend, setCloseFriend] = useState(false);
   const [favorites, setFavorites] = useState(false);
   const [mute, setMute] = useState(false);
@@ -23,17 +23,13 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
     setMute(currentUser.muted_users.includes(user.email));
   }, []);
 
-  handleCloseFriend = () => {
+  handleCloseFriend = async () => {
     try {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUser.email)
-        .update({
-          close_friends: !closeFriend
-            ? firebase.firestore.FieldValue.arrayUnion(user.email)
-            : firebase.firestore.FieldValue.arrayRemove(user.email),
-        });
+      await updateDoc(doc(db, "users", currentUser.email), {
+        close_friends: !closeFriend
+          ? arrayUnion(user.email)
+          : arrayRemove(user.email),
+      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -41,17 +37,13 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
     }
   };
 
-  handleFavorites = () => {
+  handleFavorites = async () => {
     try {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUser.email)
-        .update({
-          favorite_users: !favorites
-            ? firebase.firestore.FieldValue.arrayUnion(user.email)
-            : firebase.firestore.FieldValue.arrayRemove(user.email),
-        });
+      await updateDoc(doc(db, "users", currentUser.email), {
+        favorite_users: !favorites
+          ? arrayUnion(user.email)
+          : arrayRemove(user.email),
+      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -59,17 +51,11 @@ const BottomSheetFollowing = ({ bottomSheetRef, currentUser, user }) => {
     }
   };
 
-  handleMute = () => {
+  handleMute = async () => {
     try {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUser.email)
-        .update({
-          muted_users: !mute
-            ? firebase.firestore.FieldValue.arrayUnion(user.email)
-            : firebase.firestore.FieldValue.arrayRemove(user.email),
-        });
+      await updateDoc(doc(db, "users", currentUser.email), {
+        muted_users: !mute ? arrayUnion(user.email) : arrayRemove(user.email),
+      });
     } catch (error) {
       console.log(error);
     } finally {

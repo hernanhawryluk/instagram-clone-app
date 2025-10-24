@@ -1,44 +1,41 @@
-import firebase from "firebase/compat";
+import {
+  doc,
+  updateDoc,
+  arrayRemove,
+  arrayUnion,
+  increment,
+} from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useHandleRequests = ({ currentUser, user }) => {
-    const handleRequests = (accept) => {
-        try {
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(user.email)
-            .update({
-              following_request: firebase.firestore.FieldValue.arrayRemove(currentUser.email),
-              ...(accept && {
-                following: firebase.firestore.FieldValue.arrayUnion(currentUser.email),
-              }),
-            });
-    
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(currentUser.email)
-            .update({
-              followers_request: firebase.firestore.FieldValue.arrayRemove(user.email),
-              ...(accept && {
-                followers: firebase.firestore.FieldValue.arrayUnion(user.email),
-              }),
-            });
+  const handleRequests = async (accept) => {
+    try {
+      const userRef = doc(db, "users", user.email);
+      const currentUserRef = doc(db, "users", currentUser.email);
 
-          if (accept) {
-            firebase.firestore().collection("users").doc(user.email).update({
-                event_notification: firebase.firestore.FieldValue.increment(1)
-            });
-          }
+      await updateDoc(userRef, {
+        following_request: arrayRemove(currentUser.email),
+        ...(accept && { following: arrayUnion(currentUser.email) }),
+      });
 
-        } catch (error) {
-          console.log(error);
-        }
-    };
+      await updateDoc(currentUserRef, {
+        followers_request: arrayRemove(user.email),
+        ...(accept && { followers: arrayUnion(user.email) }),
+      });
 
-    return {
-        handleRequests
+      if (accept) {
+        await updateDoc(userRef, {
+          event_notification: increment(1),
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
-}
+  };
 
-export default useHandleRequests
+  return {
+    handleRequests,
+  };
+};
+
+export default useHandleRequests;

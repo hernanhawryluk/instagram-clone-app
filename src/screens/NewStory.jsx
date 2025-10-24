@@ -5,9 +5,8 @@ import {
   TouchableOpacity,
   Platform,
   ActivityIndicator,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Animated, { FadeIn, ZoomInDown } from "react-native-reanimated";
 import { SIZES } from "../constants";
 import {
@@ -23,8 +22,10 @@ import { Image } from "expo-image";
 import MessageModal, {
   handleFeatureNotImplemented,
 } from "../components/shared/modals/MessageModal";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const NewStory = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { selectedImage } = route.params || {};
   const { uploadStory, isLoading } = useUploadStory();
   const { resizeStoryPicture } = useResizePictures();
@@ -106,15 +107,7 @@ const NewStory = ({ navigation, route }) => {
           </View>
         </Animated.View>
 
-        {Platform.OS === "ios" ? (
-          <Animated.Image
-            source={{ uri: selectedImage.uri }}
-            style={styles.image}
-            sharedTransitionTag={selectedImage.id.toString()}
-          />
-        ) : (
-          <Image source={{ uri: selectedImage.uri }} style={styles.image} />
-        )}
+        <Image source={{ uri: selectedImage.uri }} style={styles.image} />
       </View>
       <Animated.View
         style={styles.bottomButtonsContainer}
@@ -155,6 +148,7 @@ const NewStory = ({ navigation, route }) => {
         message={"This feature is not yet implemented."}
         height={80}
       />
+      <View style={{ height: insets.bottom }} />
     </View>
   );
 };
@@ -163,7 +157,7 @@ export default NewStory;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "ios" ? 54 : StatusBar.currentHeight,
+    paddingTop: Platform.OS === "ios" ? 54 : 54,
     backgroundColor: "#000",
     flex: 1,
   },

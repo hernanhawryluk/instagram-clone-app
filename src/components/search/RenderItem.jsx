@@ -1,6 +1,4 @@
-import { StyleSheet, TouchableOpacity, Platform } from "react-native";
-import React from "react";
-import Animated from "react-native-reanimated";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { SIZES } from "../../constants";
 
@@ -12,14 +10,7 @@ const RenderItem = ({ navigation, item }) => {
       style={styles.imagesContainer}
       key={item.id}
     >
-      {Platform.OS === "ios" && (
-        <Animated.Image
-          sharedTransitionTag={item.id.toString()}
-          style={styles.images}
-          source={{ uri: item.imageUrl }}
-        />
-      )}
-      <Image source={{ uri: item.imageUrl }} style={styles.Images} />
+      <Image source={{ uri: item.imageUrl }} style={styles.image} />
     </TouchableOpacity>
   );
 };
@@ -32,14 +23,7 @@ const styles = StyleSheet.create({
     height: SIZES.Width * 0.335,
     margin: -0.4,
   },
-  images: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    borderWidth: 1,
-    zIndex: -1,
-  },
-  Images: {
+  image: {
     width: "100%",
     height: "100%",
     borderWidth: 1,

@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
-import React from "react";
 import useFetchUserPosts from "../../hooks/useFetchUserPosts";
 import SubHeader from "./SubHeader";
 import { Divider } from "react-native-elements";
@@ -8,7 +7,7 @@ import RenderItem from "../shared/RenderItem";
 
 const StoryHighlights = ({ navigation, currentUser }) => {
   const { posts, loader, fetchOlderPosts, refreshPosts } = useFetchUserPosts(
-    currentUser.email
+    currentUser?.email
   );
 
   const renderListHeaderComponent = () => (

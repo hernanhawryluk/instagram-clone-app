@@ -6,19 +6,18 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Divider } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useUserContext } from "../../../contexts/UserContext";
-import firebase from "firebase/compat";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../services/firebase";
 
 const Gender = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const [loader, setLoader] = useState(false);
-  const [values, setValues] = useState(currentUser.gender);
+  const [values, setValues] = useState(currentUser?.gender);
   const [isValid, setIsValid] = useState(false);
 
   genderOptions = ["Male", "Female", "Custom", "Prefer not to say"];
@@ -40,13 +39,9 @@ const Gender = ({ navigation }) => {
     if (!loader) {
       setLoader(true);
       try {
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .update({
-            gender: [values[0], values[1]],
-          });
+        await updateDoc(doc(db, "users", currentUser.email), {
+          gender: [values[0], values[1]],
+        });
         navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -160,7 +155,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   headerContainer: {
     flexDirection: "row",

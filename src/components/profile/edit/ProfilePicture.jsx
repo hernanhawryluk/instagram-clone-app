@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
-import React, { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Foundation, Feather, Ionicons } from "@expo/vector-icons";
@@ -57,7 +57,7 @@ const ProfilePicture = ({ bottomSheetRef, currentUser, onPropChange }) => {
       <View style={styles.mainContainer}>
         <Image
           source={{
-            uri: previewImage ? previewImage : currentUser.profile_picture,
+            uri: previewImage ? previewImage : currentUser?.profile_picture,
           }}
           style={styles.image}
         />

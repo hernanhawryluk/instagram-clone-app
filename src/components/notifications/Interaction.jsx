@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React from "react";
 import { Image } from "expo-image";
 import useCheckStoriesSeen from "../../hooks/useCheckStoriesSeen";
 import { LinearGradient } from "expo-linear-gradient";
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginHorizontal: 15,
+    marginHorizontal: 12,
     marginTop: Platform.OS === "android" ? 15 : 8,
   },
   rowContainer: {

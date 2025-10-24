@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import React from "react";
 import Name from "./Name";
 import Username from "./Username";
 import Bio from "./Bio";

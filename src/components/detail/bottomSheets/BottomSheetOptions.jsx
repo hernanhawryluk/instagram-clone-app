@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import { Ionicons, Feather, MaterialIcons, Octicons } from "@expo/vector-icons";
-import { Divider } from "react-native-elements";
 import useReportAction from "../../../hooks/useReportAction";
 import useDeletePost from "../../../hooks/useDeletePost";
 import useSharePost from "../../../hooks/useSharePost";
@@ -55,7 +54,7 @@ const BottomSheetOptions = ({
   };
 
   const handleAboutAccount = () => {
-    if (currentUser.email === post.owner_email) {
+    if (currentUser?.email === post.owner_email) {
       navigation.navigate("Profile");
     } else {
       navigation.popToTop();
@@ -86,7 +85,8 @@ const BottomSheetOptions = ({
             style={styles.opacityContainer}
           >
             <View style={styles.buttonContainer}>
-              {currentUser.saved_posts.includes(post.id) ? (
+              {currentUser?.saved_posts &&
+              currentUser.saved_posts.includes(post.id) ? (
                 <Ionicons name="bookmark" size={24} color="#fff" />
               ) : (
                 <Feather name="bookmark" size={24} color="#fff" />
@@ -105,7 +105,7 @@ const BottomSheetOptions = ({
           </TouchableOpacity>
         </View>
 
-        {post.owner_email === currentUser.email && (
+        {post.owner_email === currentUser?.email && (
           <View style={styles.verticalGroup}>
             <TouchableOpacity
               onPress={() => handleEditPost()}
@@ -128,7 +128,7 @@ const BottomSheetOptions = ({
             </TouchableOpacity>
           </View>
         )}
-        {post.owner_email !== currentUser.email && (
+        {post.owner_email !== currentUser?.email && (
           <View style={styles.verticalGroup}>
             <TouchableOpacity
               onPress={() => handleAboutAccount()}

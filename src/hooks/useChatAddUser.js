@@ -1,31 +1,28 @@
-import firebase from 'firebase/compat';
 import { useUserContext } from "../contexts/UserContext";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useChatAddUser = () => {
-    const { currentUser } = useUserContext();
+  const { currentUser } = useUserContext();
 
-    const chatAddUser = async (user) => {
+  const chatAddUser = async (user) => {
+    const newUser = {
+      email: user.email,
+      username: user.username,
+      name: user.name,
+      profile_picture: user.profile_picture,
+      status: "seen",
+    };
 
-        const newUser = {
-            email: user.email,
-            username: user.username,
-            name: user.name,
-            profile_picture: user.profile_picture,
-            status: "seen"
-        }
-
-        firebase
-            .firestore()
-            .collection("users")
-            .doc(currentUser.email)
-            .collection("chat")
-            .doc(user.email)
-            .set(newUser);
-    }
+    await setDoc(
+      doc(db, "users", currentUser.email, "chat", user.email),
+      newUser
+    );
+  };
 
   return {
-    chatAddUser
-  }
-}
+    chatAddUser,
+  };
+};
 
-export default useChatAddUser
+export default useChatAddUser;

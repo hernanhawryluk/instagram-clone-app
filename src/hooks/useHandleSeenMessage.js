@@ -1,22 +1,27 @@
-import firebase from "firebase/compat";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useHandleSeenMessage = () => {
-
-    const handleSeenMessage = async (user, currentUser) => {
-        await firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUser.email)
-        .collection("chat")
-        .doc(user.email)
-        .update({
-            status: "seen",
-        });
-    };
-
-    return {
-        handleSeenMessage
+  const handleSeenMessage = async (user, currentUser) => {
+    try {
+      const chatDocRef = doc(
+        db,
+        "users",
+        currentUser.email,
+        "chat",
+        user.email
+      );
+      await updateDoc(chatDocRef, {
+        status: "seen",
+      });
+    } catch (error) {
+      console.error("Error updating message status:", error);
     }
-}
+  };
 
-export default useHandleSeenMessage
+  return {
+    handleSeenMessage,
+  };
+};
+
+export default useHandleSeenMessage;

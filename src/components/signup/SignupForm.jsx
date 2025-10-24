@@ -5,15 +5,18 @@ import {
   TextInput,
   TouchableOpacity,
   Platform,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
-import firebase from "firebase/compat";
 import { getLocales } from "expo-localization";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { auth, db } from "../../services/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 const SignupForm = ({ navigation }) => {
   const [userOnFocus, setUserOnFocus] = useState(false);
@@ -24,10 +27,11 @@ const SignupForm = ({ navigation }) => {
   const [passwordToValidate, SetPasswordToValidate] = useState(false);
   const [country, setCountry] = useState(null);
   const [developerMessage, setDeveloperMessage] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const locales = getLocales();
-    setCountry(locales[0].regionCode);
+    setCountry(locales[0].regionCode || "Argentina");
 
     setTimeout(() => {
       setDeveloperMessage(true);
@@ -55,37 +59,37 @@ const SignupForm = ({ navigation }) => {
     return data.results[0].picture.large;
   };
 
-  const onSignup = async (email, username, password) => {
+  const onSignup = async (email, username, password, country) => {
     try {
-      const userCredentials = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-      await firebase
-        .firestore()
-        .collection("users")
-        .doc(userCredentials.user.email)
-        .set({
-          owner_uid: userCredentials.user.uid,
-          username: username,
-          email: userCredentials.user.email,
-          profile_picture: await getRandomProfilePicture(),
-          name: username,
-          bio: "",
-          link: "",
-          gender: ["Prefer not to say", ""],
-          followers: [],
-          following: [],
-          followers_request: [],
-          following_request: [],
-          event_notification: 0,
-          chat_notification: 0,
-          saved_posts: [],
-          close_friends: [],
-          favorite_users: [],
-          muted_users: [],
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          country: country,
-        });
+      setLoader(true);
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await setDoc(doc(db, "users", userCredentials.user.email), {
+        owner_uid: userCredentials.user.uid,
+        username: username,
+        email: userCredentials.user.email,
+        profile_picture: await getRandomProfilePicture(),
+        name: username,
+        bio: "",
+        link: "",
+        gender: ["Prefer not to say", ""],
+        followers: [],
+        following: [],
+        followers_request: [],
+        following_request: [],
+        event_notification: 0,
+        chat_notification: 0,
+        saved_posts: [],
+        close_friends: [],
+        favorite_users: [],
+        muted_users: [],
+        createdAt: serverTimestamp(),
+        country: country,
+      });
 
       console.log(
         "🔥 Firebase User Created Successful ✅",
@@ -93,6 +97,8 @@ const SignupForm = ({ navigation }) => {
       );
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -101,7 +107,7 @@ const SignupForm = ({ navigation }) => {
       <Formik
         initialValues={{ email: "", username: "", password: "" }}
         onSubmit={(values) => {
-          onSignup(values.email, values.username, values.password);
+          onSignup(values.email, values.username, values.password, country);
         }}
         validationSchema={LoginFormSchema}
         validateOnMount={true}
@@ -112,7 +118,6 @@ const SignupForm = ({ navigation }) => {
               style={[
                 styles.inputField,
                 {
-                  paddingVertical: 16,
                   borderColor:
                     emailToValidate && !Validator.validate(values.email)
                       ? "#f00"
@@ -122,7 +127,7 @@ const SignupForm = ({ navigation }) => {
             >
               <TextInput
                 style={styles.inputText}
-                placeholderTextColor={"#bbb"}
+                placeholderTextColor={"#BBB"}
                 placeholder="Email"
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -152,7 +157,6 @@ const SignupForm = ({ navigation }) => {
               style={[
                 styles.inputField,
                 {
-                  paddingVertical: 16,
                   borderColor:
                     userToValidate && values.username.length < 6
                       ? "#f00"
@@ -162,11 +166,11 @@ const SignupForm = ({ navigation }) => {
             >
               <TextInput
                 style={styles.inputText}
-                placeholderTextColor={"#bbb"}
+                placeholderTextColor={"#BBB"}
                 placeholder="Username"
                 autoCapitalize="none"
                 autoCorrect={false}
-                textContentType="emailAddress"
+                textContentType="username"
                 onChangeText={handleChange("username")}
                 onBlur={() => {
                   handleBlur("username");
@@ -230,7 +234,11 @@ const SignupForm = ({ navigation }) => {
             </View>
             <TouchableOpacity onPress={handleSubmit} disabled={!isValid}>
               <View style={styles.btnContainer(isValid)}>
-                <Text style={styles.btnText}>Sign up</Text>
+                {loader ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.btnText}>Sign up</Text>
+                )}
               </View>
             </TouchableOpacity>
             <View style={{ height: 56 }}>
@@ -265,7 +273,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#111",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#444",
     paddingLeft: 15,
     paddingRight: 25,
     marginHorizontal: 20,
@@ -277,7 +284,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 16,
     fontWeight: "500",
-    color: "#fff",
+    color: "#FFF",
     width: "95%",
   },
   forgotContainer: {

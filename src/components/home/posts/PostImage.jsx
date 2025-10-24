@@ -1,5 +1,4 @@
 import { StyleSheet, View } from "react-native";
-import React from "react";
 import Animated from "react-native-reanimated";
 import { SIZES } from "../../../constants";
 import { Image } from "expo-image";

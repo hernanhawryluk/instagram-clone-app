@@ -2,13 +2,11 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   FlatList,
   Platform,
-  StatusBar,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Requests from "../components/follow/Requests";
 import Interaction from "../components/notifications/Interaction";
@@ -16,7 +14,9 @@ import useFetchRequests from "../hooks/useFetchRequests";
 import useFetchUserPosts from "../hooks/useFetchUserPosts";
 import { LinearGradient } from "expo-linear-gradient";
 import { SIZES } from "../constants";
-import firebase from "firebase/compat";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Notifications = ({ navigation, route }) => {
   const { currentUser } = route.params;
@@ -25,15 +25,19 @@ const Notifications = ({ navigation, route }) => {
   const [notificationCounter, setNotificationCounter] = useState(0);
 
   useEffect(() => {
-    if (currentUser.event_notification > 0) {
-      try {
-        firebase.firestore().collection("users").doc(currentUser.email).update({
-          event_notification: 0,
-        });
-      } catch (error) {
-        console.log(error);
+    const resetEventNotification = async () => {
+      if (currentUser?.event_notification > 0) {
+        try {
+          await updateDoc(doc(db, "users", currentUser.email), {
+            event_notification: 0,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
+    };
+
+    resetEventNotification();
   }, []);
 
   useEffect(() => {
@@ -64,7 +68,7 @@ const Notifications = ({ navigation, route }) => {
   }, [posts]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.titleContainer}
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   titleContainer: {
     flexDirection: "row",

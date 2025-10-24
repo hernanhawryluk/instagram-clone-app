@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import {
@@ -16,7 +16,7 @@ import MessageModal, {
 } from "../../shared/modals/MessageModal";
 
 const BottomSheetOptions = ({ bottomSheetRef, navigation, currentUser }) => {
-  const snapPoints = useMemo(() => [708], []);
+  const snapPoints = useMemo(() => [704], []);
   const [messageModalVisible, setMessageModalVisible] = useState(false);
 
   return (

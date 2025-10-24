@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Image } from "expo-image";
 import StoriesSkeleton from "./skeletons/StoriesSkeleton";
 import { useStoriesContext } from "../../contexts/StoriesContext";
@@ -22,20 +22,21 @@ const Stories = ({ navigation, currentUser }) => {
   const [reducedStories, setReducedStories] = useState([]);
 
   useEffect(() => {
-    setOwnStory(
-      stories.find((story) => {
-        return story.username === currentUser.username;
-      })
-    );
+    setOwnStory();
+    stories.find((story) => {
+      return story?.username === currentUser?.username;
+    });
 
-    setSeenOwnStory(checkStoriesSeen(currentUser.username, currentUser.email));
+    setSeenOwnStory(
+      checkStoriesSeen(currentUser?.username, currentUser?.email)
+    );
 
     const uniqueStories = {};
     const uniqueStoriesArray = [];
 
     stories.forEach((story) => {
-      if (!uniqueStories[story.username]) {
-        uniqueStories[story.username] = true;
+      if (!uniqueStories[story?.username]) {
+        uniqueStories[story?.username] = true;
         uniqueStoriesArray.push(story);
       }
     });
@@ -44,7 +45,7 @@ const Stories = ({ navigation, currentUser }) => {
 
   useEffect(() => {
     stories.forEach((story) => {
-      Image.prefetch([{ uri: story.imageUrl }]);
+      Image.prefetch([{ uri: story?.imageUrl }]);
     });
   }, []);
 
@@ -58,7 +59,7 @@ const Stories = ({ navigation, currentUser }) => {
                 ownStory
                   ? navigation.navigate("Story", {
                       stories: stories.filter(
-                        (story) => story.username === currentUser.username
+                        (story) => story?.username === currentUser?.username
                       ),
                       currentUser: currentUser,
                     })
@@ -71,9 +72,10 @@ const Stories = ({ navigation, currentUser }) => {
               {!ownStory ? (
                 <View>
                   <View style={styles.emptyStoryBorder}>
+                    <View style={styles.underImage} />
                     <Image
                       source={{
-                        uri: currentUser.profile_picture,
+                        uri: currentUser?.profile_picture,
                       }}
                       style={styles.image}
                     />
@@ -89,7 +91,7 @@ const Stories = ({ navigation, currentUser }) => {
                   <View style={styles.seenStoryBorder}>
                     <Image
                       source={{
-                        uri: currentUser.profile_picture,
+                        uri: currentUser?.profile_picture,
                       }}
                       style={styles.imageWithStory}
                     />
@@ -107,7 +109,7 @@ const Stories = ({ navigation, currentUser }) => {
                   >
                     <Image
                       source={{
-                        uri: currentUser.profile_picture,
+                        uri: currentUser?.profile_picture,
                       }}
                       style={styles.imageWithStory}
                     />
@@ -119,20 +121,20 @@ const Stories = ({ navigation, currentUser }) => {
             </TouchableOpacity>
           </View>
           {reducedStories
-            .filter((story) => story.username != currentUser.username)
+            .filter((story) => story?.username != currentUser?.username)
             .map((story, index) => (
               <View style={styles.container} key={index}>
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("Story", {
                       stories: stories.filter(
-                        (eachStory) => story.username === eachStory.username
+                        (eachStory) => story?.username === eachStory?.username
                       ),
                       currentUser: currentUser,
                     })
                   }
                 >
-                  {checkStoriesSeen(story.username, currentUser.email) ? (
+                  {checkStoriesSeen(story?.username, currentUser?.email) ? (
                     <View style={styles.itemContainer}>
                       <View style={styles.seenStoryBorder}>
                         <Image
@@ -141,7 +143,7 @@ const Stories = ({ navigation, currentUser }) => {
                         />
                       </View>
                       <Text numberOfLines={1} style={styles.seenUser}>
-                        {story.username}
+                        {story?.username}
                       </Text>
                     </View>
                   ) : (
@@ -152,13 +154,14 @@ const Stories = ({ navigation, currentUser }) => {
                         colors={["#ff00ff", "#ff4400", "#ffff00"]}
                         style={styles.unseenRainbowBorder}
                       >
+                        <View style={styles.underImage} />
                         <Image
-                          source={{ uri: story.profile_picture }}
+                          source={{ uri: story?.profile_picture }}
                           style={styles.imageWithStory}
                         />
                       </LinearGradient>
                       <Text numberOfLines={1} style={styles.user}>
-                        {story.username}
+                        {story?.username}
                       </Text>
                     </View>
                   )}
@@ -181,12 +184,21 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: Platform.OS === "android" ? 11 : 0,
+    marginTop: Platform.OS === "android" ? 11 : 11,
     marginLeft: 12,
   },
   itemContainer: {
     width: 94,
     alignItems: "center",
+  },
+  underImage: {
+    position: "absolute",
+    height: 83,
+    width: 83,
+    borderRadius: 100,
+    zIndex: 2,
+    backgroundColor: "#000",
+    zIndex: -1,
   },
   image: {
     height: 83,

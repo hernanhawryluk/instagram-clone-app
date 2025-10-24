@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import BottomSheet, {
   BottomSheetFlatList,
   BottomSheetFooter,
@@ -15,6 +15,7 @@ import Comments from "./Comments";
 import { SIZES } from "../../../constants";
 import FooterTextInput from "../../shared/bottomSheets/FooterTextInput";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const BottomSheetComments = ({
   bottomSheetRef,
@@ -22,6 +23,7 @@ const BottomSheetComments = ({
   post,
   navigation,
 }) => {
+  const insets = useSafeAreaInsets();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -63,6 +65,7 @@ const BottomSheetComments = ({
     <BottomSheet
       ref={bottomSheetRef}
       index={-1}
+      bottomInset={insets.bottom}
       snapPoints={Platform.OS == "ios" ? ["68", "94%"] : ["99%"]}
       topInset={Platform.OS == "android" ? SIZES.Height * 0.05 : 0}
       backgroundStyle={{ borderRadius: 25, backgroundColor: "#232325" }}
@@ -91,8 +94,8 @@ const BottomSheetComments = ({
                 styles.iosVsAndroidContainer,
                 {
                   minHeight: keyboardVisible
-                    ? SIZES.Height * 0.55
-                    : SIZES.Height * 0.9,
+                    ? SIZES.Height * 0.45
+                    : SIZES.Height * 0.87 - insets.bottom,
                 },
               ]}
             >

@@ -6,7 +6,6 @@ import {
   Platform,
 } from "react-native";
 import { Divider } from "react-native-elements";
-import React from "react";
 
 const Footer = ({ navigation }) => {
   return (

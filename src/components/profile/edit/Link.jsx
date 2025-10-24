@@ -6,20 +6,19 @@ import {
   TextInput,
   Text,
   ActivityIndicator,
-  Platform,
-  StatusBar,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Divider } from "react-native-elements";
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { useUserContext } from "../../../contexts/UserContext";
-import firebase from "firebase/compat";
 import useIsURL from "../../../utils/useIsURL";
+import { db } from "../../../services/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Link = ({ navigation }) => {
   const { currentUser } = useUserContext();
   const [loader, setLoader] = useState(false);
-  const [values, setValues] = useState(currentUser.link);
+  const [values, setValues] = useState(currentUser?.link);
   const [isValid, setIsValid] = useState(false);
   const { isURL } = useIsURL();
 
@@ -35,13 +34,9 @@ const Link = ({ navigation }) => {
     if (!loader) {
       setLoader(true);
       try {
-        await firebase
-          .firestore()
-          .collection("users")
-          .doc(currentUser.email)
-          .update({
-            link: values,
-          });
+        await updateDoc(doc(db, "users", currentUser.email), {
+          link: values,
+        });
         navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   headerContainer: {
     flexDirection: "row",

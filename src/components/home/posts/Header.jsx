@@ -5,7 +5,7 @@ import {
   Text,
   Platform,
 } from "react-native";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -39,7 +39,7 @@ const Header = ({ navigation, post, currentUser }) => {
           onPress={() => handlePostOwner()}
           style={styles.headerUserContainer}
         >
-          {checkStoriesSeen(post.username, currentUser.email) ? (
+          {checkStoriesSeen(post.username, currentUser?.email) ? (
             <View style={styles.rainbowBorder}>
               <Image
                 source={{ uri: post.profile_picture }}
@@ -62,17 +62,17 @@ const Header = ({ navigation, post, currentUser }) => {
           <Text style={styles.headerText}>{post.username.toLowerCase()}</Text>
         </TouchableOpacity>
         <View style={styles.rowContainer}>
-          {currentUser.email !== post.owner_email &&
-          currentUser.following &&
-          !currentUser.following.includes(post.owner_email) ? (
+          {currentUser?.email !== post.owner_email &&
+          currentUser?.following &&
+          !currentUser?.following.includes(post.owner_email) ? (
             <TouchableOpacity
               onPress={() => {
                 handleFollow(post.owner_email);
               }}
               style={styles.buttonContainer}
             >
-              {currentUser.following_request &&
-              !currentUser.following_request.includes(post.owner_email) ? (
+              {currentUser?.following_request &&
+              !currentUser?.following_request.includes(post.owner_email) ? (
                 <Text style={styles.buttonText}>Follow</Text>
               ) : (
                 <Text style={styles.buttonText}>Requested</Text>
@@ -103,8 +103,9 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 6,
-    marginHorizontal: 8,
+    marginTop: 9,
+    marginBottom: 3,
+    marginHorizontal: 6,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    backgroundColor: "#333",
+    backgroundColor: "#252525",
     borderRadius: 10,
     height: Platform.OS === "android" ? 35 : 30,
     paddingHorizontal: 12,

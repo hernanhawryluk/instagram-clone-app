@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import useHandleFollow from "../../hooks/useHandleFollow";
 import RemoveFollower from "./RemoveFollower";
 import { Image } from "expo-image";

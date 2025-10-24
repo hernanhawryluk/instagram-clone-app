@@ -38,7 +38,7 @@ export default Caption;
 const styles = StyleSheet.create({
   caption: {
     marginTop: 8,
-    marginHorizontal: 12,
+    marginHorizontal: 16,
     flexDirection: "row",
   },
   captionUser: {

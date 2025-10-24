@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { MaterialIcons, FontAwesome5, Octicons } from "@expo/vector-icons";
 import BottomSheetAddNew from "./bottomSheets/BottomSheetAddNew";
 import BottomSheetLogout from "./bottomSheets/BottomSheetLogout";
@@ -16,7 +16,7 @@ const Header = ({ currentUser, navigation }) => {
         onPress={() => bottomSheetRefLogout.current.present()}
         style={styles.usernameContainer}
       >
-        <Text style={styles.username}>{currentUser.username}</Text>
+        <Text style={styles.username}>{currentUser?.username}</Text>
         <MaterialIcons
           name="keyboard-arrow-down"
           size={24}
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginLeft: 20,
     marginRight: 15,
+    marginBottom: 8,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

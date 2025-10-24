@@ -1,10 +1,14 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import useHandleRequests from "../../hooks/useHandleRequests";
 import { Image } from "expo-image";
 import { SIZES } from "../../constants";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Requests = ({ user, navigation }) => {
   const { currentUser } = useUserContext();
@@ -18,7 +22,7 @@ const Requests = ({ user, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => handleViewProfile()}>
+      <Pressable onPress={() => handleViewProfile()}>
         <View style={styles.rowContainer}>
           <Image source={{ uri: user.profile_picture }} style={styles.image} />
           <View style={styles.userContainer}>
@@ -30,18 +34,18 @@ const Requests = ({ user, navigation }) => {
             </Text>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </Pressable>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => handleRequests(true)}>
           <View style={styles.blueButton}>
-            <Text style={styles.removeText}>Accept</Text>
+            <Text style={styles.blueText}>Accept</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => handleRequests(false)}>
-          <View style={styles.button}>
-            <Text style={styles.removeText}>Remove</Text>
+          <View style={styles.grayButton}>
+            <Text style={styles.grayText}>Remove</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginHorizontal: 15,
+    marginHorizontal: 12,
     marginTop: 15,
   },
   rowContainer: {
@@ -84,39 +88,36 @@ const styles = StyleSheet.create({
     color: "#999",
     fontSize: 14,
     fontWeight: "400",
-    width: "95%",
-    marginBottom: 4,
+    width: "100%",
   },
   buttonContainer: {
     flexDirection: "row",
-    gap: 4,
-  },
-  button: {
-    backgroundColor: "#333",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 34,
-    width: 90,
-    borderRadius: 10,
+    gap: 6,
   },
   blueButton: {
     backgroundColor: "#07f",
     justifyContent: "center",
     alignItems: "center",
     height: 34,
-    width: 90,
+    width: 80,
     borderRadius: 10,
   },
-  buttonText: {
-    color: "#08f",
-    fontWeight: "700",
-    fontSize: 14,
-    marginBottom: 4,
+  grayButton: {
+    backgroundColor: "#333",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 34,
+    width: 80,
+    borderRadius: 10,
   },
-  removeText: {
+  blueText: {
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
-    marginBottom: 4,
+  },
+  grayText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 14,
   },
 });

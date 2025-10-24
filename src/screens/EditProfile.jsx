@@ -2,20 +2,19 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
   Platform,
-  StatusBar,
 } from "react-native";
 import { Divider } from "react-native-elements";
 import { useUserContext } from "../contexts/UserContext";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import ProfilePicture from "../components/profile/edit/ProfilePicture";
 import useUploadPicture from "../hooks/useUploadPicture";
 import useUploadProfilePicture from "../hooks/useUploadProfilePicture";
 import { Image } from "expo-image";
 import { MaterialIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const EditProfile = ({ navigation }) => {
   const { currentUser } = useUserContext();
@@ -35,7 +34,7 @@ const EditProfile = ({ navigation }) => {
       currentUser.email,
       "profile_picture"
     );
-    await uploadProfilePicture(uploadedImageUri, currentUser.email);
+    await uploadProfilePicture(uploadedImageUri, currentUser?.email);
   };
 
   const handlePictureModal = () => {
@@ -43,7 +42,7 @@ const EditProfile = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <View style={styles.titleContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back-ios" size={26} color={"#fff"} />
@@ -70,7 +69,7 @@ const EditProfile = ({ navigation }) => {
         <TouchableOpacity onPress={() => handlePictureModal()}>
           <Image
             source={{
-              uri: previewImage ? previewImage : currentUser.profile_picture,
+              uri: previewImage ? previewImage : currentUser?.profile_picture,
             }}
             style={styles.image}
           />
@@ -88,12 +87,14 @@ const EditProfile = ({ navigation }) => {
           <Text style={styles.descriptiveText}>Name</Text>
           <Text
             style={
-              currentUser.name.length > 0
+              currentUser?.name && currentUser.name.length > 0
                 ? styles.editableText
                 : styles.editableBlurText
             }
           >
-            {currentUser.name.length > 0 ? currentUser.name : "Name"}
+            {currentUser?.name && currentUser.name.length > 0
+              ? currentUser.name
+              : "Name"}
           </Text>
         </TouchableOpacity>
         <Divider width={0.4} color={"#222"} />
@@ -104,7 +105,7 @@ const EditProfile = ({ navigation }) => {
           style={styles.rowContainer}
         >
           <Text style={styles.descriptiveText}>Username</Text>
-          <Text style={styles.editableText}>{currentUser.username}</Text>
+          <Text style={styles.editableText}>{currentUser?.username}</Text>
         </TouchableOpacity>
         <Divider width={0.4} color={"#222"} />
         <TouchableOpacity
@@ -116,12 +117,14 @@ const EditProfile = ({ navigation }) => {
           <Text style={styles.descriptiveText}>Bio</Text>
           <Text
             style={
-              currentUser.bio.length > 0
+              currentUser?.bio && currentUser.bio.length > 0
                 ? styles.editableText
                 : styles.editableBlurText
             }
           >
-            {currentUser.bio.length > 0 ? currentUser.bio : "Bio"}
+            {currentUser?.bio && currentUser.bio.length > 0
+              ? currentUser?.bio
+              : "Bio"}
           </Text>
         </TouchableOpacity>
         <Divider width={0.4} color={"#222"} />
@@ -135,12 +138,14 @@ const EditProfile = ({ navigation }) => {
           <Text
             numberOfLines={1}
             style={
-              currentUser.link.length > 0
+              currentUser?.link && currentUser.link.length > 0
                 ? styles.editableText
                 : styles.editableBlurText
             }
           >
-            {currentUser.link.length > 0 ? currentUser.link : "Add a Link"}
+            {currentUser?.link && currentUser.link.length > 0
+              ? currentUser?.link
+              : "Add a Link"}
           </Text>
           <MaterialIcons name="keyboard-arrow-right" size={24} color="#999" />
         </TouchableOpacity>
@@ -153,9 +158,9 @@ const EditProfile = ({ navigation }) => {
         >
           <Text style={styles.descriptiveText}>Gender</Text>
           <Text style={styles.editableText}>
-            {currentUser.gender[0] == "Custom"
-              ? currentUser.gender[1]
-              : currentUser.gender[0]}
+            {currentUser?.gender && currentUser.gender[0] == "Custom"
+              ? currentUser?.gender[1]
+              : currentUser?.gender[0]}
           </Text>
           <MaterialIcons name="keyboard-arrow-right" size={24} color="#999" />
         </TouchableOpacity>
@@ -177,7 +182,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: 0,
   },
   titleContainer: {
     marginHorizontal: 15,

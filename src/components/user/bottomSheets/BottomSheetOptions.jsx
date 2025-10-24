@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../../shared/bottomSheets/CustomBackdrop";
 import * as Clipboard from "expo-clipboard";
@@ -15,7 +15,7 @@ const BottomSheetOptions = ({
 }) => {
   const { shareUser } = useSharePost();
   const { handleReportUser } = useReportAction();
-  const snapPoints = useMemo(() => [322], []);
+  const snapPoints = useMemo(() => [326], []);
 
   return (
     <BottomSheetModal

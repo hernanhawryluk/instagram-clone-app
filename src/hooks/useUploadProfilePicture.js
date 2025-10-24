@@ -1,79 +1,49 @@
 import { useState } from "react";
-import firebase from "firebase/compat";
+import {
+  doc,
+  collection,
+  getDocs,
+  writeBatch,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../services/firebase";
 
 const useUploadProfilePicture = () => {
-    const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
 
-    const uploadProfilePicture = async (uri, email) => {
-        if (!loader) {
-            setLoader(true);
-            try { 
-                const batch = firebase.firestore().batch();
-                await firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(email)
-                    .update({
-                        profile_picture: uri,
-                    });
+  const uploadProfilePicture = async (uri, email) => {
+    if (loader) return;
+    setLoader(true);
+    try {
+      const userDocRef = doc(db, "users", email);
+      const batch = writeBatch(db);
 
-                await firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(email)
-                    .collection("posts")
-                    .get()
-                    .then(snapshot => {
-                        snapshot.docs.forEach(doc => {
-                            batch.update(doc.ref, {
-                                profile_picture: uri,
-                            });
-                        });
-                    });
+      batch.update(userDocRef, { profile_picture: uri });
 
-                await firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(email)
-                    .collection("stories")
-                    .get()
-                    .then(snapshot => {
-                        snapshot.docs.forEach(doc => {
-                            batch.update(doc.ref, {
-                                profile_picture: uri,
-                            });
-                        });
-                    });
-                
-                await firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(email)
-                    .collection("reels")
-                    .get()
-                    .then(snapshot => {
-                        snapshot.docs.forEach(doc => {
-                            batch.update(doc.ref, {
-                                profile_picture: uri,
-                            });
-                        });
-                    });
+      const updateSubcollection = async (subcollectionName) => {
+        const subColRef = collection(db, "users", email, subcollectionName);
+        const snapshot = await getDocs(subColRef);
+        snapshot.docs.forEach((docSnap) => {
+          batch.update(docSnap.ref, { profile_picture: uri });
+        });
+      };
 
-                await batch.commit();
+      await updateSubcollection("posts");
+      await updateSubcollection("stories");
+      await updateSubcollection("reels");
 
-            } catch (error) {
-            console.error(error);
-            } finally {
-            setLoader(false);
-            }
-        }
-    };
-
-    return {
-        uploadProfilePicture,
-        loader
+      await batch.commit();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoader(false);
     }
-  
-}
+  };
 
-export default useUploadProfilePicture
+  return {
+    uploadProfilePicture,
+    loader,
+  };
+};
+
+export default useUploadProfilePicture;
