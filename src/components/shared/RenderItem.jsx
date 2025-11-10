@@ -14,7 +14,6 @@ const RenderItem = ({ navigation, item }) => {
         >
           {Platform.OS === "ios" && (
             <Animated.Image
-              sharedTransitionTag={item.id.toString()}
               style={styles.images}
               source={{ uri: item.imageUrl }}
             />

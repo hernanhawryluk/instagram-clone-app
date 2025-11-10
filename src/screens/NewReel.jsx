@@ -126,7 +126,6 @@ const NewReel = ({ navigation, route }) => {
           <Animated.Image
             source={{ uri: selectedImage.uri }}
             style={styles.image}
-            sharedTransitionTag={selectedImage.id.toString()}
           />
         ) : (
           <Animated.Image
